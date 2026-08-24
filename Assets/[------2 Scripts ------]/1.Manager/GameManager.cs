@@ -1,0 +1,39 @@
+using UnityEngine;
+
+public class GameManager : MonoBehaviour
+{
+    public GameManager Instance { get; private set; }
+
+    #region SubManager Refference
+        [SerializeField] private CookingManager cookingManager;
+        public CookingManager CookingManager => cookingManager;
+        [SerializeField] private DeckManager deckManager;
+        public DeckManager DeckManager => deckManager;
+        [SerializeField] private HandsManager handsManager;
+        public HandsManager HandsManager => handsManager;
+        [SerializeField] private PointerManager pointerManager;
+        public PointerManager PointerManager => pointerManager;
+        [SerializeField] private QuestManager questManager;
+        public QuestManager QuestManager => questManager;
+        [SerializeField] private SceneManager sceneManager;
+        public SceneManager SceneManager => sceneManager;
+        [SerializeField] private ScoreManager scoreManager;
+        public ScoreManager ScoreManager => scoreManager;
+        [SerializeField] private TurnManager turnManager;
+        public TurnManager TurnManager => turnManager;
+        [SerializeField] private CardEffectManager cardEffectManager;
+        public CardEffectManager CardEffectManager => cardEffectManager;
+    #endregion
+
+    void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
+}
