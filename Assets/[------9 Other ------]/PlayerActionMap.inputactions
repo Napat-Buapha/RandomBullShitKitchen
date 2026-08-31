@@ -1,0 +1,35 @@
+{
+    "version": 1,
+    "name": "PlayerActionMap",
+    "maps": [
+        {
+            "name": "CardGameSession",
+            "id": "50b65c4b-faba-40fb-89a4-eba5bb9c6321",
+            "actions": [
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "87efe7ac-1e7e-4aa4-b974-f6613956140e",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "867370af-82a4-4e93-a920-316943a9afa4",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

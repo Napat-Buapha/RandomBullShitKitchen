@@ -1,8 +1,9 @@
 using UnityEngine;
+using UnityEngine.Search;
 
 public class GameManager : MonoBehaviour
 {
-    public GameManager Instance { get; private set; }
+    public static GameManager Instance { get; private set; }
 
     #region SubManager Refference
         [SerializeField] private CookingManager cookingManager;
@@ -23,9 +24,23 @@ public class GameManager : MonoBehaviour
         public TurnManager TurnManager => turnManager;
         [SerializeField] private CardEffectManager cardEffectManager;
         public CardEffectManager CardEffectManager => cardEffectManager;
+        [SerializeField] private InputManager inputManager;
+        public InputManager InputManager => inputManager;
     #endregion
 
     void Awake()
+    {
+        Singleton();
+        InitManagers();
+    }
+
+    void InitManagers()
+    {
+        PointerManager.Init(this);
+        DeckManager.Init();
+    }
+
+    private void Singleton()
     {
         if (Instance == null)
         {
