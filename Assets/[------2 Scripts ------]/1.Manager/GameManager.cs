@@ -37,7 +37,10 @@ public class GameManager : MonoBehaviour
     void InitManagers()
     {
         PointerManager.Init(this);
-        DeckManager.Init();
+        DeckManager.Init(this);
+        HandsManager.Init(this);
+        TurnManager.Init(this);
+        SceneManager.Init(this);
     }
 
     private void Singleton()

@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[CreateAssetMenu(fileName = "New Ingredient Card", menuName = "Card/Ingredient Card")]
 public class Card_Ingredient : Card
 {
     [Header("[Ingredient] Card Data Customization")]

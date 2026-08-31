@@ -5,11 +5,13 @@ using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
+    GameManager _gm;
     [SerializeField] List<Card> deckLists;
     private Stack<Card> deck;
 
-    public void Init()
+    public void Init(GameManager gm)
     {
+        _gm = gm;
         TurnDeckListToStack();
     }
 
@@ -35,6 +37,22 @@ public class DeckManager : MonoBehaviour
         for (int i = list.Count - 1; i >= 0; i--)
         {
             stack.Push(list[i]);
+        }
+    }
+
+    public void DrawCard(int amout)
+    {
+        for (int i = 0; i < amout; i++)
+        {
+            if (deck.Count > 0)
+            {
+                var card = deck.Pop();
+                _gm.HandsManager.AddedCard(card);
+            }
+            else
+            {
+                // On Deck Out
+            }
         }
     }
 }

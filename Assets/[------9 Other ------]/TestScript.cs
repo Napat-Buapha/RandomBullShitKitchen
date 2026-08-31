@@ -1,16 +1,6 @@
 using UnityEngine;
 
-public class TestScript :  MonoBehaviour, IPointerInteractAble
+public class TestScript :  MonoBehaviour
 {
-    public void OnClick()
-    {
-        Debug.Log("Click");
-    }
-
-    public void OnPointerOver()
-    {
-        Debug.Log("Over");
-    }
-
 
 }
