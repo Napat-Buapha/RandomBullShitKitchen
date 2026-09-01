@@ -13,33 +13,12 @@ public class SceneManager : MonoBehaviour
     [SerializeField] List<Transform> stovePos = new List<Transform>(4);
     [SerializeField] List<Stove> _stoves;
 
-    [Header("Time Point Customizer")]
-    [SerializeField] private int maxTimePoint;
-    private int _currentTimePoint;
-
-
     public void Init(GameManager gm)
     {
         _gm = gm;
         _stoves = new List<Stove>(4);
         GenerateStoves();
     }
-    #region TimePoint
-    public void ResetTimePoint()
-    {
-        _currentTimePoint = maxTimePoint;
-    }
-
-    public void ReduceTimePoint(int amout)
-    {
-        _currentTimePoint -= amout;
-
-        if(_currentTimePoint <= 0)
-        {
-            _gm.TurnManager.TurnEnd();
-        }
-    }
-    #endregion
 
     #region Stove
     public void GenerateStoves()
@@ -52,5 +31,40 @@ public class SceneManager : MonoBehaviour
                 _stoves.Add(stoveComponent);
         }
     }
+
+    public void PlaceKitchenWare(CardCardGame_KitchenWare kitchenWare)
+    {
+        foreach(Stove stove in _stoves)
+        {
+            if(!stove.isOccupied)
+            {
+                Apply(kitchenWare, stove);
+                break;
+            }
+        }
+    }
+    private static void Apply(CardCardGame_KitchenWare kitchenWare, Stove stove)
+    {
+        stove.PlaceKitchenWare(kitchenWare);
+        GameManager.Instance.HandsManager.Discard(kitchenWare.cardBase);
+    }
+
+    public void EnableAllAddButtons()
+    {
+        foreach (Stove stove in _stoves)
+        {
+            if(stove.isOccupied)
+            stove.EnableButton();
+        }
+    }
+
+    public void DisableAllAddButtons()
+    {
+        foreach (Stove stove in _stoves)
+        {
+            stove.DisableButton();
+        }
+    }
+
     #endregion
 }

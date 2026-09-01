@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using NUnit.Framework;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.Rendering;
@@ -9,16 +10,20 @@ public class HandsManager : MonoBehaviour
 
     // Card in hand //
     [SerializeField] GameObject cardPrefab;
-    public List<CardCardGame> CardsInHand;
+    public List<CardCardGame_Base> CardsInHand;
     [SerializeField] Transform hand; //จุดกึ่งกลางของ hand
 
     [Header("Card Spacing Customizer")]
     [SerializeField] float cardSpacing;
 
+    // Ingredient Selecting //
+    [SerializeField] List<CardCardGame_Ingredient> currentSelectedIngredient;
+
     public void Init(GameManager gm)
     {
         _gm = gm;
         CardsInHand = new();
+        currentSelectedIngredient = new();
         UpdateHandVisuals();
     }
     void Update()
@@ -52,6 +57,7 @@ public class HandsManager : MonoBehaviour
     {
         CardsInHand[i].transform.position = new Vector3(worldPos.x, worldPos.y, -i * 0.1f);
         CardsInHand[i].GetComponent<SortingGroup>().sortingOrder = i + 1;
+        CardsInHand[i].ApplySortingLayerToCanvas(i + 1);
     }
 
     private Vector3 CalculateCardPosition(int cardCount, int i)
@@ -71,15 +77,14 @@ public class HandsManager : MonoBehaviour
         // อย่าลืมเปลี่ยนไปใช้ Pool 
         GameObject card_ = Instantiate(cardPrefab, hand.transform.position, quaternion.identity, hand.transform);
 
-        var cardComponent = card_.GetComponent<CardCardGame>();
+        var cardComponent = card_.GetComponent<CardCardGame_Base>();
         cardComponent.Init(card);
         CardsInHand.Add(cardComponent);
         UpdateHandVisuals();
     }
-
     public void DiscardHand()
     {
-        List<CardCardGame> discardedList = new();
+        List<CardCardGame_Base> discardedList = new();
 
         foreach(var card in CardsInHand)
         {
@@ -93,7 +98,7 @@ public class HandsManager : MonoBehaviour
             Discard(card);
         }
     }
-    public void Discard(CardCardGame card)
+    public void Discard(CardCardGame_Base card)
     {
         CardsInHand.Remove(card);
         // อย่าลืมเปลี่ยนไปใช้ Pool 
@@ -101,5 +106,56 @@ public class HandsManager : MonoBehaviour
 
         UpdateHandVisuals();
     }
+    public void AddSelectedIngredientToStove(Stove targetStove)
+    {
+        var unSelectedList = new List<CardCardGame_Ingredient>();
+
+        foreach(var ingredient in currentSelectedIngredient)
+        {
+            if(targetStove.AddIngredient(ingredient))
+            {
+                unSelectedList.Add(ingredient);
+            }
+        }
+
+        foreach(var ingredient in unSelectedList)
+        {
+            UnSelectIngredient(ingredient);
+            Discard(ingredient.cardBase);
+        }
+    }
+
+    public void SelectIngredient(CardCardGame_Ingredient ingredient)
+    {
+   
+        if(currentSelectedIngredient.Contains(ingredient))
+        {
+            return;
+        }
+
+        GameManager.Instance.SceneManager.EnableAllAddButtons();
+        currentSelectedIngredient.Add(ingredient);
+        ingredient.OnSelect(); 
+    }
+    public void UnSelectIngredient(CardCardGame_Ingredient ingredient)
+    {
+        currentSelectedIngredient.Remove(ingredient);
+        ingredient.OnDeselect();
+
+        if(currentSelectedIngredient.Count <= 0)
+        {
+            GameManager.Instance.SceneManager.DisableAllAddButtons();
+        }
+    }
+    public void UnSelectAllIngredient()
+    {
+        while(currentSelectedIngredient.Count > 0)
+        {
+            UnSelectIngredient(currentSelectedIngredient[0]);
+        }
+    }
+
+    
     #endregion
+
 }

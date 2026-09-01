@@ -3,12 +3,12 @@ using UnityEngine;
 
 public class Card : ScriptableObject
 {
-    [Header("Card Data Customization")]
+    [field: Header("Card Data Customization")]
     [field: SerializeField] public string cardName { get; private set; }
     [field: SerializeField] public string cardDescription { get; private set; }
     [field: SerializeField] public Sprite cardImage { get; private set; }
     [field: SerializeField] public CardType cardType {get; private set; }
-    [SerializeField] private List<Effect> effects;    
+    [field: SerializeField] public List<Effect> effects {get; private set; } 
 
     public virtual void ExecuteEffects()
     {
@@ -21,5 +21,5 @@ public class Card : ScriptableObject
 public enum CardType
 {
     Ingredient,
-    Kitchenware,
+    KitchenWare,
 }

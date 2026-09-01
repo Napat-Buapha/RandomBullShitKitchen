@@ -15,7 +15,7 @@ public class DeckManager : MonoBehaviour
         TurnDeckListToStack();
     }
 
-    private void TurnDeckListToStack()
+    public void TurnDeckListToStack()
     {
         deck = new Stack<Card>(deckLists);
         Shuffle(deck);

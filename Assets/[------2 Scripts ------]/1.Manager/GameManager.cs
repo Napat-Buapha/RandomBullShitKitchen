@@ -26,6 +26,8 @@ public class GameManager : MonoBehaviour
         public CardEffectManager CardEffectManager => cardEffectManager;
         [SerializeField] private InputManager inputManager;
         public InputManager InputManager => inputManager;
+        [SerializeField] private ResourceManager resourceManager;
+        public ResourceManager ResourceManager => resourceManager;
     #endregion
 
     void Awake()
@@ -39,6 +41,7 @@ public class GameManager : MonoBehaviour
         PointerManager.Init(this);
         DeckManager.Init(this);
         HandsManager.Init(this);
+        resourceManager.Init(this);
         TurnManager.Init(this);
         SceneManager.Init(this);
     }
