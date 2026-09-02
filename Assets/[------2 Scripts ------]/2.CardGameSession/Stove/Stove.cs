@@ -3,37 +3,45 @@ using UnityEngine;
 
 public class Stove : MonoBehaviour
 {
+
+    [SerializeField] Stove_IngredientUi slotUi;
     [SerializeField] SpriteRenderer kitchenWareSpriteRenderer;
     [SerializeField] IngredientCharacteristics[] slots;
     [SerializeField] GameObject addButton;
 
-    public bool isOccupied { get; private set; } = false;
+
+    [field:SerializeField] public bool isOccupied { get; private set; } = false;
 
     void Start()
     {
         isOccupied = false;
         DisableButton();
+        slotUi.DisableIngredientUI();
     }
     public void PlaceKitchenWare(CardCardGame_KitchenWare kitchenWare)
     {
         slots = new IngredientCharacteristics[kitchenWare.ingredientSlot];
         kitchenWareSpriteRenderer.sprite = kitchenWare.kitchenWareActiveSprite;
+        slotUi.EnableIngredientUI(kitchenWare);
+
         isOccupied = true;
         GameManager.Instance.HandsManager.UnSelectAllIngredient();
     }
 
-    public void EnableButton()
-    {
-        addButton.SetActive(true);
-    }
-    public void DisableButton()
-    {
-        addButton.SetActive(false);
-    }
-    public void AddButton()
-    {
-        GameManager.Instance.HandsManager.AddSelectedIngredientToStove(this);
-    }
+#region Add Ingredient Button 
+        public void EnableButton()
+        {
+            addButton.SetActive(true);
+        }
+        public void DisableButton()
+        {
+            addButton.SetActive(false);
+        }
+        public void AddButton()
+        {
+            GameManager.Instance.HandsManager.AddSelectedIngredientToStove(this);
+        }
+#endregion
 
     /// <summary>
     /// Return false mean KitchenWare is full 
@@ -56,6 +64,8 @@ public class Stove : MonoBehaviour
                 ingredient.tastePoint,
                 ingredient.cardCost, ingredient.
                 ingredientType, ingredient.cardBase.cardData.cardImage);
+
+                slotUi.UpdateSlots(slots);
                 return true;
             }
         }

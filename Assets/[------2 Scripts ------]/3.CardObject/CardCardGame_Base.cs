@@ -50,9 +50,11 @@ public class CardCardGame_Base : MonoBehaviour
         switch (cardType)
         {
             case CardType.Ingredient:
+                kitchenWareComponent.gameObject.SetActive(false);
                 ingredientComponent.Init(this, cardData);
                 break;
             case CardType.KitchenWare:
+                ingredientComponent.gameObject.SetActive(false);
                 kitchenWareComponent.Init(this, cardData);
                 break;
             default:

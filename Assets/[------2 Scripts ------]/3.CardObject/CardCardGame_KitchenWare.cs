@@ -47,6 +47,7 @@ public class CardCardGame_KitchenWare : MonoBehaviour , IPointerInteractAble
 
     public void OnClick()
     {
+        Debug.Log("Click");
         GameManager.Instance.SceneManager.PlaceKitchenWare(this);
     }
 
