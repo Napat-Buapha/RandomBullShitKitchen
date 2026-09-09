@@ -54,7 +54,7 @@ public class SceneManager : MonoBehaviour
         foreach (Stove stove in _stoves)
         {
             if(stove.isOccupied)
-            stove.EnableButton();
+            stove.EnableAddButton();
         }
     }
 
@@ -62,7 +62,7 @@ public class SceneManager : MonoBehaviour
     {
         foreach (Stove stove in _stoves)
         {
-            stove.DisableButton();
+            stove.DisableAddButton();
         }
     }
 

@@ -15,17 +15,16 @@ public class Stove_IngredientUi : MonoBehaviour
     public void EnableIngredientUI(CardCardGame_KitchenWare kitchenWare)
     {
         gameObject.SetActive(true);
-        SpawnIngredientSlotDisplayer(kitchenWare.ingredientSlot);
-        Invoke("RefreshVerticalGroup" ,0.1f);
+        SpawnIngredientSlotDisplayer(kitchenWare.kitchenWareVariable.ingredientSlot);
     }
 
     public void DisableIngredientUI()
     {
         if(slots != null)
         {
-            while(slots.Length > 0)
+            foreach(var slot in slots)
             {
-                Destroy(slots[0]);
+                Destroy(slot.gameObject);
             }
         }
         gameObject.SetActive(false);

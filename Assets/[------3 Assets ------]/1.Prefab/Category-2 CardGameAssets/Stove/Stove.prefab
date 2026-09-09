@@ -115,7 +115,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -393,7 +393,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3975982049512845079}
         m_TargetAssemblyTypeName: Stove, Assembly-CSharp
-        m_MethodName: AddButton
+        m_MethodName: CookButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -496,9 +496,9 @@ RectTransform:
   - {fileID: 5413316473680573729}
   m_Father: {fileID: 2445604537977250151}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 0.5, y: -0.2873}
   m_SizeDelta: {x: 1, y: 0.5746}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6906741310205285620
@@ -624,7 +624,7 @@ MonoBehaviour:
   m_linkedTextComponent: {fileID: 0}
   parentLinkedComponent: {fileID: 0}
   m_enableKerning: 0
-  m_ActiveFontFeatures: 6e72656b
+  m_ActiveFontFeatures: 6e72656bu
   m_enableExtraPadding: 0
   checkPaddingRequired: 0
   m_isRichText: 1
@@ -680,7 +680,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &8286218380474678134
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -737,6 +737,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []
 --- !u!1 &7049441771608470541
 GameObject:
   m_ObjectHideFlags: 0
@@ -795,6 +796,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -878,7 +880,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: -0.45, y: -0.42}
-  m_SizeDelta: {x: 1, y: 0}
+  m_SizeDelta: {x: 1, y: 0.5746}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6288439154588912128
 MonoBehaviour:
@@ -1007,8 +1009,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Stove
   slotUi: {fileID: 8449874587973730039}
   kitchenWareSpriteRenderer: {fileID: 7833702595727050593}
-  slots: []
+  ingredientSlots: []
   addButton: {fileID: 1107374616591233977}
+  cookButton: {fileID: 5425577030289128814}
+  kitchenWareVariable:
+    <ingredientSlot>k__BackingField: 0
+    <kitchenWareActiveSprite>k__BackingField: {fileID: 0}
+    <recipeList>k__BackingField: []
   <isOccupied>k__BackingField: 0
 --- !u!1 &8895283605055185986
 GameObject:
@@ -1044,7 +1051,7 @@ Transform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!212 &7833702595727050593
 SpriteRenderer:
-  serializedVersion: 2
+  serializedVersion: 3
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -1101,3 +1108,4 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
   m_SpriteSortPoint: 0
+  m_BlendShapeWeights: []

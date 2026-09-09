@@ -9,8 +9,8 @@ public class CardCardGame_KitchenWare : MonoBehaviour , IPointerInteractAble
     public CardCardGame_Base cardBase { get; private set; }
 
     [Header("KitchenWare Card Variable")]
-    [field: SerializeField] public int ingredientSlot { get; private set; }
-    [field: SerializeField] public Sprite kitchenWareActiveSprite { get; private set; }
+    [field: SerializeField] public KitchenWare_Variable kitchenWareVariable { get; private set; }
+    
 
     [Header("KitchenWare Card Visual")]
     [SerializeField] private GameObject kitchenWareCardTemplate;
@@ -36,18 +36,16 @@ public class CardCardGame_KitchenWare : MonoBehaviour , IPointerInteractAble
     public void ApplyKitchenWareVisual()
     {
         kitchenWareCardTemplate.SetActive(true);
-        ingredientSlotT.text = ingredientSlot.ToString();
+        ingredientSlotT.text =  kitchenWareVariable.ingredientSlot.ToString();
     }
 
     private void RecordCardData(Card_KitchenWare card)
     {
-        ingredientSlot = card.ingredientSlot;
-        kitchenWareActiveSprite = card.kitchenWareActiveSprite;
+        kitchenWareVariable = card.kitchenWare_Variable;
     }
 
     public void OnClick()
     {
-        Debug.Log("Click");
         GameManager.Instance.SceneManager.PlaceKitchenWare(this);
     }
 

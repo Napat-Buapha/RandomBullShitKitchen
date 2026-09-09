@@ -8,9 +8,7 @@ public class CardCardGame_Ingredient : MonoBehaviour , IPointerInteractAble
     public CardCardGame_Base cardBase {get; private set; }
 
     [Header("Ingredient Card Variable")]
-    [field: SerializeField] public float tastePoint { get; private set; }
-    [field: SerializeField] public int cardCost { get; private set; }
-    [field: SerializeField] public IngredientType ingredientType { get; private set; }
+    [field: SerializeField] public Ingredient_Variable ingredientVariable { get; private set; }
     bool isSelected = false;
 
     [Header("Ingredient Card Visual")]
@@ -47,16 +45,14 @@ public class CardCardGame_Ingredient : MonoBehaviour , IPointerInteractAble
         public void ApplyIngredientVisual()
         {
             ingredintCardTemplate.SetActive(true);
-            tastePointT.text = tastePoint.ToString();
-            cardCostT.text = cardCost.ToString();
-            ingredientTypeT.text = ingredientType.ToString();
+            tastePointT.text = ingredientVariable.tastePoint.ToString();
+            cardCostT.text = ingredientVariable.cardCost.ToString();
+            ingredientTypeT.text = ingredientVariable.ingredientType.ToString();
         }
     
         private void RecordCardData(Card_Ingredient card)
         {
-            tastePoint = card.tastePoint;
-            cardCost = card.cardCost;
-            ingredientType = card.ingredientType;
+            ingredientVariable = card.ingredientVariable;
         }
 #endregion
 

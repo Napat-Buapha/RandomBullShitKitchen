@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class CardCardGame_Base : MonoBehaviour
 {
-    [field: SerializeField] public CardData cardData { get; private set; }
+    public CardData cardData { get; private set; }
 
     [Header("Visual")]
     [SerializeField] TMP_Text cardNameT;

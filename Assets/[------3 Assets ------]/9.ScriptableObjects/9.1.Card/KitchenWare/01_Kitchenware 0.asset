@@ -17,5 +17,8 @@ MonoBehaviour:
   <cardImage>k__BackingField: {fileID: 21300000, guid: 9bd4fc121dcb73f48aa047c99f26567e, type: 3}
   <cardType>k__BackingField: 1
   <effects>k__BackingField: []
-  <ingredientSlot>k__BackingField: 3
-  <kitchenWareActiveSprite>k__BackingField: {fileID: 21300000, guid: 5871f0ece60f3394b8446fea8644943c, type: 3}
+  <kitchenWare_Variable>k__BackingField:
+    <ingredientSlot>k__BackingField: 3
+    <kitchenWareActiveSprite>k__BackingField: {fileID: 21300000, guid: 5871f0ece60f3394b8446fea8644943c, type: 3}
+    <recipeList>k__BackingField:
+    - {fileID: 11400000, guid: dd4844b6ec67eed40bac8931adcc127c, type: 2}

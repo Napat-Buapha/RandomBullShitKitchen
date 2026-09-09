@@ -22,4 +22,5 @@ public enum CardType
 {
     Ingredient,
     KitchenWare,
+    Menu,
 }
