@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Search;
 
@@ -29,6 +30,7 @@ public class GameManager : MonoBehaviour
         [SerializeField] private ResourceManager resourceManager;
         public ResourceManager ResourceManager => resourceManager;
     #endregion
+
 
     void Awake()
     {
