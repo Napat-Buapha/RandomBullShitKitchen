@@ -15,25 +15,13 @@ public class CardCardGame_Base : MonoBehaviour
     [SerializeField] Image cardImageS;    
     [SerializeField ]List<Canvas> childCanvases = new List<Canvas>();
 
-    [Header("Card Type Components")]
-    [SerializeField] CardCardGame_Ingredient ingredientComponent;
-    [SerializeField] CardCardGame_KitchenWare kitchenWareComponent;
-
-
-    void Awake()
-    {
-        ingredientComponent.enabled = false;
-        kitchenWareComponent.enabled = false;
-    }
-
-    public void Init(Card card)
+    public virtual void Init(Card card)
     {
         RecordCardData(card);
-        SetupCardTypeComponent(card.cardType, card);
         ApplyCardVisual();
     }
 
-    private void RecordCardData(Card card)
+    protected virtual void RecordCardData(Card card)
     {
         cardData = new()
         {
@@ -43,24 +31,6 @@ public class CardCardGame_Base : MonoBehaviour
             cardType = card.cardType,
             effects = card.effects,
         };
-    }
-
-    private void SetupCardTypeComponent(CardType cardType , Card cardData)
-    {
-        switch (cardType)
-        {
-            case CardType.Ingredient:
-                kitchenWareComponent.gameObject.SetActive(false);
-                ingredientComponent.Init(this, cardData);
-                break;
-            case CardType.KitchenWare:
-                ingredientComponent.gameObject.SetActive(false);
-                kitchenWareComponent.Init(this, cardData);
-                break;
-            default:
-                Debug.LogError("Unsupported card type: " + cardType);
-                break;
-        }
     }
 
     private void ApplyCardVisual()

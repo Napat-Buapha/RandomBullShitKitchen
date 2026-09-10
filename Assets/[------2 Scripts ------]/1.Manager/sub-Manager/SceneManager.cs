@@ -46,7 +46,7 @@ public class SceneManager : MonoBehaviour
     private static void Apply(CardCardGame_KitchenWare kitchenWare, Stove stove)
     {
         stove.PlaceKitchenWare(kitchenWare);
-        GameManager.Instance.HandsManager.Discard(kitchenWare.cardBase);
+        GameManager.Instance.HandsManager.Discard(kitchenWare);
     }
 
     public void EnableAllAddButtons()

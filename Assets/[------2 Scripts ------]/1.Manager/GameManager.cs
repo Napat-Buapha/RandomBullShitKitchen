@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
         public InputManager InputManager => inputManager;
         [SerializeField] private ResourceManager resourceManager;
         public ResourceManager ResourceManager => resourceManager;
+        [SerializeField] private ServeTableManager serveTableManager;
+        public ServeTableManager ServeTableManager => serveTableManager;
     #endregion
 
 
@@ -46,6 +48,7 @@ public class GameManager : MonoBehaviour
         resourceManager.Init(this);
         TurnManager.Init(this);
         SceneManager.Init(this);
+        ScoreManager.Init();
     }
 
     private void Singleton()

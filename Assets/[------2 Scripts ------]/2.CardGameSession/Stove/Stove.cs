@@ -60,9 +60,9 @@ public class Stove : MonoBehaviour
             if (string.IsNullOrEmpty(ingredientSlots[i].ingredientName))
             {
                 ingredientSlots[i] = new IngredientCharacteristics
-                (ingredient.cardBase.cardData.cardName,
+                (ingredient.cardData.cardName,
                 ingredient.ingredientVariable,
-                ingredient.cardBase.cardData.cardImage);
+                ingredient.cardData.cardImage);
                 CheckIsFull();
                 slotUi.UpdateSlots(ingredientSlots);
                 return true;

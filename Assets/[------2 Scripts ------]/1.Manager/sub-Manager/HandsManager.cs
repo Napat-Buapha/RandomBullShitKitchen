@@ -9,7 +9,7 @@ public class HandsManager : MonoBehaviour
     GameManager _gm;
 
     // Card in hand //
-    [SerializeField] GameObject cardPrefab;
+    [SerializeField] Dictionary<CardType,GameObject> cardPrefabs;
     public List<CardCardGame_Base> CardsInHand;
     [SerializeField] Transform hand; //จุดกึ่งกลางของ hand
 
@@ -75,7 +75,7 @@ public class HandsManager : MonoBehaviour
     public void AddedCard(Card card)
     {
         // อย่าลืมเปลี่ยนไปใช้ Pool 
-        GameObject card_ = Instantiate(cardPrefab, hand.transform.position, quaternion.identity, hand.transform);
+        GameObject card_ = Instantiate(cardPrefabs[card.cardType], hand.transform.position, quaternion.identity, hand.transform);
 
         var cardComponent = card_.GetComponent<CardCardGame_Base>();
         cardComponent.Init(card);
@@ -121,7 +121,7 @@ public class HandsManager : MonoBehaviour
         foreach(var ingredient in unSelectedList)
         {
             UnSelectIngredient(ingredient);
-            Discard(ingredient.cardBase);
+            Discard(ingredient);
         }
     }
 
