@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
         public ResourceManager ResourceManager => resourceManager;
         [SerializeField] private ServeTableManager serveTableManager;
         public ServeTableManager ServeTableManager => serveTableManager;
+        [SerializeField] private TrashCanManager trashCanManager;
+        public TrashCanManager TrashCanManager => trashCanManager;
     #endregion
 
 
@@ -44,6 +46,7 @@ public class GameManager : MonoBehaviour
     {
         PointerManager.Init(this);
         DeckManager.Init(this);
+        trashCanManager.Init(this);
         HandsManager.Init(this);
         resourceManager.Init(this);
         TurnManager.Init(this);

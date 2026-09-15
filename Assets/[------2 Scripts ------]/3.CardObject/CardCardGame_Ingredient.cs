@@ -13,7 +13,7 @@ public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
     [SerializeField] private TMP_Text tastePointT;
     [SerializeField] private TMP_Text cardCostT;
     [SerializeField] private TMP_Text ingredientTypeT;
-    [SerializeField] private SpriteRenderer selectedHighlight;
+    [SerializeField] private Image selectedHighlight;
 
     void OnEnable()
     {
