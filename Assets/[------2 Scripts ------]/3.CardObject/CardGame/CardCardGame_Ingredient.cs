@@ -57,7 +57,7 @@ public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
         selectedHighlight.enabled = false;
     }
 
-    public void OnClick()
+    public virtual void OnClick()
     {
         if (!isSelected)
             GameManager.Instance.HandsManager.SelectIngredient(this);

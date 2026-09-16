@@ -95,11 +95,13 @@ public class HandsManager : MonoBehaviour
 
         foreach(var card in discardedList)
         {
+            _gm.TrashCanManager.Receive(card.baseCardRef);
             Discard(card);
         }
     }
     public void Discard(CardCardGame_Base card)
     {
+
         CardsInHand.Remove(card);
         // อย่าลืมเปลี่ยนไปใช้ Pool 
         Destroy(card.gameObject);

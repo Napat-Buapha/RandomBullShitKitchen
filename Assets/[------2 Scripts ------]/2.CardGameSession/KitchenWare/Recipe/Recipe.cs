@@ -1,56 +1,75 @@
 using System.Collections.Generic;
+using UnityEditor.MPE;
 using UnityEngine;
 
 
 [CreateAssetMenu(fileName = "Recipe", menuName = "Recipe", order = 0)]
-public class Recipe : ScriptableObject 
+public class Recipe : ScriptableObject
 {
     // String is ID while int is Amout 
-    [SerializeField] Dictionary<string , int> specificIngredients = new ();
+    [SerializeField] Dictionary<string, int> specificIngredients;
     [SerializeField] List<IngredientType> positiveIngredients;
     [SerializeField] List<IngredientType> negativeIngredients;
-    [SerializeField] int Priority = 1;
     [SerializeField] int ingredientAmout = 1;
     [SerializeField] Card_Menu cardMenu;
 
     int score;
-    Dictionary<string , int> specificIngPool;
+    Dictionary<string, int> specificIngPool;
 
     public Card_Menu verify(List<IngredientCharacteristics> ingredients)
     {
         score = 0;
-        specificIngPool = specificIngredients;
+        List<IngredientCharacteristics> ingredients_ = new(ingredients);
+        specificIngPool = new(specificIngredients);
 
-        foreach(var ingredient in ingredients)
+        score += CheckSpecificIngredients(ingredients_);
+
+
+
+        foreach (var ingredient in ingredients_)
         {
-            if(!CheckSpecificIngredients(ingredient.ingredientVariable.ingredientId))
-            {
-                score += 1;
-                continue;
-            }
+            if (positiveIngredients.Contains(ingredient.ingredientVariable.ingredientType)) score += 1;
 
-            if(positiveIngredients.Contains(ingredient.ingredientVariable.ingredientType)) score += 1;
-
-            if(negativeIngredients.Contains(ingredient.ingredientVariable.ingredientType)) return null;
+            if (negativeIngredients.Contains(ingredient.ingredientVariable.ingredientType)) return null;
         }
 
-        if(score == ingredientAmout) return cardMenu;
+        Debug.Log(cardMenu.cardName + score);
+
+        if (score == ingredientAmout) return cardMenu;
 
         return null;
-        
+
     }
 
-    private bool CheckSpecificIngredients(string ingredientId)
+    private int CheckSpecificIngredients(List<IngredientCharacteristics> ingredients)
     {
-        if(specificIngPool.Count == 0) return false;
+        int specificIngredientAmout = 0;
+        List<IngredientCharacteristics> toRemove = new();
 
-        if(specificIngPool.ContainsKey(ingredientId))
+        foreach (var ing in ingredients)
         {
-            // Delete to prevent scoring with duplicate specific ingredient
-            specificIngPool.Remove(ingredientId);
-            return true;
+            if (ing.baseCard is Card_Ingredient ingCard)
+            {
+                if (specificIngPool.ContainsKey(ingCard.ingredientVariable.ingredientId))
+                {
+                    Debug.Log("Contain");
+                    specificIngredientAmout++;
+                    specificIngPool.Remove(ingCard.ingredientVariable.ingredientId);
+                    toRemove.Add(ing);
+                }
+            }
         }
-        return false;
+
+        foreach (var ing in toRemove)
+        {
+            if (ingredients.Contains(ing))
+            {
+                ingredients.Remove(ing);
+            }
+        }
+
+        Debug.Log(cardMenu.cardName + specificIngPool.Count);
+        return specificIngredientAmout - specificIngPool.Count;
     }
 }
 

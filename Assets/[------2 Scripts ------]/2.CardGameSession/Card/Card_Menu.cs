@@ -12,7 +12,7 @@ public class Card_Menu : Card
 public struct Menu_Variable
 {
     [field: SerializeField] public int priority { get; private set; }
-    [field: SerializeField] public int amout { get; private set; }
+    [field: SerializeField] public float amout { get; private set; }
     [field: SerializeField] public MathSymbol mathSymbol { get; private set; }
 }
 

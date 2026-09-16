@@ -1,58 +1,95 @@
 using System.Collections.Generic;
-using System.Linq;
-using NUnit.Framework;
 using UnityEngine;
 
 public class DeckManager : MonoBehaviour
 {
     GameManager _gm;
     [SerializeField] List<Card> deckLists;
-    private Stack<Card> deck;
+    [SerializeField] private List<Card> _deck;
 
     public void Init(GameManager gm)
     {
         _gm = gm;
-        TurnDeckListToStack();
     }
 
-    public void TurnDeckListToStack()
+    public void TurnDeckListActiveDeck()
     {
-        deck = new Stack<Card>(deckLists);
-        Shuffle(deck);
+        _deck = new List<Card>(deckLists);
+        Shuffle();
     }
 
-    public void Shuffle<T>(Stack<T> stack)
+    /// <summary>
+    /// if onTop = true card will place on top of deck, 
+    /// if onTop = false it will place under the bottom of deck
+    /// </summary>
+    public void Receive(Card card, bool onTop = true)
     {
-        List<T> list = stack.ToList();
-
-        for (int i = list.Count - 1; i > 0; i--)
+        if (onTop)
         {
-            int j = Random.Range(0, i + 1);
-            (list[i], list[j]) = (list[j], list[i]);
+            _deck.Add(card);
         }
-
-        stack.Clear();
-
-        // Reverse เพื่อให้ลำดับ Top ของ Stack ตรงกับลำดับที่ Shuffle
-        for (int i = list.Count - 1; i >= 0; i--)
+        else
         {
-            stack.Push(list[i]);
+            _deck.Insert(0, card);
         }
+    }
+
+    public void Shuffle()
+    {
+        for (int i = _deck.Count - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+
+            (_deck[i], _deck[j]) = (_deck[j], _deck[i]);
+        }
+    }
+
+
+    [ContextMenu("Draw Card")]
+    public void TestDraw()
+    {
+        DrawCard(1);
     }
 
     public void DrawCard(int amout)
     {
         for (int i = 0; i < amout; i++)
         {
-            if (deck.Count > 0)
+            if (_deck.Count > 0)
             {
-                var card = deck.Pop();
-                _gm.HandsManager.AddedCard(card);
+                Draw();
             }
             else
             {
-                // On Deck Out
+                RecycleDeck();
+                Draw();
             }
         }
+    }
+
+    private void Draw()
+    {
+        if(_deck.Count == 1)
+        {
+            _gm.HandsManager.AddedCard(_deck[0]);
+            _deck.RemoveAt(0);
+            return;
+        }
+
+        var card = _deck[_deck.Count - 1];
+        _gm.HandsManager.AddedCard(card);
+        _deck.RemoveAt(_deck.Count - 1);
+    }
+
+    public void RecycleDeck()
+    {
+        var tcm = _gm.TrashCanManager;
+
+        while (tcm.discardPile.Count > 0)
+        {
+            Receive(tcm.Remove(tcm.discardPile[0]));
+        }
+
+        Shuffle();
     }
 }

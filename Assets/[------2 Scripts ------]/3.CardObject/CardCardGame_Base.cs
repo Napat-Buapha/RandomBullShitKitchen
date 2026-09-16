@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class CardCardGame_Base : MonoBehaviour
 {
     public CardData cardData { get; private set; }
+    public Card baseCardRef { get; private set; }
 
     [Header("Visual")]
     [SerializeField] TMP_Text cardNameT;
@@ -23,6 +24,7 @@ public class CardCardGame_Base : MonoBehaviour
 
     protected virtual void RecordCardData(Card card)
     {
+        baseCardRef = card;
         cardData = new()
         {
             cardName = card.cardName,

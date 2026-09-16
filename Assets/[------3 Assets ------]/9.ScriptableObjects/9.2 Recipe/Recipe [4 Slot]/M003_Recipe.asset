@@ -10,10 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2d950b56efb36914fa11889902580750, type: 3}
-  m_Name: M001_Recipe
+  m_Name: M003_Recipe
   m_EditorClassIdentifier: Assembly-CSharp::Recipe
   specificIngredients: []
-  positiveIngredients: 000000000000000000000000i
+  positiveIngredients: 01000000040000000000000003000000i
   negativeIngredients: 01000000i
-  ingredientAmout: 3
-  cardMenu: {fileID: 11400000, guid: d9308111676d3d6449c4b137a2109793, type: 2}
+  ingredientAmout: 4
+  cardMenu: {fileID: 11400000, guid: 78e06458571f7e34e85480736c3798c3, type: 2}

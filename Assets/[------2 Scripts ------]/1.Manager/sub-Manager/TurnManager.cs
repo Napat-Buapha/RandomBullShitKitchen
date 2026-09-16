@@ -16,6 +16,7 @@ public class TurnManager : MonoBehaviour
     public void Init(GameManager gm)
     {
         _gm = gm;
+        _gm.DeckManager.TurnDeckListActiveDeck();
         StartNewTurn();
     }
 
@@ -36,7 +37,7 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
-        _gm.DeckManager.TurnDeckListToStack();
+        _gm.DeckManager.RecycleDeck();
         _gm.DeckManager.DrawCard(startingHand);
         _gm.ResourceManager.ResetTimePoint();
     }

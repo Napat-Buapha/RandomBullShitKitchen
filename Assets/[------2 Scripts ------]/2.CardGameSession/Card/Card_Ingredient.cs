@@ -22,7 +22,7 @@ public struct Ingredient_Variable
 public enum IngredientType
 {
     Vegetable,
-    Meat,
+    Protein,
     Spice,
     Dairy,
     Grain,

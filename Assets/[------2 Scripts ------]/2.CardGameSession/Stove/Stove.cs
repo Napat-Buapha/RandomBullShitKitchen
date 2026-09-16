@@ -1,9 +1,13 @@
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class Stove : MonoBehaviour
 {
+    //Base Card Data Ref
+    Card _baseCardKitchenWareRef;
 
     [SerializeField] Stove_IngredientUi slotUi;
     [SerializeField] SpriteRenderer kitchenWareSpriteRenderer;
@@ -21,8 +25,19 @@ public class Stove : MonoBehaviour
         ResetStove();
     }
 
+    private void ThrownInToTrashBin()
+    {
+        GameManager.Instance.TrashCanManager.Receive(_baseCardKitchenWareRef);
+        foreach(var ingreditnCard in ingredientSlots)
+        {
+            GameManager.Instance.TrashCanManager.Receive(ingreditnCard.baseCard);
+        }
+    }
+
     private void ResetStove()
     {
+        _baseCardKitchenWareRef = null;
+
         isOccupied = false;
         DisableAddButton();
         DisableCookButton();
@@ -33,6 +48,8 @@ public class Stove : MonoBehaviour
 
     public void PlaceKitchenWare(CardCardGame_KitchenWare kitchenWare)
     {
+        _baseCardKitchenWareRef = kitchenWare.baseCardRef;
+
         kitchenWareVariable = kitchenWare.kitchenWareVariable;
         ingredientSlots = new IngredientCharacteristics[kitchenWareVariable.ingredientSlot];
         kitchenWareSpriteRenderer.sprite = kitchenWareVariable.kitchenWareActiveSprite;
@@ -60,9 +77,12 @@ public class Stove : MonoBehaviour
             if (string.IsNullOrEmpty(ingredientSlots[i].ingredientName))
             {
                 ingredientSlots[i] = new IngredientCharacteristics
-                (ingredient.cardData.cardName,
-                ingredient.ingredientVariable,
-                ingredient.cardData.cardImage);
+                (
+                    ingredient.baseCardRef,
+                    ingredient.cardData.cardName,
+                    ingredient.ingredientVariable,
+                    ingredient.cardData.cardImage
+                );
                 CheckIsFull();
                 slotUi.UpdateSlots(ingredientSlots);
                 return true;
@@ -110,6 +130,7 @@ public class Stove : MonoBehaviour
     {
         GameManager.Instance.CookingManager.Cook(kitchenWareVariable.recipeList, ingredientSlots.ToList());
         Debug.Log("Cook Complete");
+        ThrownInToTrashBin();
         ResetStove();
     }
     #endregion
@@ -118,12 +139,14 @@ public class Stove : MonoBehaviour
 [System.Serializable]
 public struct IngredientCharacteristics
 {
+    public Card baseCard;
     public string ingredientName;
     public Ingredient_Variable ingredientVariable;
     public Sprite ingredientSprite;
 
-    public IngredientCharacteristics(string ingredientName, Ingredient_Variable ingredientVariable, Sprite ingredientSprite)
+    public IngredientCharacteristics(Card baseCard, string ingredientName, Ingredient_Variable ingredientVariable, Sprite ingredientSprite)
     {
+        this.baseCard = baseCard;
         this.ingredientName = ingredientName;
         this.ingredientVariable = ingredientVariable;
         this.ingredientSprite = ingredientSprite;
