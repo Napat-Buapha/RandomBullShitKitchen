@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEditor.SceneManagement;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
@@ -9,17 +10,28 @@ public class CardCardGame_Base : MonoBehaviour
 {
     public CardData cardData { get; private set; }
     public Card baseCardRef { get; private set; }
+    public UnityEvent<CardCardGame_Base> OnClickEvent { get; private set; }
 
     [Header("Visual")]
     [SerializeField] TMP_Text cardNameT;
     [SerializeField] TMP_Text cardDescriptionT;
     [SerializeField] Image cardImageS;    
     [SerializeField ]List<Canvas> childCanvases = new List<Canvas>();
+    [SerializeField] protected Image selectedHighlight;
 
     public virtual void Init(Card card)
     {
+        OnClickEvent = new UnityEvent<CardCardGame_Base>();
+        
+        OnDeselect();
         RecordCardData(card);
         ApplyCardVisual();
+    }
+
+
+    void OnDisable()
+    {
+        OnClickEvent.RemoveAllListeners();   
     }
 
     protected virtual void RecordCardData(Card card)
@@ -42,6 +54,16 @@ public class CardCardGame_Base : MonoBehaviour
         cardImageS.sprite = cardData.cardImage;
     }
 
+    public void OnSelect()
+    {
+        selectedHighlight.enabled = true;
+    }
+
+    public void OnDeselect()
+    {
+        selectedHighlight.enabled = false;
+    }
+
     public void ApplySortingLayerToCanvas(int sortingOrder)
     {
         foreach (var canvas in childCanvases)
@@ -55,7 +77,7 @@ public class CardCardGame_Base : MonoBehaviour
     {
         foreach(var effect in cardData.effects)
         {
-            effect.Execute();
+            GameManager.Instance.CardEffectManager.AddEffect(effect);
         }
     }
 }

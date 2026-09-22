@@ -6,14 +6,12 @@ using UnityEngine;
 public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
 {
 
-    public Ingredient_Variable ingredientVariable { get; private set; }
-    bool isSelected = false;
+    public Ingredient_Variable ingredientVariable { get; protected set; }
 
     [Header("Ingredient Card Visual")]
     [SerializeField] private TMP_Text tastePointT;
     [SerializeField] private TMP_Text cardCostT;
     [SerializeField] private TMP_Text ingredientTypeT;
-    [SerializeField] private Image selectedHighlight;
 
     void OnEnable()
     {
@@ -25,7 +23,6 @@ public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
     public override void Init(Card card)
     {
         base.Init(card);
-        isSelected = false;
         ApplyIngredientVisual();
     }
 
@@ -45,24 +42,10 @@ public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
     }
     #endregion
 
-    public void OnSelect()
-    {
-        isSelected = true;
-        selectedHighlight.enabled = true;
-    }
-
-    public void OnDeselect()
-    {
-        isSelected = false;
-        selectedHighlight.enabled = false;
-    }
 
     public virtual void OnClick()
     {
-        if (!isSelected)
-            GameManager.Instance.HandsManager.SelectIngredient(this);
-        else
-            GameManager.Instance.HandsManager.UnSelectIngredient(this);
+        OnClickEvent.Invoke(this);
     }
 
     public void OnPointerOver()

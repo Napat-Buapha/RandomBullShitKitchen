@@ -14,9 +14,9 @@ public class Card_Ingredient : Card
 public struct Ingredient_Variable
 {
     [field: SerializeField] public string ingredientId { get; private set; }
-    [field: SerializeField] public float tastePoint { get; private set; }
-    [field: SerializeField] public int cardCost { get; private set; }
     [field: SerializeField] public IngredientType ingredientType { get; private set; }
+    public float tastePoint;
+    public int cardCost;
 }
 
 public enum IngredientType

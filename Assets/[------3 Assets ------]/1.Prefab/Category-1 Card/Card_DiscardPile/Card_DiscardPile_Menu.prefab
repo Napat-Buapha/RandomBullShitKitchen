@@ -441,6 +441,7 @@ MonoBehaviour:
   cardDescriptionT: {fileID: 8414208957477215131}
   cardImageS: {fileID: 2722623099330687550}
   childCanvases: []
+  selectedHighlight: {fileID: 4725920702695587939}
   baseIngredientScoreT: {fileID: 2876801194604973261}
   menuMultiplierT: {fileID: 6258499442292890885}
 --- !u!1 &3932175328111178489

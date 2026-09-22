@@ -54,6 +54,7 @@ MonoBehaviour:
   cardDescriptionT: {fileID: 4636098427991608570}
   cardImageS: {fileID: 88314056407696722}
   childCanvases: []
+  selectedHighlight: {fileID: 6395259454163161051}
   ingredientSlotT: {fileID: 5789786269302681838}
 --- !u!1 &2678857851374647300
 GameObject:

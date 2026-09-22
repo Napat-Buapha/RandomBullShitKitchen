@@ -5,7 +5,7 @@ public class DeckManager : MonoBehaviour
 {
     GameManager _gm;
     [SerializeField] List<Card> deckLists;
-    [SerializeField] private List<Card> _deck;
+    private List<Card> _deck;
 
     public void Init(GameManager gm)
     {

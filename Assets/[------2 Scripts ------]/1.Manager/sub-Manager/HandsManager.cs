@@ -9,8 +9,8 @@ public class HandsManager : MonoBehaviour
     GameManager _gm;
 
     // Card in hand //
-    [SerializeField] Dictionary<CardType,GameObject> cardPrefabs;
-    public List<CardCardGame_Base> CardsInHand;
+    [SerializeField] Dictionary<CardType, GameObject> cardPrefabs;
+    public List<CardCardGame_Base> cardsInHand {get; private set;}
     [SerializeField] Transform hand; //จุดกึ่งกลางของ hand
 
     [Header("Card Spacing Customizer")]
@@ -19,11 +19,15 @@ public class HandsManager : MonoBehaviour
     // Ingredient Selecting //
     [SerializeField] List<CardCardGame_Ingredient> currentSelectedIngredient;
 
+
     public void Init(GameManager gm)
     {
+        gm.OnGameStateChange.AddListener(OnGameStateChange);
+
         _gm = gm;
-        CardsInHand = new();
+        cardsInHand = new();
         currentSelectedIngredient = new();
+
         UpdateHandVisuals();
     }
     void Update()
@@ -34,14 +38,14 @@ public class HandsManager : MonoBehaviour
     #region Hand Virtual Update
     public void UpdateHandVisuals()
     {
-        int cardCount = CardsInHand.Count;
+        int cardCount = cardsInHand.Count;
 
         if (cardCount == 0) return;
 
         if (cardCount == 1)
         {
-            CardsInHand[0].transform.position = hand.position;
-            CardsInHand[0].transform.rotation = Quaternion.Euler(Vector3.zero);
+            cardsInHand[0].transform.position = hand.position;
+            cardsInHand[0].transform.rotation = Quaternion.Euler(Vector3.zero);
             return;
         }
 
@@ -55,9 +59,9 @@ public class HandsManager : MonoBehaviour
 
     private void ApplyPositionToCard(int i, Vector3 worldPos)
     {
-        CardsInHand[i].transform.position = new Vector3(worldPos.x, worldPos.y, -i * 0.1f);
-        CardsInHand[i].GetComponent<SortingGroup>().sortingOrder = i + 1;
-        CardsInHand[i].ApplySortingLayerToCanvas(i + 1);
+        cardsInHand[i].transform.position = new Vector3(worldPos.x, worldPos.y, -i * 0.1f);
+        cardsInHand[i].GetComponent<SortingGroup>().sortingOrder = i + 1;
+        cardsInHand[i].ApplySortingLayerToCanvas(i + 1);
     }
 
     private Vector3 CalculateCardPosition(int cardCount, int i)
@@ -79,21 +83,22 @@ public class HandsManager : MonoBehaviour
 
         var cardComponent = card_.GetComponent<CardCardGame_Base>();
         cardComponent.Init(card);
-        CardsInHand.Add(cardComponent);
+        cardComponent.OnClickEvent.AddListener(CardSelect);
+        cardsInHand.Add(cardComponent);
         UpdateHandVisuals();
     }
     public void DiscardHand()
     {
         List<CardCardGame_Base> discardedList = new();
 
-        foreach(var card in CardsInHand)
+        foreach (var card in cardsInHand)
         {
             //กรณีไม่อยากให้ทิ้งให้สร้างเงื่อนไขเช็คที่นี่
 
             discardedList.Add(card);
         }
 
-        foreach(var card in discardedList)
+        foreach (var card in discardedList)
         {
             _gm.TrashCanManager.Receive(card.baseCardRef);
             Discard(card);
@@ -102,62 +107,120 @@ public class HandsManager : MonoBehaviour
     public void Discard(CardCardGame_Base card)
     {
 
-        CardsInHand.Remove(card);
+        cardsInHand.Remove(card);
         // อย่าลืมเปลี่ยนไปใช้ Pool 
         Destroy(card.gameObject);
 
         UpdateHandVisuals();
     }
-    public void AddSelectedIngredientToStove(Stove targetStove)
-    {
-        var unSelectedList = new List<CardCardGame_Ingredient>();
+    #endregion
 
-        foreach(var ingredient in currentSelectedIngredient)
+    public void CardSelect(CardCardGame_Base card)
+    {
+        if (card is CardCardGame_Ingredient ingredientCard)
         {
-            if(targetStove.AddIngredient(ingredient))
-            {
-                unSelectedList.Add(ingredient);
-            }
+            SelectIngredient(ingredientCard);
         }
 
-        foreach(var ingredient in unSelectedList)
+        if (card is CardCardGame_KitchenWare kitchenWareCard)
         {
-            UnSelectIngredient(ingredient);
-            Discard(ingredient);
+            SelectKitchenWare(kitchenWareCard);
         }
     }
 
+    #region IngredientCardEvent
     public void SelectIngredient(CardCardGame_Ingredient ingredient)
     {
-   
-        if(currentSelectedIngredient.Contains(ingredient))
+        if (currentSelectedIngredient.Contains(ingredient))
         {
+            UnSelectIngredient(ingredient);
             return;
         }
 
         GameManager.Instance.SceneManager.EnableAllAddButtons();
         currentSelectedIngredient.Add(ingredient);
-        ingredient.OnSelect(); 
+        ingredient.OnSelect();
     }
     public void UnSelectIngredient(CardCardGame_Ingredient ingredient)
     {
         currentSelectedIngredient.Remove(ingredient);
         ingredient.OnDeselect();
 
-        if(currentSelectedIngredient.Count <= 0)
+        if (currentSelectedIngredient.Count <= 0)
         {
             GameManager.Instance.SceneManager.DisableAllAddButtons();
         }
     }
     public void UnSelectAllIngredient()
     {
-        while(currentSelectedIngredient.Count > 0)
+        while (currentSelectedIngredient.Count > 0)
         {
             UnSelectIngredient(currentSelectedIngredient[0]);
         }
     }
+    public void AddSelectedIngredientToStove(Stove targetStove)
+    {
+        var unSelectedList = new List<CardCardGame_Ingredient>();
 
-    
+        foreach (var ingredient in currentSelectedIngredient)
+        {
+            if (targetStove.AddIngredient(ingredient))
+            {
+                unSelectedList.Add(ingredient);
+            }
+        }
+
+        foreach (var ingredient in unSelectedList)
+        {
+            UnSelectIngredient(ingredient);
+            Discard(ingredient);
+        }
+    }
+    #endregion
+    #region KitchenWareCardEvent
+    public void SelectKitchenWare(CardCardGame_KitchenWare card)
+    {
+        GameManager.Instance.SceneManager.PlaceKitchenWare(card);
+    }
+
     #endregion
 
-}
+
+    #region CardSelectionStateEvent
+        // Card Selecting State
+        void OnGameStateChange(GameManager.GameState currentGameState)
+        {
+            if(currentGameState == GameManager.GameState.normalMode)
+            {
+                foreach(var card in cardsInHand)
+                {
+                    card.OnClickEvent.RemoveListener(SelectCardForEffect);
+                    card.OnClickEvent.AddListener(CardSelect);
+                }
+            }
+    
+            if(currentGameState == GameManager.GameState.SelectingHand)
+            {
+                foreach(var card in cardsInHand)
+                {
+                    card.OnClickEvent.RemoveListener(CardSelect);
+                    card.OnClickEvent.AddListener(SelectCardForEffect);
+                }
+            }
+        }
+    
+        void SelectCardForEffect(CardCardGame_Base card)
+        {
+            bool isApply = _gm.CardEffectManager.ApplyCardDataToEffect(card);
+    
+            if(isApply)
+            {
+                card.OnSelect();
+            }
+            else
+            {
+                card.OnDeselect();
+            }
+        }
+    }
+    #endregion

@@ -1,12 +1,25 @@
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.Search;
 
 public class GameManager : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public enum GameState
+    {
+        normalMode,
+        SelectingHand,
+        SelectingBin,
+    }
 
+    [SerializeField] GameState currentGameState;
+    public UnityEvent<GameState> OnGameStateChange {get; private set;} = new ();
+    [field:SerializeField] public SelectionCondition currentSelectionCondition {get; private set;}
+    
+    public static GameManager Instance { get; private set; }
     #region SubManager Refference
+        [Header("Sub Manager")]
         [SerializeField] private CookingManager cookingManager;
         public CookingManager CookingManager => cookingManager;
         [SerializeField] private DeckManager deckManager;
@@ -33,8 +46,9 @@ public class GameManager : MonoBehaviour
         public ServeTableManager ServeTableManager => serveTableManager;
         [SerializeField] private TrashCanManager trashCanManager;
         public TrashCanManager TrashCanManager => trashCanManager;
+        [SerializeField] private UiManager uiManager;
+        public UiManager UiManager => uiManager;
     #endregion
-
 
     void Awake()
     {
@@ -51,6 +65,8 @@ public class GameManager : MonoBehaviour
         resourceManager.Init(this);
         TurnManager.Init(this);
         SceneManager.Init(this);
+        CardEffectManager.Init(this);
+        UiManager.Init(this);
         ScoreManager.Init();
     }
 
@@ -64,5 +80,26 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+    }
+
+    public bool SwitchGameState(GameState targetGameState)
+    {
+        if(currentGameState == targetGameState)
+        {
+            return false;
+        }
+
+        currentGameState = targetGameState;
+        OnGameStateChange.Invoke(currentGameState);
+
+        return true;
+    }
+
+    public void SwitchToSelectionState(SelectionCondition selectionCon , GameState targetSelectingState)
+    {
+        if(targetSelectingState == GameState.normalMode) return;
+ 
+        currentSelectionCondition = selectionCon;
+        SwitchGameState(targetSelectingState);
     }
 }

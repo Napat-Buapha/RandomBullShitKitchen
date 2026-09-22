@@ -32,7 +32,7 @@ public class CardCardGame_KitchenWare : CardCardGame_Base , IPointerInteractAble
 
     public void OnClick()
     {
-        GameManager.Instance.SceneManager.PlaceKitchenWare(this);
+        OnClickEvent.Invoke(this);
     }
 
     public void OnPointerOver()

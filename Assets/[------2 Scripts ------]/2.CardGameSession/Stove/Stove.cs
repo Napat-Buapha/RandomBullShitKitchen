@@ -84,6 +84,7 @@ public class Stove : MonoBehaviour
                     ingredient.cardData.cardImage
                 );
                 CheckIsFull();
+                ingredient.ExecuteEffects();
                 slotUi.UpdateSlots(ingredientSlots);
                 return true;
             }
