@@ -499,7 +499,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DeckManager
   deckLists:
   - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
-  - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
+  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
   - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
   - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
   - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
