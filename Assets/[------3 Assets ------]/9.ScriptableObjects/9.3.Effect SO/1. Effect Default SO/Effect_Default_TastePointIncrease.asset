@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9321f363b07e9f6419e00b8e9c9f3589, type: 3}
-  m_Name: Effect_TastePointIncrease
+  m_Name: Effect_Default_TastePointIncrease
   m_EditorClassIdentifier: Assembly-CSharp::Effect_TastePointIncrease
   <effectType>k__BackingField: 0
   amout: 1

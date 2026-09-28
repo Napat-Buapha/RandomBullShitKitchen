@@ -16,8 +16,7 @@ MonoBehaviour:
   <cardDescription>k__BackingField: 
   <cardImage>k__BackingField: {fileID: -1199014723, guid: ebb0b51db00392b4bb4db2c930a6b7d6, type: 3}
   <cardType>k__BackingField: 0
-  <effects>k__BackingField:
-  - {fileID: 11400000, guid: 9bcf5fdc375493845a78e36052c5e5bf, type: 2}
+  <effects>k__BackingField: []
   <ingredientVariable>k__BackingField:
     <ingredientId>k__BackingField: 002
     <ingredientType>k__BackingField: 1
