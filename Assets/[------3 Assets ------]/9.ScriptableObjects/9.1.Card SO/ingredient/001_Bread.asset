@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eaf1afb6489ff2c4d84c72b002e45ab1, type: 3}
-  m_Name: 002_Ground Beef
+  m_Name: 001_Bread
   m_EditorClassIdentifier: Assembly-CSharp::Card_Ingredient
-  <cardName>k__BackingField: Ground Beef
+  <cardName>k__BackingField: Bread
   <cardDescription>k__BackingField: 
-  <cardImage>k__BackingField: {fileID: -1199014723, guid: ebb0b51db00392b4bb4db2c930a6b7d6, type: 3}
+  <cardImage>k__BackingField: {fileID: -2966200626249415253, guid: ebb0b51db00392b4bb4db2c930a6b7d6, type: 3}
   <cardType>k__BackingField: 0
-  <effects>k__BackingField: []
+  <effects>k__BackingField:
+  - {fileID: 11400000, guid: e05416b12787a354a91a8a91b4720133, type: 2}
   <ingredientVariable>k__BackingField:
-    <ingredientId>k__BackingField: 002
-    <tastePoint>k__BackingField: 8
-    <cardCost>k__BackingField: 2
-    <ingredientType>k__BackingField: 1
+    <ingredientId>k__BackingField: 001
+    <ingredientType>k__BackingField: 4
+    tastePoint: 5
+    cardCost: 1

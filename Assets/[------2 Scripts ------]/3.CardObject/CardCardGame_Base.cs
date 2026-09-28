@@ -77,6 +77,7 @@ public class CardCardGame_Base : MonoBehaviour
     {
         foreach(var effect in cardData.effects)
         {
+            effect.Init(this);
             GameManager.Instance.CardEffectManager.AddEffect(effect);
         }
     }

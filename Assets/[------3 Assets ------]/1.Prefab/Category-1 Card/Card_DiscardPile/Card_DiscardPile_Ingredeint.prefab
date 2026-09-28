@@ -372,6 +372,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3977001390101850927}
   - component: {fileID: -5919595148523320854}
+  - component: {fileID: -7238059737006095683}
   m_Layer: 5
   m_Name: Card_DiscardPile_Ingredeint
   m_TagString: Untagged
@@ -416,10 +417,22 @@ MonoBehaviour:
   cardDescriptionT: {fileID: 3027008756335210290}
   cardImageS: {fileID: 4075178105249565840}
   childCanvases: []
+  selectedHighlight: {fileID: 5590082571063551183}
   tastePointT: {fileID: 1326776727657185663}
   cardCostT: {fileID: 2183742448095309304}
   ingredientTypeT: {fileID: 987998749163764063}
-  selectedHighlight: {fileID: 5590082571063551183}
+--- !u!114 &-7238059737006095683
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726462350038909342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f43da86ae3a5546a511ef3795b0182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardDiscardPile
 --- !u!1 &2401934473719463083
 GameObject:
   m_ObjectHideFlags: 0

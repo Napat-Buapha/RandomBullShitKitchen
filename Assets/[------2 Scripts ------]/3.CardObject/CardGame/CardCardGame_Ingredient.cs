@@ -42,6 +42,13 @@ public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
     }
     #endregion
 
+    public void ModifiedTastePoint(float amout)
+    {
+        var tempIngredeintVar = ingredientVariable;
+        tempIngredeintVar.tastePoint += amout;
+        ingredientVariable = tempIngredeintVar;
+    }
+
 
     public virtual void OnClick()
     {

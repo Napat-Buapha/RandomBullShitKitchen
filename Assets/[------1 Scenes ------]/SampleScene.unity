@@ -501,9 +501,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
   - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
   - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
-  - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
-  - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
-  - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
+  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
   - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
   - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
   - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
@@ -814,7 +814,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -35.6, y: -213.1}
+  m_AnchoredPosition: {x: -35.600098, y: -213.09998}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &355894074
@@ -1252,7 +1252,7 @@ GameObject:
   - component: {fileID: 478368055}
   - component: {fileID: 478368054}
   m_Layer: 5
-  m_Name: '[Canvas] TrashCan'
+  m_Name: '[Canvas] TrashBin'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1599,7 +1599,7 @@ GameObject:
   - component: {fileID: 654145658}
   - component: {fileID: 654145659}
   m_Layer: 0
-  m_Name: TrashCanManager
+  m_Name: TrashBinManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2427,7 +2427,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da440c4fab5e4a045b6f0d06a9d20807, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  currentGameState: 0
+  <currentGameState>k__BackingField: 0
+  <currentSelectionCondition>k__BackingField:
+    needToBeFull: 0
+    amout: 0
+    cardNameList: []
+    cardTypesList: 
+    ingredientTypesList: 
   cookingManager: {fileID: 1222987265}
   deckManager: {fileID: 170250014}
   handsManager: {fileID: 1134672356}
@@ -2440,7 +2446,7 @@ MonoBehaviour:
   inputManager: {fileID: 386537695}
   resourceManager: {fileID: 445101086}
   serveTableManager: {fileID: 1472406824}
-  trashCanManager: {fileID: 654145659}
+  trashBinManager: {fileID: 654145659}
   uiManager: {fileID: 2115852308}
 --- !u!4 &1297529181
 Transform:
@@ -3004,7 +3010,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1096165528}
   m_HandleRect: {fileID: 1096165527}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

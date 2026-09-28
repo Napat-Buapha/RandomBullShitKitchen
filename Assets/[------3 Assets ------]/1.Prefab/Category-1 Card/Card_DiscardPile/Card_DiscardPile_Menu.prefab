@@ -397,6 +397,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8741244960310146725}
   - component: {fileID: 7587256631386003085}
+  - component: {fileID: 2361352457775608592}
   m_Layer: 5
   m_Name: Card_DiscardPile_Menu
   m_TagString: Untagged
@@ -444,6 +445,18 @@ MonoBehaviour:
   selectedHighlight: {fileID: 4725920702695587939}
   baseIngredientScoreT: {fileID: 2876801194604973261}
   menuMultiplierT: {fileID: 6258499442292890885}
+--- !u!114 &2361352457775608592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3496299144239083615}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28f43da86ae3a5546a511ef3795b0182, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CardDiscardPile
 --- !u!1 &3932175328111178489
 GameObject:
   m_ObjectHideFlags: 0

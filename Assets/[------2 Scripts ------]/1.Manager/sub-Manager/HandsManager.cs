@@ -10,7 +10,7 @@ public class HandsManager : MonoBehaviour
 
     // Card in hand //
     [SerializeField] Dictionary<CardType, GameObject> cardPrefabs;
-    public List<CardCardGame_Base> cardsInHand {get; private set;}
+    public List<CardCardGame_Base> cardsInHand { get; private set; }
     [SerializeField] Transform hand; //จุดกึ่งกลางของ hand
 
     [Header("Card Spacing Customizer")]
@@ -100,14 +100,17 @@ public class HandsManager : MonoBehaviour
 
         foreach (var card in discardedList)
         {
-            _gm.TrashCanManager.Receive(card.baseCardRef);
+            _gm.TrashBinManager.Receive(card.baseCardRef);
             Discard(card);
         }
     }
-    public void Discard(CardCardGame_Base card)
+    public void Discard(CardCardGame_Base card, bool IsSendToTrash = false)
     {
 
         cardsInHand.Remove(card);
+
+        if (IsSendToTrash)
+            GameManager.Instance.TrashBinManager.Receive(card.baseCardRef);
         // อย่าลืมเปลี่ยนไปใช้ Pool 
         Destroy(card.gameObject);
 
@@ -187,40 +190,62 @@ public class HandsManager : MonoBehaviour
 
 
     #region CardSelectionStateEvent
-        // Card Selecting State
-        void OnGameStateChange(GameManager.GameState currentGameState)
+    // Card Selecting State
+    void OnGameStateChange(GameManager.GameState currentGameState)
+    {
+        switch (currentGameState)
         {
-            if(currentGameState == GameManager.GameState.normalMode)
-            {
-                foreach(var card in cardsInHand)
-                {
-                    card.OnClickEvent.RemoveListener(SelectCardForEffect);
-                    card.OnClickEvent.AddListener(CardSelect);
-                }
-            }
-    
-            if(currentGameState == GameManager.GameState.SelectingHand)
-            {
-                foreach(var card in cardsInHand)
-                {
-                    card.OnClickEvent.RemoveListener(CardSelect);
-                    card.OnClickEvent.AddListener(SelectCardForEffect);
-                }
-            }
-        }
-    
-        void SelectCardForEffect(CardCardGame_Base card)
-        {
-            bool isApply = _gm.CardEffectManager.ApplyCardDataToEffect(card);
-    
-            if(isApply)
-            {
-                card.OnSelect();
-            }
-            else
-            {
-                card.OnDeselect();
-            }
+            case GameManager.GameState.normalMode:
+                SetNormal();
+                break;
+
+            case GameManager.GameState.SelectingHand:
+                SetHandSelect();
+                break;
+
+            default:
+                SetOther();
+                break;
         }
     }
+    private void SetNormal()
+    {
+        foreach (var card in cardsInHand)
+        {
+            card.OnClickEvent?.RemoveAllListeners();
+            card.OnClickEvent.AddListener(CardSelect);
+        }
+    }
+    private void SetHandSelect()
+    {
+        foreach (var card in cardsInHand)
+        {
+            card.OnClickEvent?.RemoveAllListeners();
+            card.OnClickEvent.AddListener(SelectCardForEffect);
+        }
+    }
+
+    private void SetOther()
+    {
+        foreach (var card in cardsInHand)
+        {
+            card.OnClickEvent?.RemoveAllListeners();
+
+        }
+    }
+
+    void SelectCardForEffect(CardCardGame_Base card)
+    {
+        bool isApply = _gm.CardEffectManager.ApplyCardDataToEffect(card);
+
+        if (isApply)
+        {
+            card.OnSelect();
+        }
+        else
+        {
+            card.OnDeselect();
+        }
+    }
+}
     #endregion

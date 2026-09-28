@@ -28,7 +28,6 @@ public class UI_SelectionMenu : MonoBehaviour
     public void UpdateResolveCondition(int cardAmout)
     {
         SelectionCondition selectCon = GameManager.Instance.currentSelectionCondition;
-
         {
             if (GameManager.Instance.CardEffectManager.currentEffect is Effect_CardSelect effectRef)
             {
@@ -49,6 +48,7 @@ public class UI_SelectionMenu : MonoBehaviour
         
         if (GameManager.Instance.CardEffectManager.currentEffect is Effect_CardSelect effectRef)
         {
+            Debug.Log("Test");
             resolveButton.interactable = false;
             effectRef.OnCardAmoutChange.AddListener(UpdateResolveCondition);
         }

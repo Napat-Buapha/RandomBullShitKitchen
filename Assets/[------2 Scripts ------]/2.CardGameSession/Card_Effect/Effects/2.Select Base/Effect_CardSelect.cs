@@ -4,8 +4,8 @@ using UnityEngine.Events;
 
 public class Effect_CardSelect : Effect
 {
-    [SerializeField] SelectionCondition selectionCondition;
-    [SerializeField] GameManager.GameState targetSelectingState;
+    [SerializeField] protected SelectionCondition selectionCondition;
+    [SerializeField] protected GameManager.GameState targetSelectingState;
 
     [field:SerializeField] public List<CardCardGame_Base> selectedList {get;protected set;}
     [HideInInspector] public UnityEvent<int> OnCardAmoutChange;

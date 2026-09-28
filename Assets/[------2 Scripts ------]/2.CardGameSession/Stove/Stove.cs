@@ -1,36 +1,44 @@
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
-using UnityEngine.AI;
 using UnityEngine.UI;
 
 public class Stove : MonoBehaviour
 {
+    [Header("UI Ref")]
     //Base Card Data Ref
     Card _baseCardKitchenWareRef;
 
-    [SerializeField] Stove_IngredientUi slotUi;
+
     [SerializeField] SpriteRenderer kitchenWareSpriteRenderer;
-    [SerializeField] IngredientCharacteristics[] ingredientSlots;
+    [SerializeField] KitchenWare_Variable kitchenWareVariable;
+
+    IngredientCharacteristics[] ingredientSlots;
+    [SerializeField] Stove_IngredientUi slotUi;
+
     [SerializeField] GameObject addButton;
     [SerializeField] Button cookButton;
 
-    [SerializeField] KitchenWare_Variable kitchenWareVariable;
+    [SerializeField] TMP_Text totalTastePointT;
 
 
-    [field: SerializeField] public bool isOccupied { get; private set; } = false;
+
+
+    public bool isOccupied { get; private set; } = false;
 
     void Start()
     {
         ResetStove();
+        UpdateTotalTastePoint();
     }
 
     private void ThrownInToTrashBin()
     {
-        GameManager.Instance.TrashCanManager.Receive(_baseCardKitchenWareRef);
-        foreach(var ingreditnCard in ingredientSlots)
+        GameManager.Instance.TrashBinManager.Receive(_baseCardKitchenWareRef);
+        foreach (var ingreditnCard in ingredientSlots)
         {
-            GameManager.Instance.TrashCanManager.Receive(ingreditnCard.baseCard);
+            GameManager.Instance.TrashBinManager.Receive(ingreditnCard.baseCard);
         }
     }
 
@@ -59,6 +67,24 @@ public class Stove : MonoBehaviour
         GameManager.Instance.HandsManager.UnSelectAllIngredient();
     }
 
+    public void UpdateTotalTastePoint()
+    {
+        if(ingredientSlots == null)
+        {
+            totalTastePointT.text = "0";
+            return;
+        }
+
+        float totalTastePoint = 0;
+
+        foreach (var ingredient in ingredientSlots)
+        {
+            totalTastePoint += ingredient.ingredientVariable.tastePoint;
+        }
+
+        totalTastePointT.text = totalTastePoint.ToString();
+    }
+
 
     /// <summary>
     /// Return false mean KitchenWare is full 
@@ -76,6 +102,8 @@ public class Stove : MonoBehaviour
         {
             if (string.IsNullOrEmpty(ingredientSlots[i].ingredientName))
             {
+                ingredient.ExecuteEffects();
+
                 ingredientSlots[i] = new IngredientCharacteristics
                 (
                     ingredient.baseCardRef,
@@ -83,9 +111,11 @@ public class Stove : MonoBehaviour
                     ingredient.ingredientVariable,
                     ingredient.cardData.cardImage
                 );
+
                 CheckIsFull();
-                ingredient.ExecuteEffects();
                 slotUi.UpdateSlots(ingredientSlots);
+                UpdateTotalTastePoint();
+
                 return true;
             }
 

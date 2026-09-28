@@ -83,7 +83,7 @@ public class DeckManager : MonoBehaviour
 
     public void RecycleDeck()
     {
-        var tcm = _gm.TrashCanManager;
+        var tcm = _gm.TrashBinManager;
 
         while (tcm.discardPile.Count > 0)
         {

@@ -9,17 +9,18 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 85cda8bc9f691a749ba0c0cefd0279fd, type: 3}
-  m_Name: Effect_Select_Discard
-  m_EditorClassIdentifier: Assembly-CSharp::Effect_Select_Discard
-  <effectType>k__BackingField: 1
+  m_Script: {fileID: 11500000, guid: e9f40a7a7a112c24881345fc9075a242, type: 3}
+  m_Name: Effect_Select_TrashBin_ReturnToHand
+  m_EditorClassIdentifier: Assembly-CSharp::Effect_Select_TrashBin_ReturnToHand
+  <effectType>k__BackingField: 0
   selectionCondition:
     needToBeFull: 1
-    amout: 2
+    amout: 1
     cardNameList: []
     cardTypesList: 
     ingredientTypesList: 
-  targetSelectingState: 1
+  targetSelectingState: 2
+  <selectedList>k__BackingField: []
   OnCardAmoutChange:
     m_PersistentCalls:
       m_Calls: []

@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviour
         SelectingBin,
     }
 
-    [SerializeField] GameState currentGameState;
+    [field:SerializeField] public GameState currentGameState {get; private set;}
     public UnityEvent<GameState> OnGameStateChange {get; private set;} = new ();
     [field:SerializeField] public SelectionCondition currentSelectionCondition {get; private set;}
     
@@ -44,8 +44,8 @@ public class GameManager : MonoBehaviour
         public ResourceManager ResourceManager => resourceManager;
         [SerializeField] private ServeTableManager serveTableManager;
         public ServeTableManager ServeTableManager => serveTableManager;
-        [SerializeField] private TrashCanManager trashCanManager;
-        public TrashCanManager TrashCanManager => trashCanManager;
+        [SerializeField] private TrashBinManager trashBinManager;
+        public TrashBinManager TrashBinManager => trashBinManager;
         [SerializeField] private UiManager uiManager;
         public UiManager UiManager => uiManager;
     #endregion
@@ -60,7 +60,7 @@ public class GameManager : MonoBehaviour
     {
         PointerManager.Init(this);
         DeckManager.Init(this);
-        trashCanManager.Init(this);
+        trashBinManager.Init(this);
         HandsManager.Init(this);
         resourceManager.Init(this);
         TurnManager.Init(this);
