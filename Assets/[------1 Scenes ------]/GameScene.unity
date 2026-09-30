@@ -1878,7 +1878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneManager
   stovePrefab: {fileID: 8319760270041756405, guid: 1fcc06d8027b2c24db399f5e6b24e93b, type: 3}
-  startStoveCount: 1
+  startStoveCount: 2
   stovePos:
   - {fileID: 375516809}
   - {fileID: 603069944}
