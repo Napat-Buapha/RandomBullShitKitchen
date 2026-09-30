@@ -12,13 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf1afb6489ff2c4d84c72b002e45ab1, type: 3}
   m_Name: 008_Basil
   m_EditorClassIdentifier: Assembly-CSharp::Card_Ingredient
-  <cardName>k__BackingField: 
+  <cardName>k__BackingField: Basil
   <cardDescription>k__BackingField: 
-  <cardImage>k__BackingField: {fileID: 0}
+  <cardImage>k__BackingField: {fileID: 752033522, guid: f67c2e3bb9ddb2f40a64b37a7e6fe020, type: 3}
   <cardType>k__BackingField: 0
-  <effects>k__BackingField: []
+  <effects>k__BackingField:
+  - {fileID: 11400000, guid: 3e58f4e158361c743b0a1c6822865c81, type: 2}
   <ingredientVariable>k__BackingField:
-    <ingredientId>k__BackingField: 
+    <ingredientId>k__BackingField: 008
     <ingredientType>k__BackingField: 0
-    tastePoint: 0
-    cardCost: 0
+    tastePoint: 2
+    cardCost: 1

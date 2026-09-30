@@ -13,7 +13,9 @@ MonoBehaviour:
   m_Name: 'Effect_TrashBin_CheckAmout_IncreseTastePoint [2]'
   m_EditorClassIdentifier: Assembly-CSharp::Effect_TrashBin_CheckAmout
   <effectType>k__BackingField: 0
-  cardNeed: 1
+  cardNeed: 2
   effectsOnResolve:
+  - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
+  - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
   - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
   - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
