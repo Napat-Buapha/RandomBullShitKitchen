@@ -37,7 +37,7 @@ public class TurnManager : MonoBehaviour
             return;
         }
 
-        _gm.DeckManager.RecycleDeck();
+        //_gm.DeckManager.RecycleDeck();
         _gm.DeckManager.DrawCard(startingHand);
         _gm.ResourceManager.ResetTimePoint();
     }

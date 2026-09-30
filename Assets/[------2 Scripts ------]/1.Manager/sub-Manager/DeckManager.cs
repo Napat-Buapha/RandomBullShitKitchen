@@ -69,6 +69,8 @@ public class DeckManager : MonoBehaviour
 
     private void Draw()
     {
+        if(_deck.Count == 0) return;
+
         if(_deck.Count == 1)
         {
             _gm.HandsManager.AddedCard(_deck[0]);

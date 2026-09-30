@@ -90,6 +90,7 @@ public class HandsManager : MonoBehaviour
     public void DiscardHand()
     {
         List<CardCardGame_Base> discardedList = new();
+        UnSelectAllIngredient();
 
         foreach (var card in cardsInHand)
         {
@@ -100,8 +101,7 @@ public class HandsManager : MonoBehaviour
 
         foreach (var card in discardedList)
         {
-            _gm.TrashBinManager.Receive(card.baseCardRef);
-            Discard(card);
+            Discard(card , true);
         }
     }
     public void Discard(CardCardGame_Base card, bool IsSendToTrash = false)

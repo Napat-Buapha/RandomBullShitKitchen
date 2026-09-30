@@ -10,10 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 985d81f54deefe241a8b82055226a71e, type: 3}
-  m_Name: 'Effect_TrashBin_CheckAmout_IncreseTastePoint [2]'
+  m_Name: 'Effect_TrashBin_CheckAmout_IncreseTastePoint [4]'
   m_EditorClassIdentifier: Assembly-CSharp::Effect_TrashBin_CheckAmout
   <effectType>k__BackingField: 0
   cardNeed: 1
   effectsOnResolve:
+  - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
+  - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
   - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
   - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
