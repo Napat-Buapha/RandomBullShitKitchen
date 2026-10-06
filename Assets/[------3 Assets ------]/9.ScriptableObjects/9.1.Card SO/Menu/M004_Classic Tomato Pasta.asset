@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c178eef9cd2d28544835850f924fe869, type: 3}
   m_Name: M004_Classic Tomato Pasta
   m_EditorClassIdentifier: Assembly-CSharp::Card_Menu
-  <cardName>k__BackingField: Classic TOmato Pasta
+  <cardName>k__BackingField: Classic Tomato Pasta
   <cardDescription>k__BackingField: 
-  <cardImage>k__BackingField: {fileID: 0}
-  <cardType>k__BackingField: 0
+  <cardImage>k__BackingField: {fileID: -1540426309290004842, guid: f67c2e3bb9ddb2f40a64b37a7e6fe020, type: 3}
+  <cardType>k__BackingField: 2
   <effects>k__BackingField: []
   <menuVariable>k__BackingField:
-    <priority>k__BackingField: 0
-    <amout>k__BackingField: 0
-    <mathSymbol>k__BackingField: 0
+    <priority>k__BackingField: 3
+    <amout>k__BackingField: 1.5
+    <mathSymbol>k__BackingField: 2

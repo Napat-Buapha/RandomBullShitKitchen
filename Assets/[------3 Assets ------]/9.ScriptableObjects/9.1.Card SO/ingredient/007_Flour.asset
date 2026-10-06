@@ -12,13 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eaf1afb6489ff2c4d84c72b002e45ab1, type: 3}
   m_Name: 007_Flour
   m_EditorClassIdentifier: Assembly-CSharp::Card_Ingredient
-  <cardName>k__BackingField: 
+  <cardName>k__BackingField: Flour
   <cardDescription>k__BackingField: 
-  <cardImage>k__BackingField: {fileID: 0}
+  <cardImage>k__BackingField: {fileID: 1335642445, guid: f67c2e3bb9ddb2f40a64b37a7e6fe020, type: 3}
   <cardType>k__BackingField: 0
   <effects>k__BackingField: []
   <ingredientVariable>k__BackingField:
-    <ingredientId>k__BackingField: 
-    <ingredientType>k__BackingField: 0
-    tastePoint: 0
-    cardCost: 0
+    <ingredientId>k__BackingField: 007
+    <ingredientType>k__BackingField: 4
+    tastePoint: 3
+    cardCost: 1

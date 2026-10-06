@@ -503,12 +503,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
   - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
   - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
   - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
   - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
-  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
-  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
-  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
-  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: 93acf1262e6a35845a3bbcb691f1d202, type: 2}
+  - {fileID: 11400000, guid: 93acf1262e6a35845a3bbcb691f1d202, type: 2}
+  - {fileID: 11400000, guid: 4d843ab805df0464c8590ded3e585906, type: 2}
+  - {fileID: 11400000, guid: 4d843ab805df0464c8590ded3e585906, type: 2}
+  - {fileID: 11400000, guid: 73ed89eff73e7634a9fd7ce133246ba5, type: 2}
+  - {fileID: 11400000, guid: 73ed89eff73e7634a9fd7ce133246ba5, type: 2}
+  - {fileID: 11400000, guid: 472d896ccd09c0643b8ca1ea7cd44d36, type: 2}
+  - {fileID: 11400000, guid: 472d896ccd09c0643b8ca1ea7cd44d36, type: 2}
+  - {fileID: 11400000, guid: 472d896ccd09c0643b8ca1ea7cd44d36, type: 2}
+  - {fileID: 11400000, guid: d2414dd7888d1a648b604f0e87032e4d, type: 2}
+  - {fileID: 11400000, guid: d2414dd7888d1a648b604f0e87032e4d, type: 2}
 --- !u!1 &338933062
 GameObject:
   m_ObjectHideFlags: 0
@@ -1879,7 +1887,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneManager
   stovePrefab: {fileID: 8319760270041756405, guid: 1fcc06d8027b2c24db399f5e6b24e93b, type: 3}
-  startStoveCount: 2
+  startStoveCount: 1
   stovePos:
   - {fileID: 375516809}
   - {fileID: 603069944}

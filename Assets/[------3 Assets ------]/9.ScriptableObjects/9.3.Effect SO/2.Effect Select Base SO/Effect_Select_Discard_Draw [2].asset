@@ -20,6 +20,7 @@ MonoBehaviour:
     cardTypesList: 
     ingredientTypesList: 
   targetSelectingState: 1
+  <selectedList>k__BackingField: []
   OnCardAmoutChange:
     m_PersistentCalls:
       m_Calls: []
