@@ -35,6 +35,49 @@ public class HandsManager : MonoBehaviour
         UpdateHandVisuals();
     }
 
+    // Card Selecting State
+    void OnGameStateChange(GameManager.GameState currentGameState)
+    {
+        switch (currentGameState)
+        {
+            case GameManager.GameState.NormalMode:
+                SetNormal();
+                break;
+
+            case GameManager.GameState.SelectingHand:
+                SetHandSelect();
+                break;
+
+            default:
+                SetOther();
+                break;
+        }
+    }
+    private void SetNormal()
+    {
+        foreach (var card in cardsInHand)
+        {
+            card.OnClickEvent?.RemoveAllListeners();
+            card.OnClickEvent.AddListener(CardSelect);
+        }
+    }
+    private void SetHandSelect()
+    {
+        foreach (var card in cardsInHand)
+        {
+            card.OnClickEvent?.RemoveAllListeners();
+            card.OnClickEvent.AddListener(SelectCardForEffect);
+        }
+    }
+
+    private void SetOther()
+    {
+        foreach (var card in cardsInHand)
+        {
+            card.OnClickEvent?.RemoveAllListeners();
+
+        }
+    }
     #region Hand Virtual Update
     public void UpdateHandVisuals()
     {
@@ -101,7 +144,7 @@ public class HandsManager : MonoBehaviour
 
         foreach (var card in discardedList)
         {
-            Discard(card , true);
+            Discard(card, true);
         }
     }
     public void Discard(CardCardGame_Base card, bool IsSendToTrash = false)
@@ -116,7 +159,7 @@ public class HandsManager : MonoBehaviour
 
         UpdateHandVisuals();
     }
-    #endregion
+
 
     public void CardSelect(CardCardGame_Base card)
     {
@@ -130,7 +173,7 @@ public class HandsManager : MonoBehaviour
             SelectKitchenWare(kitchenWareCard);
         }
     }
-
+    #endregion
     #region IngredientCardEvent
     public void SelectIngredient(CardCardGame_Ingredient ingredient)
     {
@@ -187,52 +230,8 @@ public class HandsManager : MonoBehaviour
     }
 
     #endregion
-
-
     #region CardSelectionStateEvent
-    // Card Selecting State
-    void OnGameStateChange(GameManager.GameState currentGameState)
-    {
-        switch (currentGameState)
-        {
-            case GameManager.GameState.normalMode:
-                SetNormal();
-                break;
 
-            case GameManager.GameState.SelectingHand:
-                SetHandSelect();
-                break;
-
-            default:
-                SetOther();
-                break;
-        }
-    }
-    private void SetNormal()
-    {
-        foreach (var card in cardsInHand)
-        {
-            card.OnClickEvent?.RemoveAllListeners();
-            card.OnClickEvent.AddListener(CardSelect);
-        }
-    }
-    private void SetHandSelect()
-    {
-        foreach (var card in cardsInHand)
-        {
-            card.OnClickEvent?.RemoveAllListeners();
-            card.OnClickEvent.AddListener(SelectCardForEffect);
-        }
-    }
-
-    private void SetOther()
-    {
-        foreach (var card in cardsInHand)
-        {
-            card.OnClickEvent?.RemoveAllListeners();
-
-        }
-    }
 
     void SelectCardForEffect(CardCardGame_Base card)
     {
@@ -247,5 +246,13 @@ public class HandsManager : MonoBehaviour
             card.OnDeselect();
         }
     }
-}
     #endregion
+
+    public CardCardGame_Base holdingCard {get;private set;}
+
+    public void Holding(CardCardGame_Base card)
+    {
+        holdingCard = card;
+    }
+}
+

@@ -5,19 +5,32 @@ using UnityEngine;
 public class CardEffectManager : MonoBehaviour
 {
     GameManager _gm;
-    Queue<Effect> _effectQueue;
-    public Effect currentEffect {get; private set;}
+    List<Effect> _effectQueue;
+    public Effect currentEffect { get; private set; }
     bool _isRunningQueue;
 
     public void Init(GameManager gm)
     {
         _gm = gm;
-        _effectQueue = new Queue<Effect>();
+        _effectQueue = new List<Effect>();
     }
 
-    public void AddEffect(Effect effect)
+    /// <summary>
+    /// If want to get effect overtake the queue set addInQueue To False
+    /// </summary>
+    /// <param name="effect"></param>
+    /// <param name="addInQueue"></param>
+    public void AddEffect(Effect effect, bool addInQueue = true)
     {
-        _effectQueue.Enqueue(effect);
+        if (addInQueue)
+        {
+            _effectQueue.Add(effect);
+        }
+        else
+        {
+            _effectQueue.Insert(0, effect);
+        }
+
         if (!_isRunningQueue)
         {
             _isRunningQueue = true;
@@ -27,13 +40,14 @@ public class CardEffectManager : MonoBehaviour
 
     public void RunningEffectQueue()
     {
-        if(_effectQueue.Count <= 0) 
+        if (_effectQueue.Count <= 0)
         {
             _isRunningQueue = false;
             return;
         }
 
-        currentEffect = _effectQueue.Dequeue();
+        currentEffect = _effectQueue[0];
+        _effectQueue.RemoveAt(0);
 
         if (currentEffect.effectType == Effect.EffectType.manualResolve)
         {
@@ -55,7 +69,7 @@ public class CardEffectManager : MonoBehaviour
     {
         if (currentEffect is Effect_CardSelect targetEffect)
         {
-            if(!CheckSelectionCondition(card)) return false;
+            if (!CheckSelectionCondition(card)) return false;
 
             return targetEffect.AddCard(card);
         }
@@ -71,13 +85,13 @@ public class CardEffectManager : MonoBehaviour
         {
             return condition.cardNameList.Contains(card.cardData.cardName);
         }
-        
-        if(condition.cardTypesList.Count > 0)
+
+        if (condition.cardTypesList.Count > 0)
         {
             return condition.cardTypesList.Contains(card.cardData.cardType);
         }
 
-        if(condition.ingredientTypesList.Count > 0)
+        if (condition.ingredientTypesList.Count > 0)
         {
             if (card is CardCardGame_Ingredient ingredientCard)
             {

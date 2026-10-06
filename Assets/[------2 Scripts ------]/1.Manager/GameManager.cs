@@ -8,7 +8,8 @@ public class GameManager : MonoBehaviour
 {
     public enum GameState
     {
-        normalMode,
+        NormalMode,
+        CardHolding,
         SelectingHand,
         SelectingBin,
     }
@@ -97,7 +98,7 @@ public class GameManager : MonoBehaviour
 
     public void SwitchToSelectionState(SelectionCondition selectionCon , GameState targetSelectingState)
     {
-        if(targetSelectingState == GameState.normalMode) return;
+        if(targetSelectingState == GameState.NormalMode) return;
  
         currentSelectionCondition = selectionCon;
         SwitchGameState(targetSelectingState);

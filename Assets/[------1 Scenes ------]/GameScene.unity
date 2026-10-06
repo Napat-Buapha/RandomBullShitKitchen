@@ -503,11 +503,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
   - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
   - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
+  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
   - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
-  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
-  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
-  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
-  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
+  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
 --- !u!1 &338933062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3010,7 +3011,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1096165528}
   m_HandleRect: {fileID: 1096165527}
   m_Direction: 0
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:

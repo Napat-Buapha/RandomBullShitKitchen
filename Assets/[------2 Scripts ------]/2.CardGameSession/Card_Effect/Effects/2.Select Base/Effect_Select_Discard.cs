@@ -17,7 +17,7 @@ public class Effect_Select_Discard : Effect_CardSelect
         foreach(var effect in effectsOnResolve)
         {
             effect.Init(_card);
-            GameManager.Instance.CardEffectManager.AddEffect(effect);
+            GameManager.Instance.CardEffectManager.AddEffect(effect , false);
         }
 
         base.ResolveExecute();

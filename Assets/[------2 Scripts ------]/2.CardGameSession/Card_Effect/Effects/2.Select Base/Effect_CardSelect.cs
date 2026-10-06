@@ -26,7 +26,7 @@ public class Effect_CardSelect : Effect
 
     public virtual void CancleSelected()
     {
-        GameManager.Instance.SwitchGameState(GameManager.GameState.normalMode);
+        GameManager.Instance.SwitchGameState(GameManager.GameState.NormalMode);
         selectedList.Clear();
         GameManager.Instance.UiManager.SelectionMenu.cancleButton.onClick?.RemoveListener(CancleSelected);
         GameManager.Instance.CardEffectManager.RunningEffectQueue();

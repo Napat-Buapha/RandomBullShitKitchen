@@ -6,6 +6,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private InputActionAsset inputActionAsset;
 
     public bool MouseClick { get; private set; }
+    public bool MouseHold { get; private set; }
 
     private InputAction clickAction;
 
@@ -23,6 +24,7 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        MouseClick = clickAction.WasPressedThisFrame();
+        MouseClick = clickAction.WasReleasedThisFrame();
+        MouseHold = clickAction.IsPressed();
     }
 }
