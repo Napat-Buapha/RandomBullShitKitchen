@@ -73,6 +73,16 @@ public class CardCardGame_Menu : CardCardGame_Base , IPointerInteractAble
     {
         
     }
+
+    public void OnHold()
+    {
+
+    }
+
+    public void OnDrop()
+    {
+
+    }
 }
 
 

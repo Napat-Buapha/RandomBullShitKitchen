@@ -1,7 +1,9 @@
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.Burst.Intrinsics;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
 
 public class HandsManager : MonoBehaviour
@@ -16,9 +18,9 @@ public class HandsManager : MonoBehaviour
     [Header("Card Spacing Customizer")]
     [SerializeField] float cardSpacing;
 
-    // Ingredient Selecting //
-    [SerializeField] List<CardCardGame_Ingredient> currentSelectedIngredient;
-
+    // Card Selecting //
+    [SerializeField] List<CardCardGame_Ingredient> currentSelectingIngredient;
+    [SerializeField] CardCardGame_KitchenWare currentSeletingKitchenWare;
 
     public void Init(GameManager gm)
     {
@@ -26,58 +28,63 @@ public class HandsManager : MonoBehaviour
 
         _gm = gm;
         cardsInHand = new();
-        currentSelectedIngredient = new();
+        currentSelectingIngredient = new();
 
         UpdateHandVisuals();
     }
     void Update()
     {
+        if(_gm.currentGameState == GameManager.GameState.NormalMode)
         UpdateHandVisuals();
+        
+        if(_gm.currentGameState == GameManager.GameState.CardHolding)
+        CardDrag();
     }
 
-    // Card Selecting State
-    void OnGameStateChange(GameManager.GameState currentGameState)
-    {
-        switch (currentGameState)
+    
+    #region Card Selecting State
+        void OnGameStateChange(GameManager.GameState currentGameState)
         {
-            case GameManager.GameState.NormalMode:
-                SetNormal();
-                break;
-
-            case GameManager.GameState.SelectingHand:
-                SetHandSelect();
-                break;
-
-            default:
-                SetOther();
-                break;
+            switch (currentGameState)
+            {
+                case GameManager.GameState.NormalMode:
+                    SetNormal();
+                    break;
+    
+                case GameManager.GameState.SelectingHand:
+                    SetHandSelect();
+                    break;
+    
+                default:
+                    SetOther();
+                    break;
+            }
         }
-    }
-    private void SetNormal()
-    {
-        foreach (var card in cardsInHand)
+        private void SetNormal()
         {
-            card.OnClickEvent?.RemoveAllListeners();
-            card.OnClickEvent.AddListener(CardSelect);
+            foreach (var card in cardsInHand)
+            {
+                card.OnClickEvent?.RemoveAllListeners();
+                card.OnClickEvent.AddListener(CardSelect);
+            }
         }
-    }
-    private void SetHandSelect()
-    {
-        foreach (var card in cardsInHand)
+        private void SetHandSelect()
         {
-            card.OnClickEvent?.RemoveAllListeners();
-            card.OnClickEvent.AddListener(SelectCardForEffect);
+            foreach (var card in cardsInHand)
+            {
+                card.OnClickEvent?.RemoveAllListeners();
+                card.OnClickEvent.AddListener(SelectCardForEffect);
+            }
         }
-    }
-
-    private void SetOther()
-    {
-        foreach (var card in cardsInHand)
+        private void SetOther()
         {
-            card.OnClickEvent?.RemoveAllListeners();
-
+            foreach (var card in cardsInHand)
+            {
+                card.OnClickEvent?.RemoveAllListeners();
+    
+            }
         }
-    }
+    #endregion
     #region Hand Virtual Update
     public void UpdateHandVisuals()
     {
@@ -102,7 +109,7 @@ public class HandsManager : MonoBehaviour
 
     private void ApplyPositionToCard(int i, Vector3 worldPos)
     {
-        cardsInHand[i].transform.position = new Vector3(worldPos.x, worldPos.y, -i * 0.1f);
+        cardsInHand[i].transform.position = new Vector3(worldPos.x, worldPos.y, -i * 0.01f);
         cardsInHand[i].GetComponent<SortingGroup>().sortingOrder = i + 1;
         cardsInHand[i].ApplySortingLayerToCanvas(i + 1);
     }
@@ -128,12 +135,12 @@ public class HandsManager : MonoBehaviour
         cardComponent.Init(card);
         cardComponent.OnClickEvent.AddListener(CardSelect);
         cardsInHand.Add(cardComponent);
-        UpdateHandVisuals();
     }
+
     public void DiscardHand()
     {
         List<CardCardGame_Base> discardedList = new();
-        UnSelectAllIngredient();
+        UnSelectAllCard();
 
         foreach (var card in cardsInHand)
         {
@@ -156,10 +163,7 @@ public class HandsManager : MonoBehaviour
             GameManager.Instance.TrashBinManager.Receive(card.baseCardRef);
         // อย่าลืมเปลี่ยนไปใช้ Pool 
         Destroy(card.gameObject);
-
-        UpdateHandVisuals();
     }
-
 
     public void CardSelect(CardCardGame_Base card)
     {
@@ -173,42 +177,49 @@ public class HandsManager : MonoBehaviour
             SelectKitchenWare(kitchenWareCard);
         }
     }
+
+    public void UnSelectAllCard()
+    {
+        while (currentSelectingIngredient.Count > 0)
+        {
+            UnSelectIngredient(currentSelectingIngredient[0]);
+        }
+
+        UnselectKitchenWare();
+
+
+    }
     #endregion
     #region IngredientCardEvent
     public void SelectIngredient(CardCardGame_Ingredient ingredient)
     {
-        if (currentSelectedIngredient.Contains(ingredient))
+        if(currentSeletingKitchenWare != null) UnselectKitchenWare();
+
+        if (currentSelectingIngredient.Contains(ingredient))
         {
             UnSelectIngredient(ingredient);
             return;
         }
 
         GameManager.Instance.SceneManager.EnableAllAddButtons();
-        currentSelectedIngredient.Add(ingredient);
+        currentSelectingIngredient.Add(ingredient);
         ingredient.OnSelect();
     }
     public void UnSelectIngredient(CardCardGame_Ingredient ingredient)
     {
-        currentSelectedIngredient.Remove(ingredient);
-        ingredient.OnDeselect();
+        currentSelectingIngredient.Remove(ingredient);
+        ingredient.OnDeSelect();
 
-        if (currentSelectedIngredient.Count <= 0)
+        if (currentSelectingIngredient.Count <= 0)
         {
             GameManager.Instance.SceneManager.DisableAllAddButtons();
-        }
-    }
-    public void UnSelectAllIngredient()
-    {
-        while (currentSelectedIngredient.Count > 0)
-        {
-            UnSelectIngredient(currentSelectedIngredient[0]);
         }
     }
     public void AddSelectedIngredientToStove(Stove targetStove)
     {
         var unSelectedList = new List<CardCardGame_Ingredient>();
 
-        foreach (var ingredient in currentSelectedIngredient)
+        foreach (var ingredient in currentSelectingIngredient)
         {
             if (targetStove.AddIngredient(ingredient))
             {
@@ -224,15 +235,41 @@ public class HandsManager : MonoBehaviour
     }
     #endregion
     #region KitchenWareCardEvent
-    public void SelectKitchenWare(CardCardGame_KitchenWare card)
+    public void SelectKitchenWare(CardCardGame_KitchenWare kitchenWare)
     {
-        GameManager.Instance.SceneManager.PlaceKitchenWare(card);
+        if(currentSeletingKitchenWare == kitchenWare)
+        {
+            UnselectKitchenWare();
+            return;
+        }
+
+        UnSelectAllCard();
+        currentSeletingKitchenWare = kitchenWare;
+        kitchenWare.OnSelect();
+
+        GameManager.Instance.SceneManager.EnableAllPlaceButton();
+    }
+
+    public void UnselectKitchenWare()
+    {
+        if(currentSeletingKitchenWare == null) return;
+
+        currentSeletingKitchenWare.OnDeSelect();
+        currentSeletingKitchenWare = null;
+
+        GameManager.Instance.SceneManager.DisableAllPlaceButton();
+    }
+
+    public void PlaceKitchenWareOnStove(Stove targetStove)
+    {
+        targetStove.PlaceKitchenWare(currentSeletingKitchenWare);
+        GameManager.Instance.SceneManager.DisableAllPlaceButton();
+        Discard(currentSeletingKitchenWare);
+
     }
 
     #endregion
     #region CardSelectionStateEvent
-
-
     void SelectCardForEffect(CardCardGame_Base card)
     {
         bool isApply = _gm.CardEffectManager.ApplyCardDataToEffect(card);
@@ -243,16 +280,41 @@ public class HandsManager : MonoBehaviour
         }
         else
         {
-            card.OnDeselect();
+            card.OnDeSelect();
         }
     }
     #endregion
-
-    public CardCardGame_Base holdingCard {get;private set;}
-
-    public void Holding(CardCardGame_Base card)
-    {
-        holdingCard = card;
-    }
+    #region CardHolding
+        public CardCardGame_Base holdingCard {get;private set;}
+    
+        public void Holding(CardCardGame_Base card)
+        {
+            if(holdingCard != null) return;
+    
+            UnSelectAllCard();
+    
+            holdingCard = card;
+            GameManager.Instance.SwitchGameState(GameManager.GameState.CardHolding);
+    
+            holdingCard.GetComponent<SortingGroup>().sortingOrder = 100;
+    
+            //cardsInHand.Remove(card); //เอาออกจาก List เพื่อกันไม่ให้ถูกเรียงโดยอัตโนมัติ
+        }
+    
+        public void CardDrag()
+        {
+            if(holdingCard != null)
+            {
+                var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); 
+                holdingCard.gameObject.transform.position = new Vector3(mousePos.x , mousePos.y , 0);
+            }
+        }
+    
+        public void Drop(CardCardGame_Base card)
+        {
+            holdingCard = null;
+            GameManager.Instance.SwitchGameState(GameManager.GameState.NormalMode);
+        }
+    #endregion
 }
 

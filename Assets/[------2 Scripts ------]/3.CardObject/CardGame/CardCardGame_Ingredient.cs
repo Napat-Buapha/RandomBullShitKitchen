@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
 
-public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
+public class CardCardGame_Ingredient : CardCardGame_Base, IPointerInteractAble
 {
 
     public Ingredient_Variable ingredientVariable { get; protected set; }
@@ -15,7 +15,7 @@ public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
 
     void OnEnable()
     {
-        OnDeselect();
+        OnDeSelect();
     }
 
 
@@ -50,6 +50,8 @@ public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
     }
 
 
+
+    #region Interface Method
     public virtual void OnClick()
     {
         OnClickEvent.Invoke(this);
@@ -59,6 +61,43 @@ public class CardCardGame_Ingredient : CardCardGame_Base , IPointerInteractAble
     {
 
     }
+
+    public void OnHold()
+    {
+        if (GameManager.Instance.currentGameState != GameManager.GameState.NormalMode) return;
+        GameManager.Instance.HandsManager.Holding(this);
+    }
+
+    public void OnDrop()
+    {
+        if (GameManager.Instance.currentGameState != GameManager.GameState.CardHolding) return;
+        GameManager.Instance.HandsManager.Drop(this);
+
+        if(DetectDropAbleObject())
+        {
+            GameManager.Instance.HandsManager.Discard(this);
+        }
+        
+    }
+
+    private bool DetectDropAbleObject()
+    {
+        Collider2D[] detectedCollider = Physics2D.OverlapBoxAll(
+        _col.bounds.center,
+        _col.bounds.size,
+        10f);
+
+        foreach (var detected in detectedCollider)
+        {
+            if (detected.TryGetComponent(out IDropReceiver dropReceiver))
+            {
+                return dropReceiver.DropReceive(this);
+            }
+        }
+
+        return false;
+    }
+    #endregion
 }
 
 

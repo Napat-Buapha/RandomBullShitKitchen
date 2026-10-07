@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Stove : MonoBehaviour
+public class Stove : MonoBehaviour, IDropReceiver
 {
     [Header("UI Ref")]
     //Base Card Data Ref
@@ -18,11 +18,21 @@ public class Stove : MonoBehaviour
     [SerializeField] Stove_IngredientUi slotUi;
 
     [SerializeField] GameObject addButton;
+    [SerializeField] GameObject placeButton;
     [SerializeField] Button cookButton;
 
     [SerializeField] TMP_Text totalTastePointT;
 
+    public bool DropReceive(CardCardGame_Base card)
+    {
+        if (card is CardCardGame_Ingredient ingredientCard)
+            return AddIngredient(ingredientCard);
 
+        if (card is CardCardGame_KitchenWare kitchenWareCard)
+            return PlaceKitchenWare(kitchenWareCard);
+
+        return false;
+    }
 
 
     public bool isOccupied { get; private set; } = false;
@@ -47,29 +57,30 @@ public class Stove : MonoBehaviour
         _baseCardKitchenWareRef = null;
 
         isOccupied = false;
-        DisableAddButton();
-        DisableCookButton();
+        SetAddButtonState(false);
+        SetCookButtonState(false);
+        SetPlaceButtonState(false);
 
         kitchenWareSpriteRenderer.sprite = null;
         slotUi.DisableIngredientUI();
     }
 
-    public void PlaceKitchenWare(CardCardGame_KitchenWare kitchenWare)
+    public bool PlaceKitchenWare(CardCardGame_KitchenWare kitchenWare)
     {
-        _baseCardKitchenWareRef = kitchenWare.baseCardRef;
+        if(isOccupied) return false;
 
+        _baseCardKitchenWareRef = kitchenWare.baseCardRef;
         kitchenWareVariable = kitchenWare.kitchenWareVariable;
         ingredientSlots = new IngredientCharacteristics[kitchenWareVariable.ingredientSlot];
         kitchenWareSpriteRenderer.sprite = kitchenWareVariable.kitchenWareActiveSprite;
         slotUi.EnableIngredientUI(kitchenWare);
-
         isOccupied = true;
-        GameManager.Instance.HandsManager.UnSelectAllIngredient();
+        return true;
     }
 
     public void UpdateTotalTastePoint()
     {
-        if(ingredientSlots == null)
+        if (ingredientSlots == null)
         {
             totalTastePointT.text = "0";
             return;
@@ -91,6 +102,8 @@ public class Stove : MonoBehaviour
     /// </summary>
     public bool AddIngredient(CardCardGame_Ingredient ingredient)
     {
+        if(!isOccupied) return false;
+
         if (!GameManager.Instance.ResourceManager.PayTimePoint(ingredient.ingredientVariable.cardCost))
         {
             Debug.Log("Not Enough Time Point");
@@ -128,35 +141,40 @@ public class Stove : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(ingredientSlots[ingredientSlots.Length - 1].ingredientName))
         {
-            EnableCookButton();
+            SetCookButtonState(true);
         }
     }
 
     #region Button Event
 
+    // Place KitchenWare
+    public void SetPlaceButtonState(bool activeState)
+    {
+        placeButton.SetActive(activeState);
+    }
+
+    public void PlaceKitchenWareButton()
+    {
+        GameManager.Instance.HandsManager.PlaceKitchenWareOnStove(this);
+    }
+
     // Add ingredients
-    public void EnableAddButton()
+    public void SetAddButtonState(bool activeState)
     {
-        addButton.SetActive(true);
+        addButton.SetActive(activeState);
     }
-    public void DisableAddButton()
-    {
-        addButton.SetActive(false);
-    }
-    public void AddButton()
+
+    public void AddIngredientButton()
     {
         GameManager.Instance.HandsManager.AddSelectedIngredientToStove(this);
     }
 
     // Cooking
-    public void EnableCookButton()
+    public void SetCookButtonState(bool activeState)
     {
-        cookButton.interactable = true;
+        cookButton.interactable = activeState;
     }
-    public void DisableCookButton()
-    {
-        cookButton.interactable = false;
-    }
+
     public void CookButton()
     {
         GameManager.Instance.CookingManager.Cook(kitchenWareVariable.recipeList, ingredientSlots.ToList());
@@ -164,6 +182,8 @@ public class Stove : MonoBehaviour
         ThrownInToTrashBin();
         ResetStove();
     }
+
+
     #endregion
 }
 

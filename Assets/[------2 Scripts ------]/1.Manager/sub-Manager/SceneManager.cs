@@ -32,21 +32,23 @@ public class SceneManager : MonoBehaviour
         }
     }
 
-    public void PlaceKitchenWare(CardCardGame_KitchenWare kitchenWare)
+    public void EnableAllPlaceButton()
     {
         foreach(Stove stove in _stoves)
         {
             if(!stove.isOccupied)
             {
-                Apply(kitchenWare, stove);
-                break;
+                stove.SetPlaceButtonState(true);
             }
         }
     }
-    private static void Apply(CardCardGame_KitchenWare kitchenWare, Stove stove)
+
+    public void DisableAllPlaceButton()
     {
-        stove.PlaceKitchenWare(kitchenWare);
-        GameManager.Instance.HandsManager.Discard(kitchenWare);
+        foreach(Stove stove in _stoves)
+        {
+            stove.SetPlaceButtonState(false);
+        }
     }
 
     public void EnableAllAddButtons()
@@ -54,7 +56,7 @@ public class SceneManager : MonoBehaviour
         foreach (Stove stove in _stoves)
         {
             if(stove.isOccupied)
-            stove.EnableAddButton();
+            stove.SetAddButtonState(true);
         }
     }
 
@@ -62,7 +64,7 @@ public class SceneManager : MonoBehaviour
     {
         foreach (Stove stove in _stoves)
         {
-            stove.DisableAddButton();
+            stove.SetAddButtonState(false);
         }
     }
 

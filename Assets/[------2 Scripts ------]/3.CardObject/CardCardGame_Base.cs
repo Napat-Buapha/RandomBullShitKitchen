@@ -6,12 +6,12 @@ using UnityEngine.Events;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 
-public class CardCardGame_Base : MonoBehaviour
+public class CardCardGame_Base : MonoBehaviour 
 {
     public CardData cardData { get; private set; }
     public Card baseCardRef { get; private set; }
     public UnityEvent<CardCardGame_Base> OnClickEvent { get; private set; }
-
+    protected Collider2D _col;
     [Header("Visual")]
     [SerializeField] TMP_Text cardNameT;
     [SerializeField] TMP_Text cardDescriptionT;
@@ -22,8 +22,9 @@ public class CardCardGame_Base : MonoBehaviour
     public virtual void Init(Card card)
     {
         OnClickEvent = new UnityEvent<CardCardGame_Base>();
+        _col = GetComponent<Collider2D>();
         
-        OnDeselect();
+        OnDeSelect();
         RecordCardData(card);
         ApplyCardVisual();
     }
@@ -59,7 +60,7 @@ public class CardCardGame_Base : MonoBehaviour
         selectedHighlight.enabled = true;
     }
 
-    public void OnDeselect()
+    public void OnDeSelect()
     {
         selectedHighlight.enabled = false;
     }

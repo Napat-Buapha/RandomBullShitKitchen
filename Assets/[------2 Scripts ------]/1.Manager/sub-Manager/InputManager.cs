@@ -7,6 +7,7 @@ public class InputManager : MonoBehaviour
 
     public bool MouseClick { get; private set; }
     public bool MouseHold { get; private set; }
+    public bool MouseRelease { get; private set; }
 
     private InputAction clickAction;
 
@@ -24,7 +25,34 @@ public class InputManager : MonoBehaviour
 
     void Update()
     {
-        MouseClick = clickAction.WasReleasedThisFrame();
-        MouseHold = clickAction.IsPressed();
+        MouseClick = clickAction.WasPressedThisFrame();
+        MouseHold = HoldingInputCalculator();
+        MouseRelease = clickAction.WasReleasedThisFrame();
+    }
+
+    float currentHoldingDura = 0;
+    [SerializeField] float triggerHoldingDura = 0.2f;
+    bool HoldingInputCalculator()
+    {
+        if(clickAction.IsPressed())
+        {
+            currentHoldingDura += Time.unscaledDeltaTime;
+            if(currentHoldingDura >= triggerHoldingDura)
+            {
+                return true;                
+            }
+
+            return false;
+        }
+        else
+        {
+            ResetHoldingDuration();
+            return false;
+        }
+    }
+
+    public void ResetHoldingDuration()
+    {
+        currentHoldingDura = 0;
     }
 }

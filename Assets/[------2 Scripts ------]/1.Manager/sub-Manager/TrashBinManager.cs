@@ -69,7 +69,7 @@ public class TrashBinManager : MonoBehaviour
         }
         else
         {
-            card.OnDeselect();
+            card.OnDeSelect();
         }
     }
 
