@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,19 +10,79 @@ public class Stove : MonoBehaviour, IDropReceiver
     [Header("UI Ref")]
     //Base Card Data Ref
     Card _baseCardKitchenWareRef;
-
-
+    public bool isOccupied { get; private set; } = false;
     [SerializeField] SpriteRenderer kitchenWareSpriteRenderer;
     [SerializeField] KitchenWare_Variable kitchenWareVariable;
 
     IngredientCharacteristics[] ingredientSlots;
     [SerializeField] Stove_IngredientUi slotUi;
 
+    [Header("UI")]
     [SerializeField] GameObject addButton;
     [SerializeField] GameObject placeButton;
     [SerializeField] Button cookButton;
-
     [SerializeField] TMP_Text totalTastePointT;
+    [SerializeField] Image kitchenWareIndicator;
+    [SerializeField] Image ingredintIndicator;
+
+
+    public void Init()
+    {
+        ResetStove();
+        UpdateTotalTastePoint();
+
+        GameManager.Instance.OnGameStateChange.AddListener(OnGameStateChange);
+    }
+
+    #region GameState Event
+    void OnGameStateChange(GameManager.GameState currentGameState)
+    {
+        switch (currentGameState)
+        {
+            case GameManager.GameState.CardHolding:
+                ManageIndicator(true);
+                break;
+
+            default:
+                ManageIndicator(false);
+                break;
+        }
+    }
+
+    void ManageIndicator(bool activeState)
+    {
+        if (activeState == false)
+        {
+            DisableIndicator();
+        }
+        else
+        {
+            EnableIndicator(GameManager.Instance.HandsManager.holdingCard);
+        }
+    }
+
+    private void EnableIndicator(CardCardGame_Base card)
+    {
+        if (card is CardCardGame_KitchenWare && !isOccupied)
+        {
+            kitchenWareIndicator.enabled = true;
+            return;
+        }
+
+        if (card is CardCardGame_Ingredient && isOccupied)
+        {
+            if (string.IsNullOrEmpty(ingredientSlots[ingredientSlots.Length - 1].ingredientName))
+                ingredintIndicator.enabled = true;
+            return;
+        }
+    }
+
+    private void DisableIndicator()
+    {
+        kitchenWareIndicator.enabled = false;
+        ingredintIndicator.enabled = false;
+    }
+    #endregion
 
     public bool DropReceive(CardCardGame_Base card)
     {
@@ -32,15 +93,6 @@ public class Stove : MonoBehaviour, IDropReceiver
             return PlaceKitchenWare(kitchenWareCard);
 
         return false;
-    }
-
-
-    public bool isOccupied { get; private set; } = false;
-
-    void Start()
-    {
-        ResetStove();
-        UpdateTotalTastePoint();
     }
 
     private void ThrownInToTrashBin()
@@ -63,11 +115,12 @@ public class Stove : MonoBehaviour, IDropReceiver
 
         kitchenWareSpriteRenderer.sprite = null;
         slotUi.DisableIngredientUI();
+        UpdateTotalTastePoint();
     }
 
     public bool PlaceKitchenWare(CardCardGame_KitchenWare kitchenWare)
     {
-        if(isOccupied) return false;
+        if (isOccupied) return false;
 
         _baseCardKitchenWareRef = kitchenWare.baseCardRef;
         kitchenWareVariable = kitchenWare.kitchenWareVariable;
@@ -102,7 +155,7 @@ public class Stove : MonoBehaviour, IDropReceiver
     /// </summary>
     public bool AddIngredient(CardCardGame_Ingredient ingredient)
     {
-        if(!isOccupied) return false;
+        if (!isOccupied) return false;
 
         if (!GameManager.Instance.ResourceManager.PayTimePoint(ingredient.ingredientVariable.cardCost))
         {

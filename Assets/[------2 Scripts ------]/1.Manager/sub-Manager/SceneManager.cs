@@ -28,7 +28,10 @@ public class SceneManager : MonoBehaviour
             var stoveObject = Instantiate(stovePrefab, stovePos[i].position, Quaternion.identity, stovePos[i]);
 
             if (stoveObject.TryGetComponent(out Stove stoveComponent))
+            {   
+                stoveComponent.Init();
                 _stoves.Add(stoveComponent);
+            }
         }
     }
 

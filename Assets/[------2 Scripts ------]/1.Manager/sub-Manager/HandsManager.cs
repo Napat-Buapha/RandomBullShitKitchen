@@ -15,12 +15,14 @@ public class HandsManager : MonoBehaviour
     public List<CardCardGame_Base> cardsInHand { get; private set; }
     [SerializeField] Transform hand; //จุดกึ่งกลางของ hand
 
-    [Header("Card Spacing Customizer")]
+    [Header("Hands Customizer")]
     [SerializeField] float cardSpacing;
+    [SerializeField] float speed;
 
     // Card Selecting //
     [SerializeField] List<CardCardGame_Ingredient> currentSelectingIngredient;
     [SerializeField] CardCardGame_KitchenWare currentSeletingKitchenWare;
+    public CardCardGame_Base holdingCard { get; private set; }
 
     public void Init(GameManager gm)
     {
@@ -34,56 +36,56 @@ public class HandsManager : MonoBehaviour
     }
     void Update()
     {
-        if(_gm.currentGameState == GameManager.GameState.NormalMode)
-        UpdateHandVisuals();
-        
-        if(_gm.currentGameState == GameManager.GameState.CardHolding)
-        CardDrag();
+        if (_gm.currentGameState == GameManager.GameState.NormalMode)
+            UpdateHandVisuals();
+
+        if (_gm.currentGameState == GameManager.GameState.CardHolding)
+            CardDrag();
     }
 
-    
-    #region Card Selecting State
-        void OnGameStateChange(GameManager.GameState currentGameState)
+
+    #region GameState Event
+    void OnGameStateChange(GameManager.GameState currentGameState)
+    {
+        switch (currentGameState)
         {
-            switch (currentGameState)
-            {
-                case GameManager.GameState.NormalMode:
-                    SetNormal();
-                    break;
-    
-                case GameManager.GameState.SelectingHand:
-                    SetHandSelect();
-                    break;
-    
-                default:
-                    SetOther();
-                    break;
-            }
+            case GameManager.GameState.NormalMode:
+                SetNormal();
+                break;
+
+            case GameManager.GameState.SelectingHand:
+                SetHandSelect();
+                break;
+
+            default:
+                SetOther();
+                break;
         }
-        private void SetNormal()
+    }
+    private void SetNormal()
+    {
+        foreach (var card in cardsInHand)
         {
-            foreach (var card in cardsInHand)
-            {
-                card.OnClickEvent?.RemoveAllListeners();
-                card.OnClickEvent.AddListener(CardSelect);
-            }
+            card.OnClickEvent?.RemoveAllListeners();
+            card.OnClickEvent.AddListener(CardSelect);
         }
-        private void SetHandSelect()
+    }
+    private void SetHandSelect()
+    {
+        foreach (var card in cardsInHand)
         {
-            foreach (var card in cardsInHand)
-            {
-                card.OnClickEvent?.RemoveAllListeners();
-                card.OnClickEvent.AddListener(SelectCardForEffect);
-            }
+            card.OnClickEvent?.RemoveAllListeners();
+            card.OnClickEvent.AddListener(SelectCardForEffect);
         }
-        private void SetOther()
+    }
+    private void SetOther()
+    {
+        foreach (var card in cardsInHand)
         {
-            foreach (var card in cardsInHand)
-            {
-                card.OnClickEvent?.RemoveAllListeners();
-    
-            }
+            card.OnClickEvent?.RemoveAllListeners();
+
         }
+    }
     #endregion
     #region Hand Virtual Update
     public void UpdateHandVisuals()
@@ -109,7 +111,13 @@ public class HandsManager : MonoBehaviour
 
     private void ApplyPositionToCard(int i, Vector3 worldPos)
     {
-        cardsInHand[i].transform.position = new Vector3(worldPos.x, worldPos.y, -i * 0.01f);
+        Vector2 target = new Vector3(worldPos.x, worldPos.y, -i * 0.01f);
+
+        cardsInHand[i].transform.position = Vector2.Lerp(
+        cardsInHand[i].transform.position,
+        target,
+        speed * Time.deltaTime);
+
         cardsInHand[i].GetComponent<SortingGroup>().sortingOrder = i + 1;
         cardsInHand[i].ApplySortingLayerToCanvas(i + 1);
     }
@@ -193,7 +201,7 @@ public class HandsManager : MonoBehaviour
     #region IngredientCardEvent
     public void SelectIngredient(CardCardGame_Ingredient ingredient)
     {
-        if(currentSeletingKitchenWare != null) UnselectKitchenWare();
+        if (currentSeletingKitchenWare != null) UnselectKitchenWare();
 
         if (currentSelectingIngredient.Contains(ingredient))
         {
@@ -237,7 +245,7 @@ public class HandsManager : MonoBehaviour
     #region KitchenWareCardEvent
     public void SelectKitchenWare(CardCardGame_KitchenWare kitchenWare)
     {
-        if(currentSeletingKitchenWare == kitchenWare)
+        if (currentSeletingKitchenWare == kitchenWare)
         {
             UnselectKitchenWare();
             return;
@@ -252,7 +260,7 @@ public class HandsManager : MonoBehaviour
 
     public void UnselectKitchenWare()
     {
-        if(currentSeletingKitchenWare == null) return;
+        if (currentSeletingKitchenWare == null) return;
 
         currentSeletingKitchenWare.OnDeSelect();
         currentSeletingKitchenWare = null;
@@ -285,36 +293,40 @@ public class HandsManager : MonoBehaviour
     }
     #endregion
     #region CardHolding
-        public CardCardGame_Base holdingCard {get;private set;}
-    
-        public void Holding(CardCardGame_Base card)
+
+    public void Holding(CardCardGame_Base card)
+    {
+        if (holdingCard != null) return;
+
+        UnSelectAllCard();
+
+        holdingCard = card;
+        GameManager.Instance.SwitchGameState(GameManager.GameState.CardHolding);
+
+        holdingCard.GetComponent<SortingGroup>().sortingOrder = 100;
+
+        //cardsInHand.Remove(card); //เอาออกจาก List เพื่อกันไม่ให้ถูกเรียงโดยอัตโนมัติ
+    }
+
+    public void CardDrag()
+    {
+        if (holdingCard != null)
         {
-            if(holdingCard != null) return;
-    
-            UnSelectAllCard();
-    
-            holdingCard = card;
-            GameManager.Instance.SwitchGameState(GameManager.GameState.CardHolding);
-    
-            holdingCard.GetComponent<SortingGroup>().sortingOrder = 100;
-    
-            //cardsInHand.Remove(card); //เอาออกจาก List เพื่อกันไม่ให้ถูกเรียงโดยอัตโนมัติ
+            var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+            holdingCard.gameObject.transform.position = new Vector3(mousePos.x, mousePos.y, 0);
         }
-    
-        public void CardDrag()
+        else
         {
-            if(holdingCard != null)
-            {
-                var mousePos = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue()); 
-                holdingCard.gameObject.transform.position = new Vector3(mousePos.x , mousePos.y , 0);
-            }
-        }
-    
-        public void Drop(CardCardGame_Base card)
-        {
-            holdingCard = null;
+            //Prevent Bug 
             GameManager.Instance.SwitchGameState(GameManager.GameState.NormalMode);
         }
+    }
+
+    public void Drop(CardCardGame_Base card)
+    {
+        holdingCard = null;
+        GameManager.Instance.SwitchGameState(GameManager.GameState.NormalMode);
+    }
     #endregion
 }
 

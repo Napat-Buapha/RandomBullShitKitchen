@@ -1018,6 +1018,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
   inputActionAsset: {fileID: -944628639613478452, guid: 5ba4c517278afa942b452873b18ffe72, type: 3}
+  triggerHoldingDura: 0
 --- !u!4 &386537696
 Transform:
   m_ObjectHideFlags: 0
@@ -2086,7 +2087,9 @@ MonoBehaviour:
     value: {fileID: 6931732139107047885, guid: 4289f07c722de8a459c06a508e1b29f1, type: 3}
   hand: {fileID: 1031861922}
   cardSpacing: 1.65
-  currentSelectedIngredient: []
+  speed: 5
+  currentSelectingIngredient: []
+  currentSeletingKitchenWare: {fileID: 0}
 --- !u!1 &1197633923
 GameObject:
   m_ObjectHideFlags: 0
