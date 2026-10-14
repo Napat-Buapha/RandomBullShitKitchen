@@ -18,8 +18,8 @@ MonoBehaviour:
     amout: 1
     cardNameList: []
     cardTypesList: 
-    ingredientTypesList: 
-  targetSelectingState: 2
+    ingredientTypesList: 02000000i
+  targetSelectingState: 3
   <selectedList>k__BackingField: []
   OnCardAmoutChange:
     m_PersistentCalls:
