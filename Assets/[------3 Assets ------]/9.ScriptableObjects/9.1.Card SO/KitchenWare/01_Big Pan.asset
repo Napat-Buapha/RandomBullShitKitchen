@@ -21,8 +21,15 @@ MonoBehaviour:
     <ingredientSlot>k__BackingField: 4
     <kitchenWareActiveSprite>k__BackingField: {fileID: 21300000, guid: 5871f0ece60f3394b8446fea8644943c, type: 3}
     <recipeList>k__BackingField:
+    - {fileID: 11400000, guid: 2c4da574a19f3394685d2761b8abce7f, type: 2}
     - {fileID: 11400000, guid: 6a92491c7b17da444b3547cfb2baaec2, type: 2}
     - {fileID: 11400000, guid: 1664509f3d9868e4984722190ae7b7d6, type: 2}
-    - {fileID: 11400000, guid: 97546d461b7df8a469b108243fad1804, type: 2}
-    - {fileID: 11400000, guid: b3d600cdda5703048b5eee7c4e1f15fe, type: 2}
-    - {fileID: 11400000, guid: d0011d2e913c6314880d3ce3a3342084, type: 2}
+    - {fileID: 11400000, guid: 21e33ece22cde624c8b0591ccf7f8db2, type: 2}
+    - {fileID: 11400000, guid: 41f93518aac800e41a1663833e05e149, type: 2}
+    - {fileID: 11400000, guid: a33ab8608f5d98842923cceee1467d7b, type: 2}
+    - {fileID: 11400000, guid: 68da5b27dc4fb0849a6df190f203e83e, type: 2}
+    - {fileID: 11400000, guid: 5c1b83393a27ccd499b1aa10355d1586, type: 2}
+    - {fileID: 11400000, guid: 6e93c2e691a1d9d4da0c4c7dc1cca9c9, type: 2}
+    - {fileID: 11400000, guid: e76cfcc3f1201fa4cbdb0ec3671f908d, type: 2}
+    - {fileID: 11400000, guid: d3f597d3b0cf8794b972e6c400c8af88, type: 2}
+    - {fileID: 11400000, guid: f30215e58ec652c4e835d9a9b2e42df8, type: 2}

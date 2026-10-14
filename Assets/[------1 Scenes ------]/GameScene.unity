@@ -498,25 +498,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DeckManager
   deckLists:
-  - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
-  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
-  - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
-  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
-  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
-  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: 9ec8f083424de3f4db5a058037237788, type: 2}
   - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
   - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
-  - {fileID: 11400000, guid: 93acf1262e6a35845a3bbcb691f1d202, type: 2}
-  - {fileID: 11400000, guid: 93acf1262e6a35845a3bbcb691f1d202, type: 2}
+  - {fileID: 11400000, guid: b311184ff9ddfbc479ac14377a2ec2df, type: 2}
+  - {fileID: 11400000, guid: 3d1ff67feaf8ba34fa0d01a72feeafcf, type: 2}
+  - {fileID: 11400000, guid: fe08b7b02c9618c44b96759a441b66cb, type: 2}
+  - {fileID: 11400000, guid: 1efe4f560b55eed40836e55948bc73c1, type: 2}
+  - {fileID: 11400000, guid: d2414dd7888d1a648b604f0e87032e4d, type: 2}
+  - {fileID: 11400000, guid: 472d896ccd09c0643b8ca1ea7cd44d36, type: 2}
   - {fileID: 11400000, guid: 4d843ab805df0464c8590ded3e585906, type: 2}
-  - {fileID: 11400000, guid: 4d843ab805df0464c8590ded3e585906, type: 2}
+  - {fileID: 11400000, guid: 93acf1262e6a35845a3bbcb691f1d202, type: 2}
+  - {fileID: 11400000, guid: e0d2e16160d5e7f4ea2570966f51fbe8, type: 2}
+  - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
+  - {fileID: 11400000, guid: e962077f4fcc9cc49b1bfab21e9e13d3, type: 2}
   - {fileID: 11400000, guid: 73ed89eff73e7634a9fd7ce133246ba5, type: 2}
   - {fileID: 11400000, guid: 73ed89eff73e7634a9fd7ce133246ba5, type: 2}
-  - {fileID: 11400000, guid: 472d896ccd09c0643b8ca1ea7cd44d36, type: 2}
-  - {fileID: 11400000, guid: 472d896ccd09c0643b8ca1ea7cd44d36, type: 2}
-  - {fileID: 11400000, guid: 472d896ccd09c0643b8ca1ea7cd44d36, type: 2}
-  - {fileID: 11400000, guid: d2414dd7888d1a648b604f0e87032e4d, type: 2}
-  - {fileID: 11400000, guid: d2414dd7888d1a648b604f0e87032e4d, type: 2}
 --- !u!1 &338933062
 GameObject:
   m_ObjectHideFlags: 0
@@ -3922,7 +3919,7 @@ Transform:
   m_GameObject: {fileID: 2082883506}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.1, y: 3.14, z: 0}
+  m_LocalPosition: {x: -6, y: 3.14, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
