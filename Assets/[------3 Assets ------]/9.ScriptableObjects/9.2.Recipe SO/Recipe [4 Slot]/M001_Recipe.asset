@@ -15,9 +15,13 @@ MonoBehaviour:
   specificIngredients:
   - key: 001
     value: 1
+  - key: 002
+    value: 1
   - key: 003
     value: 1
-  positiveIngredients: 0100000000000000i
+  - key: 004
+    value: 1
+  positiveIngredients: 
   negativeIngredients: 
   ingredientAmout: 4
   cardMenu: {fileID: 11400000, guid: d9308111676d3d6449c4b137a2109793, type: 2}

@@ -19,6 +19,6 @@ MonoBehaviour:
   <effects>k__BackingField: []
   <ingredientVariable>k__BackingField:
     <ingredientId>k__BackingField: 003
-    <tastePoint>k__BackingField: 4
-    <cardCost>k__BackingField: 1
-    <ingredientType>k__BackingField: 3
+    <ingredientType>k__BackingField: 2
+    tastePoint: 0
+    cardCost: 0

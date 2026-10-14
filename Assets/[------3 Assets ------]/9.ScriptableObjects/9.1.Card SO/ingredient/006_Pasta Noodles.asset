@@ -20,6 +20,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e05416b12787a354a91a8a91b4720133, type: 2}
   <ingredientVariable>k__BackingField:
     <ingredientId>k__BackingField: 006
-    <ingredientType>k__BackingField: 4
+    <ingredientType>k__BackingField: 3
     tastePoint: 4
     cardCost: 2

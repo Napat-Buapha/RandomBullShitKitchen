@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: M003_Recipe
   m_EditorClassIdentifier: Assembly-CSharp::Recipe
   specificIngredients: []
-  positiveIngredients: 01000000040000000000000003000000i
+  positiveIngredients: 01000000020000000000000003000000i
   negativeIngredients: 
   ingredientAmout: 4
   cardMenu: {fileID: 11400000, guid: 78e06458571f7e34e85480736c3798c3, type: 2}
