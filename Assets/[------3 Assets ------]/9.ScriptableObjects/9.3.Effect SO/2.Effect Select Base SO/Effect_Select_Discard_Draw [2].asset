@@ -15,7 +15,7 @@ MonoBehaviour:
   <effectType>k__BackingField: 1
   selectionCondition:
     needToBeFull: 1
-    amout: 2
+    amout: 1
     cardNameList: []
     cardTypesList: 
     ingredientTypesList: 
