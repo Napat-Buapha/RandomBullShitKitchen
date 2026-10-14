@@ -36,11 +36,11 @@ public class HandsManager : MonoBehaviour
     }
     void Update()
     {
-        if (_gm.currentGameState == GameManager.GameState.NormalMode)
-            UpdateHandVisuals();
-
         if (_gm.currentGameState == GameManager.GameState.CardHolding)
             CardDrag();
+        else
+            UpdateHandVisuals();
+    
     }
 
 
@@ -318,6 +318,7 @@ public class HandsManager : MonoBehaviour
         else
         {
             //Prevent Bug 
+            if(GameManager.Instance.currentGameState == GameManager.GameState.CardHolding)
             GameManager.Instance.SwitchGameState(GameManager.GameState.NormalMode);
         }
     }
@@ -325,6 +326,8 @@ public class HandsManager : MonoBehaviour
     public void Drop(CardCardGame_Base card)
     {
         holdingCard = null;
+
+        if(GameManager.Instance.currentGameState == GameManager.GameState.CardHolding)
         GameManager.Instance.SwitchGameState(GameManager.GameState.NormalMode);
     }
     #endregion
