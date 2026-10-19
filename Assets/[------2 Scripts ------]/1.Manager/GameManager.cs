@@ -14,49 +14,55 @@ public class GameManager : MonoBehaviour
         SelectingBin,
     }
 
-    [field:SerializeField] public GameState currentGameState {get; private set;}
-    public UnityEvent<GameState> OnGameStateChange {get; private set;} = new ();
-    [field:SerializeField] public SelectionCondition currentSelectionCondition {get; private set;}
-    
+    [Header("Level Loop")]
+    [field: SerializeField] public int currentLevel { get; private set; }
+    [field: SerializeField] public int baseTargetScore { get; private set; }
+    [field: SerializeField] public float scoreIncreaseRate { get; private set; }
+
+    //[field: SerializeField] 
+    public GameState currentGameState { get; private set; }
+    public UnityEvent<GameState> OnGameStateChange { get; private set; } = new();
+    //[field: SerializeField] 
+    public SelectionCondition currentSelectionCondition { get; private set; }
     public static GameManager Instance { get; private set; }
     #region SubManager Refference
-        [Header("Sub Manager")]
-        [SerializeField] private CookingManager cookingManager;
-        public CookingManager CookingManager => cookingManager;
-        [SerializeField] private DeckManager deckManager;
-        public DeckManager DeckManager => deckManager;
-        [SerializeField] private HandsManager handsManager;
-        public HandsManager HandsManager => handsManager;
-        [SerializeField] private PointerManager pointerManager;
-        public PointerManager PointerManager => pointerManager;
-        [SerializeField] private QuestManager questManager;
-        public QuestManager QuestManager => questManager;
-        [SerializeField] private SceneManager sceneManager;
-        public SceneManager SceneManager => sceneManager;
-        [SerializeField] private ScoreManager scoreManager;
-        public ScoreManager ScoreManager => scoreManager;
-        [SerializeField] private TurnManager turnManager;
-        public TurnManager TurnManager => turnManager;
-        [SerializeField] private CardEffectManager cardEffectManager;
-        public CardEffectManager CardEffectManager => cardEffectManager;
-        [SerializeField] private InputManager inputManager;
-        public InputManager InputManager => inputManager;
-        [SerializeField] private ResourceManager resourceManager;
-        public ResourceManager ResourceManager => resourceManager;
-        [SerializeField] private ServeTableManager serveTableManager;
-        public ServeTableManager ServeTableManager => serveTableManager;
-        [SerializeField] private TrashBinManager trashBinManager;
-        public TrashBinManager TrashBinManager => trashBinManager;
-        [SerializeField] private UiManager uiManager;
-        public UiManager UiManager => uiManager;
+    [Header("Sub Manager")]
+    [SerializeField] private CookingManager cookingManager;
+    public CookingManager CookingManager => cookingManager;
+    [SerializeField] private DeckManager deckManager;
+    public DeckManager DeckManager => deckManager;
+    [SerializeField] private HandsManager handsManager;
+    public HandsManager HandsManager => handsManager;
+    [SerializeField] private PointerManager pointerManager;
+    public PointerManager PointerManager => pointerManager;
+    [SerializeField] private QuestManager questManager;
+    public QuestManager QuestManager => questManager;
+    [SerializeField] private SceneManager sceneManager;
+    public SceneManager SceneManager => sceneManager;
+    [SerializeField] private ScoreManager scoreManager;
+    public ScoreManager ScoreManager => scoreManager;
+    [SerializeField] private TurnManager turnManager;
+    public TurnManager TurnManager => turnManager;
+    [SerializeField] private CardEffectManager cardEffectManager;
+    public CardEffectManager CardEffectManager => cardEffectManager;
+    [SerializeField] private InputManager inputManager;
+    public InputManager InputManager => inputManager;
+    [SerializeField] private ResourceManager resourceManager;
+    public ResourceManager ResourceManager => resourceManager;
+    [SerializeField] private ServeTableManager serveTableManager;
+    public ServeTableManager ServeTableManager => serveTableManager;
+    [SerializeField] private TrashBinManager trashBinManager;
+    public TrashBinManager TrashBinManager => trashBinManager;
+    [SerializeField] private UiManager uiManager;
+    public UiManager UiManager => uiManager;
     #endregion
 
     void Awake()
     {
         Singleton();
         InitManagers();
+        SetUpFirstLevel();
     }
-
     void InitManagers()
     {
         PointerManager.Init(this);
@@ -68,9 +74,8 @@ public class GameManager : MonoBehaviour
         SceneManager.Init(this);
         CardEffectManager.Init(this);
         UiManager.Init(this);
-        ScoreManager.Init();
+        ScoreManager.Init(this);
     }
-
     private void Singleton()
     {
         if (Instance == null)
@@ -83,9 +88,10 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
     public bool SwitchGameState(GameState targetGameState)
     {
-        if(currentGameState == targetGameState)
+        if (currentGameState == targetGameState)
         {
             return false;
         }
@@ -95,12 +101,54 @@ public class GameManager : MonoBehaviour
 
         return true;
     }
-
-    public void SwitchToSelectionState(SelectionCondition selectionCon , GameState targetSelectingState)
+    public void SwitchToSelectionState(SelectionCondition selectionCon, GameState targetSelectingState)
     {
-        if(targetSelectingState == GameState.NormalMode) return;
- 
+        if (targetSelectingState == GameState.NormalMode) return;
+
         currentSelectionCondition = selectionCon;
         SwitchGameState(targetSelectingState);
     }
+
+
+    #region GameLoop
+
+    [ContextMenu("Reset")]
+    public void GameOver()
+    {
+        SetUpFirstLevel();
+        ClearScene();
+    }
+
+    public void NextLevel()
+    {
+        currentLevel += 1;
+        ClearScene();
+
+        ScoreManager.SetUpTargetScore((int)CalculateTargetScore(baseTargetScore, currentLevel, scoreIncreaseRate));
+        UiManager.UpdateLevelText(currentLevel);
+    }
+
+    public void SetUpFirstLevel()
+    {
+        currentLevel = 1;
+        ScoreManager.SetUpTargetScore(baseTargetScore);
+        UiManager.UpdateLevelText(currentLevel);
+    }
+
+    private void ClearScene()
+    {
+        DeckManager.RecycleDeck();
+
+        ServeTableManager.Reset();
+        TurnManager.Reset();
+        SceneManager.Reset();
+        ScoreManager.Reset();
+    }
+
+    public float CalculateTargetScore(int baseValue, int level, float rate)
+    {
+        //Expotential Graph
+        return baseValue * Mathf.Pow(1f + rate, level - 1);
+    }
+    #endregion
 }

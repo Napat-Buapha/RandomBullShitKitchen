@@ -33,11 +33,10 @@ public class TurnManager : MonoBehaviour
 
         if (currentTurn > TurnLimit)
         {
-            Debug.Log("Game Over");
+            _gm.SceneManager.GameConclude(false);
             return;
         }
 
-        //_gm.DeckManager.RecycleDeck();
         _gm.DeckManager.DrawCard(startingHand);
         _gm.ResourceManager.ResetTimePoint();
     }
@@ -45,5 +44,11 @@ public class TurnManager : MonoBehaviour
     void UpdateTurnText()
     {
         turnText.text = $"Turn: {currentTurn}/{TurnLimit}";
+    }
+
+    public void Reset()
+    {
+        currentTurn = 0;
+        StartNewTurn();
     }
 }   

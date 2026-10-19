@@ -4,12 +4,30 @@ using UnityEngine.SocialPlatforms.Impl;
 
 public class ScoreManager : MonoBehaviour
 {
+    GameManager _gm;
+
     int _score;
     [SerializeField] TMP_Text scoreT;
 
-    public void Init()
+    //Goal
+    int _targetScore;
+
+    public void Init(GameManager gm)
     {
+        _gm = gm;
         scoreT.text = "Score: 0";
+    }
+
+    public void Reset()
+    {
+        _score = 0;
+    }
+
+
+    public void SetUpTargetScore(int amout)
+    {
+        _targetScore = amout;
+        UpdateScore();
     }
 
     public void CalculateScore(CardCardGame_Menu menuCard, float ingredientsScore)
@@ -42,6 +60,13 @@ public class ScoreManager : MonoBehaviour
 
     private void UpdateScore()
     {
-        scoreT.text = $"Score: {_score}";
+        if(_score >= _targetScore)
+        {
+            _gm.SceneManager.GameConclude(true);
+        }
+    
+        scoreT.text = $"Score: {_score} / {_targetScore}";
     }
+
+
 }

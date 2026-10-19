@@ -6,7 +6,7 @@ using UnityEngine.Rendering;
 public class ServeTableManager : MonoBehaviour
 {
     [SerializeField] CardCardGame_Menu cardPrefab;
-    public List<CardCardGame_Menu> CardsInTable;
+    public List<CardCardGame_Menu> MenuCardList;
     [SerializeField] Transform serveTable; //จุดกึ่งกลางของ hand
 
     [Header("Card Spacing Customizer")]
@@ -19,16 +19,26 @@ public class ServeTableManager : MonoBehaviour
         UpdateHandVisuals();
     }
 
+    public void Reset()
+    {
+        foreach (var menuCard in MenuCardList)
+        {
+            Destroy(menuCard.gameObject);
+        }
+        MenuCardList.Clear();
+    }
+
+    #region HandVisual
     public void UpdateHandVisuals()
     {
-        int cardCount = CardsInTable.Count;
+        int cardCount = MenuCardList.Count;
 
         if (cardCount == 0) return;
 
         if (cardCount == 1)
         {
-            CardsInTable[0].transform.position = serveTable.position;
-            CardsInTable[0].transform.rotation = cardRotation;
+            MenuCardList[0].transform.position = serveTable.position;
+            MenuCardList[0].transform.rotation = cardRotation;
             return;
         }
 
@@ -42,15 +52,16 @@ public class ServeTableManager : MonoBehaviour
 
     private void ApplyPositionToCard(int i, Vector3 worldPos)
     {
-        CardsInTable[i].transform.position = new Vector3(worldPos.x, worldPos.y, -i * 0.1f);
-        CardsInTable[i].GetComponent<SortingGroup>().sortingOrder = i + 1;
-        CardsInTable[i].ApplySortingLayerToCanvas(i + 1);
+        MenuCardList[i].transform.position = new Vector3(worldPos.x, worldPos.y, -i * 0.1f);
+        MenuCardList[i].GetComponent<SortingGroup>().sortingOrder = i + 1;
+        MenuCardList[i].ApplySortingLayerToCanvas(i + 1);
     }
 
     private void ApplyRotationToCard(int i)
     {
-        CardsInTable[i].transform.rotation = cardRotation;
+        MenuCardList[i].transform.rotation = cardRotation;
     }
+
 
     private Vector3 CalculateCardPosition(int i)
     {
@@ -62,6 +73,7 @@ public class ServeTableManager : MonoBehaviour
                          + -serveTable.up * verticalOffset;
         return worldPos;
     }
+    #endregion
 
     public void AddedMenuCard(Card card, int ingredientsScore)
     {
@@ -71,7 +83,7 @@ public class ServeTableManager : MonoBehaviour
         var cardComponent = card_.GetComponent<CardCardGame_Menu>();
         cardComponent.ApplyBaseScore(ingredientsScore);
         cardComponent.Init(card);
-        CardsInTable.Add(cardComponent);
+        MenuCardList.Add(cardComponent);
         UpdateHandVisuals();
 
         GameManager.Instance.ScoreManager.CalculateScore(cardComponent, ingredientsScore);

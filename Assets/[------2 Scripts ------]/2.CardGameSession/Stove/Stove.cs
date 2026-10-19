@@ -34,6 +34,11 @@ public class Stove : MonoBehaviour, IDropReceiver
         GameManager.Instance.OnGameStateChange.AddListener(OnGameStateChange);
     }
 
+    private void OnDisable() 
+    {
+        GameManager.Instance.OnGameStateChange.RemoveListener(OnGameStateChange);
+    }
+
     #region GameState Event
     void OnGameStateChange(GameManager.GameState currentGameState)
     {

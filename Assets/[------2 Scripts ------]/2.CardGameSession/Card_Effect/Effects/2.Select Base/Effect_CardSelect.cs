@@ -14,8 +14,8 @@ public class Effect_CardSelect : Effect
     {
         OnCardAmoutChange = new UnityEvent<int>();
         GameManager.Instance.SwitchToSelectionState(selectionCondition , targetSelectingState);
-        GameManager.Instance.UiManager.SelectionMenu.resolveButton.onClick.AddListener(ResolveExecute);
-        GameManager.Instance.UiManager.SelectionMenu.cancleButton.onClick.AddListener(CancleSelected);
+        GameManager.Instance.UiManager.selectionMenu.resolveButton.onClick.AddListener(ResolveExecute);
+        GameManager.Instance.UiManager.selectionMenu.cancleButton.onClick.AddListener(CancleSelected);
         selectedList = new();
     }
 
@@ -28,7 +28,7 @@ public class Effect_CardSelect : Effect
     {
         GameManager.Instance.SwitchGameState(GameManager.GameState.NormalMode);
         selectedList.Clear();
-        GameManager.Instance.UiManager.SelectionMenu.cancleButton.onClick?.RemoveListener(CancleSelected);
+        GameManager.Instance.UiManager.selectionMenu.cancleButton.onClick?.RemoveListener(CancleSelected);
         GameManager.Instance.CardEffectManager.RunningEffectQueue();
     }
 
