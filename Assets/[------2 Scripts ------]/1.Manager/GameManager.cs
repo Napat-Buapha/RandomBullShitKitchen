@@ -123,7 +123,6 @@ public class GameManager : MonoBehaviour
     {
         currentLevel += 1;
         ClearScene();
-
         ScoreManager.SetUpTargetScore((int)CalculateTargetScore(baseTargetScore, currentLevel, scoreIncreaseRate));
         UiManager.UpdateLevelText(currentLevel);
     }
@@ -137,12 +136,14 @@ public class GameManager : MonoBehaviour
 
     private void ClearScene()
     {
+        handsManager.DiscardHand();
         DeckManager.RecycleDeck();
 
         ServeTableManager.Reset();
         TurnManager.Reset();
         SceneManager.Reset();
-        ScoreManager.Reset();
+        ScoreManager.Reset();  
+        UiManager.Reset();
     }
 
     public float CalculateTargetScore(int baseValue, int level, float rate)

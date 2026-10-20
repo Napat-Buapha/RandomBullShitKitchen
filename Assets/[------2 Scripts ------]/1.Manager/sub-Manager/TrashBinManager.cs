@@ -7,7 +7,7 @@ public class TrashBinManager : MonoBehaviour
 {
     GameManager _gm;
     public List<CardCardGame_Base> discardPile { get; private set; }
-    public List<CardDiscardPile_Event> discordPileEvents { get; private set; }
+    public List<CardCanvas_Event> discordPileEvents { get; private set; }
 
     [Header("Ui Manager")]
     bool _canInteractUi;
@@ -23,7 +23,7 @@ public class TrashBinManager : MonoBehaviour
         _canInteractUi = true;
         _gm = gm;
         discardPile = new List<CardCardGame_Base>();
-        discordPileEvents = new List<CardDiscardPile_Event>();
+        discordPileEvents = new List<CardCanvas_Event>();
         DisableDiscardPilePanel();
     }
 
@@ -81,7 +81,7 @@ public class TrashBinManager : MonoBehaviour
             discardPile.Add(cardBase);
             cardBase.Init(card);
 
-            discordPileEvents.Add(_card.GetComponent<CardDiscardPile_Event>());
+            discordPileEvents.Add(_card.GetComponent<CardCanvas_Event>());
         }
 
     }
@@ -89,7 +89,7 @@ public class TrashBinManager : MonoBehaviour
     public Card Remove(CardCardGame_Base card)
     {
         discardPile.Remove(card);
-        discordPileEvents.Remove(card.gameObject.GetComponent<CardDiscardPile_Event>());
+        discordPileEvents.Remove(card.gameObject.GetComponent<CardCanvas_Event>());
 
         Destroy(card.gameObject);
         return card.baseCardRef;

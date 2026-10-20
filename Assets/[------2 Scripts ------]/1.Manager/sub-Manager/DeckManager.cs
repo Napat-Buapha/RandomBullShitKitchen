@@ -18,6 +18,12 @@ public class DeckManager : MonoBehaviour
         Shuffle();
     }
 
+    public void AddCardToDeckList(Card card)
+    {
+        deckLists.Add(card);
+        TurnDeckListActiveDeck();
+    }
+
     /// <summary>
     /// if onTop = true card will place on top of deck, 
     /// if onTop = false it will place under the bottom of deck

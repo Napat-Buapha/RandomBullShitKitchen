@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class CardDiscardPile_Event : MonoBehaviour , IPointerClickHandler
+public class CardCanvas_Event : MonoBehaviour , IPointerClickHandler
 {
     public UnityEvent<CardCardGame_Base> OnClickEvent { get; private set; }
     CardCardGame_Base card;

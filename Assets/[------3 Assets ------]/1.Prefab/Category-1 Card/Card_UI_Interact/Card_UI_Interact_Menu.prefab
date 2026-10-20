@@ -399,7 +399,7 @@ GameObject:
   - component: {fileID: 7587256631386003085}
   - component: {fileID: 2361352457775608592}
   m_Layer: 5
-  m_Name: Card_DiscardPile_Menu
+  m_Name: Card_UI_Interact_Menu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -454,7 +454,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3496299144239083615}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28f43da86ae3a5546a511ef3795b0182, type: 3}
+  m_Script: {fileID: 11500000, guid: 8ea8e796f36c9314484f9341b77e23c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDiscardPile
 --- !u!1 &3932175328111178489

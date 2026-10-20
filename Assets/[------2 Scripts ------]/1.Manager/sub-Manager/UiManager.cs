@@ -10,6 +10,7 @@ public class UiManager : MonoBehaviour
 
     [field:Header("Menu")]
     [field:SerializeField] public UI_SelectionMenu selectionMenu {get; private set;}
+    [field:SerializeField] public UI_ShopMenu shopMenu {get; private set;}
 
 
     [field:Header("Game Conclude")]
@@ -24,6 +25,14 @@ public class UiManager : MonoBehaviour
         _gm = gm;
 
         selectionMenu.Init();
+        shopMenu.Init();
+    }
+
+    public void Reset()
+    {
+        shopMenu.DisableCardShop();
+        DisableConcludePanel();
+        UnHideCanvas();
     }
 
     public void UpdateLevelText(int value)

@@ -98,7 +98,7 @@ public class SceneManager : MonoBehaviour
 
         if (isWin)
         {
-            _gm.UiManager.winPanel.SetActive(true);
+            _gm.UiManager.shopMenu.EnableCardShop();
         }
         else
         {
