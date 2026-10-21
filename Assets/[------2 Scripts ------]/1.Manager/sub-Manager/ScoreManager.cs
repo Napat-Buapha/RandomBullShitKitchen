@@ -66,6 +66,4 @@ public class ScoreManager : MonoBehaviour
     
         _gm.UiManager.UpdateScore(_score, _targetScore);
     }
-
-
 }

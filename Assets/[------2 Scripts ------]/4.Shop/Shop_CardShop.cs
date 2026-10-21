@@ -9,15 +9,13 @@ using UnityEngine.Events;
 public class Shop_CardShop : MonoBehaviour
 {
     [SerializeField] Dictionary<CardType, GameObject> cardPrefabs;
-    [SerializeField] List<Transform> cardSpawnsPos;
+    [SerializeField] List<Shop_CardSlot> cardSlots;
     [SerializeField] List<CardCardGame_Base> cardInShop;
     [SerializeField] List<Card> cardList;
 
     public List<CardWeight> cardPool { get; private set; }
 
-    [SerializeField] int maxSelectionAmout = 1;
-    int selectionAmout ;
-    [SerializeField] TMP_Text selectionAmoutT;
+
 
     public void Init()
     {
@@ -25,7 +23,7 @@ public class Shop_CardShop : MonoBehaviour
         cardPool = new List<CardWeight>();
 
         SeUpPool();
-        
+
     }
 
     private void SeUpPool()
@@ -42,13 +40,12 @@ public class Shop_CardShop : MonoBehaviour
     }
     public void SetUpShop()
     {
-        selectionAmout = maxSelectionAmout;
-        UpdateSelectionAmoutText();
-
         // Random Card In Shop 
-        foreach(var spawnPos in cardSpawnsPos)
+        foreach (var cardSlot in cardSlots)
         {
-            SpawnCards(WeightedRandom(cardPool) , spawnPos);
+            cardSlot.Init(this);
+            Card spawnedCard = SpawnCards(WeightedRandom(cardPool), cardSlot);
+            cardSlot.SetPriceTag(spawnedCard.cardPirce);
         }
     }
 
@@ -77,55 +74,34 @@ public class Shop_CardShop : MonoBehaviour
         return null;
     }
 
-    public void SpawnCards(Card card, Transform spawnPos)
+    public Card SpawnCards(Card card, Shop_CardSlot cardSlot)
     {
         // อย่าลืมเปลี่ยนไปใช้ Pool 
-        GameObject card_ = Instantiate(cardPrefabs[card.cardType], spawnPos.position, quaternion.identity, spawnPos);
+        GameObject card_ = Instantiate(cardPrefabs[card.cardType], cardSlot.transform.position, quaternion.identity, cardSlot.transform);
 
         var cardComponent = card_.GetComponent<CardCardGame_Base>();
         cardComponent.Init(card);
         cardInShop.Add(cardComponent);
 
         var uiComponent = card_.GetComponent<CardCanvas_Event>();
-        uiComponent.OnClickEvent.AddListener(ChooseCard);
-    }
+        uiComponent.OnClickEvent.AddListener(cardSlot.Buy);
 
-    public void ChooseCard(CardCardGame_Base card)
-    {
-        if (selectionAmout <= 0) return;
-
-        RemoveCard(card);
-        selectionAmout--;
-        UpdateSelectionAmoutText();
-        GameManager.Instance.DeckManager.AddCardToDeckList(card.baseCardRef);
-
-        /*if(selectionAmout <= 0)
-        {
-            GameManager.Instance.UiManager.shopMenu.DisableCardShop();
-            GameManager.Instance.UiManager.shopMenu.EndTrasaction();
-        }*/
-    }
-
-    private void UpdateSelectionAmoutText()
-    {
-        selectionAmoutT.text = "Selection Remain: " + selectionAmout;
+        return cardComponent.baseCardRef;
     }
 
     public void ClearShop()
     {
-        while(cardInShop.Count > 0)
+        while (cardInShop.Count > 0)
         {
             RemoveCard(cardInShop[0]);
         }
+
     }
 
-    private void RemoveCard(CardCardGame_Base card)
-    {   
-        if(!cardInShop.Contains(card)) return;
-
+    public void RemoveCard(CardCardGame_Base card)
+    {
+        if (!cardInShop.Contains(card)) return;
         cardInShop.Remove(card);
-        var cardUI = card.GetComponent<CardCanvas_Event>();
-        cardUI.OnClickEvent.RemoveListener(ChooseCard);
 
         //อย่าลืมเปลี่ยนเป็นส่งกลับ pool
         Destroy(card.gameObject);

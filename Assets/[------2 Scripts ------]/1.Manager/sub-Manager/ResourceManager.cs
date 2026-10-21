@@ -5,6 +5,7 @@ using UnityEngine;
 public class ResourceManager : MonoBehaviour
 {
     GameManager _gm;
+    [field:SerializeField] public int currentGoldAmout {get; private set;}
 
     [SerializeField] public int timePoint;
     [SerializeField] private int maxTimePoint;
@@ -40,6 +41,19 @@ public class ResourceManager : MonoBehaviour
             _gm.TurnManager.TurnEnd();
         }
 
+        return true;
+    }
+
+    public void ModifyGoldAmout(int amout)
+    {
+        currentGoldAmout += amout;
+    }
+
+    public bool PayGold(int amout)
+    {
+        if(currentGoldAmout < amout) return false;
+
+        currentGoldAmout -= amout;
         return true;
     }
 

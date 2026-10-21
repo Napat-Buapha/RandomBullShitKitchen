@@ -98,7 +98,8 @@ public class SceneManager : MonoBehaviour
 
         if (isWin)
         {
-            _gm.UiManager.shopMenu.EnableCardShop();
+            _gm.QuestManager.CalculateReward();
+            //สั่งเปิด WinPanel โดย QuestManager
         }
         else
         {

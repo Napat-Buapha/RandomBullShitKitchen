@@ -16,8 +16,6 @@ public class GameManager : MonoBehaviour
 
     [Header("Level Loop")]
     [field: SerializeField] public int currentLevel { get; private set; }
-    [field: SerializeField] public int baseTargetScore { get; private set; }
-    [field: SerializeField] public float scoreIncreaseRate { get; private set; }
 
     //[field: SerializeField] 
     public GameState currentGameState { get; private set; }
@@ -65,6 +63,7 @@ public class GameManager : MonoBehaviour
     }
     void InitManagers()
     {
+        QuestManager.Init(this);
         UiManager.Init(this);
         PointerManager.Init(this);
         DeckManager.Init(this);
@@ -112,7 +111,6 @@ public class GameManager : MonoBehaviour
 
     #region GameLoop
 
-    [ContextMenu("Reset")]
     public void GameOver()
     {
         SetUpFirstLevel();
@@ -123,14 +121,15 @@ public class GameManager : MonoBehaviour
     {
         currentLevel += 1;
         ClearScene();
-        ScoreManager.SetUpTargetScore((int)CalculateTargetScore(baseTargetScore, currentLevel, scoreIncreaseRate));
+        ScoreManager.SetUpTargetScore((int)QuestManager.CalculateLevelTargetScore
+        (QuestManager.baseTargetScore, currentLevel, QuestManager.scoreIncreaseRate));
         UiManager.UpdateLevelText(currentLevel);
     }
 
     public void SetUpFirstLevel()
     {
         currentLevel = 1;
-        ScoreManager.SetUpTargetScore(baseTargetScore);
+        ScoreManager.SetUpTargetScore(QuestManager.baseTargetScore);
         UiManager.UpdateLevelText(currentLevel);
     }
 
@@ -146,10 +145,5 @@ public class GameManager : MonoBehaviour
         UiManager.Reset();
     }
 
-    public float CalculateTargetScore(int baseValue, int level, float rate)
-    {
-        //Expotential Graph
-        return baseValue * Mathf.Pow(1f + rate, level - 1);
-    }
     #endregion
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class TurnManager : MonoBehaviour
 {
-    [SerializeField] private int currentTurn;
-    [SerializeField] private int turnLimit = 5;
+    [field:SerializeField] public int currentTurn {get;private set;}
+    [field:SerializeField] public int turnLimit {get;private set;} = 5;
 
     [Header("On Turn Reset Customizer")]
     [SerializeField] int startingHand = 5;

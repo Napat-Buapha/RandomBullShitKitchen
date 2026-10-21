@@ -9,6 +9,7 @@ public class Card : ScriptableObject
     [field: SerializeField] public Sprite cardImage { get; private set; }
     [field: SerializeField] public CardType cardType {get; private set; }
     [field: SerializeField] public List<Effect> effects {get; private set; } 
+    [field:SerializeField] public int cardPirce {get; private set; }  = 15;
 }
 public enum CardType
 {

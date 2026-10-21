@@ -10,6 +10,7 @@ public class UiManager : MonoBehaviour
     [field:SerializeField] public TMP_Text timePointT {get; private set;}
     [field:SerializeField] public TMP_Text turnT {get; private set;}
     [field:SerializeField] public TMP_Text scoreT {get; private set;}
+    [field:SerializeField] public TMP_Text goldAmoutT {get; private set;}
 
     [field:Header("Menu")]
     [field:SerializeField] public UI_SelectionMenu selectionMenu {get; private set;}
@@ -18,6 +19,7 @@ public class UiManager : MonoBehaviour
 
     [field:Header("Game Conclude")]
     [field:SerializeField] public GameObject winPanel {get; private set;}
+    [field:SerializeField] public TMP_Text rewardDescriptionT {get; private set;}
     [field:SerializeField] public GameObject lostPanel {get; private set;}
 
      [field:Header("Canvas Groups")]
@@ -58,7 +60,19 @@ public class UiManager : MonoBehaviour
         scoreT.text = $"Score: {score} / {targetScore}";
     }
 
+    public void UpdateGoldAmout()
+    {
+        goldAmoutT.text = $"{_gm.ResourceManager.currentGoldAmout} Gold";
+    }
 
+    public void EnableWinPanel(RewardData rewardData)
+    {
+        winPanel.SetActive(true);
+        rewardDescriptionT.text = 
+        $"Gain: {rewardData.goldAmout}\n" +
+        $"Gold Remain Turn: {rewardData.turnLeft}\n" +
+        $"Bonus Gold: {rewardData.bonusMultipler * rewardData.turnLeft} ({rewardData.turnLeft}x{rewardData.bonusMultipler})\n";
+    }
 
     public void DisableConcludePanel()
     {
@@ -78,3 +92,4 @@ public class UiManager : MonoBehaviour
         cardGameCanvasGroup.blocksRaycasts = true;
     }
 }
+

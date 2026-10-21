@@ -13,6 +13,11 @@ public class CardCanvas_Event : MonoBehaviour , IPointerClickHandler
         card = GetComponent<CardCardGame_Base>();
     }
 
+    void OnDisable()
+    {
+        OnClickEvent.RemoveAllListeners();
+    }
+
     public void OnPointerClick(PointerEventData eventData)
     {
         OnClickEvent?.Invoke(card);
