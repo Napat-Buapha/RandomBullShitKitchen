@@ -9,7 +9,6 @@ public class ResourceManager : MonoBehaviour
     [SerializeField] public int timePoint;
     [SerializeField] private int maxTimePoint;
 
-    [SerializeField] TMP_Text timePointText;
 
     public void Init(GameManager gm)
     {
@@ -46,6 +45,6 @@ public class ResourceManager : MonoBehaviour
 
     public void UpdateTimePointText()
     {
-        timePointText.text = $"Time Point: {timePoint}/{maxTimePoint}";
+        _gm.UiManager.UpdateTimePointText(timePoint,maxTimePoint);
     }
 }   

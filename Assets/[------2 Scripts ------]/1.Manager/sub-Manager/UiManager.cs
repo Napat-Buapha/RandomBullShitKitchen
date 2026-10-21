@@ -7,6 +7,9 @@ public class UiManager : MonoBehaviour
 
     [field:Header("Text List")]
     [field:SerializeField] public TMP_Text levelT {get; private set;}
+    [field:SerializeField] public TMP_Text timePointT {get; private set;}
+    [field:SerializeField] public TMP_Text turnT {get; private set;}
+    [field:SerializeField] public TMP_Text scoreT {get; private set;}
 
     [field:Header("Menu")]
     [field:SerializeField] public UI_SelectionMenu selectionMenu {get; private set;}
@@ -39,6 +42,22 @@ public class UiManager : MonoBehaviour
     {
         levelT.text = $"Level: {value}";
     }
+
+    public void UpdateTimePointText(int timePoint , int maxTimePoint)
+    {
+        timePointT.text = $"Time Point: {timePoint}/{maxTimePoint}";
+    }
+
+    public void UpdateTurnText(int currentTurn , int turnLimit)
+    {
+        turnT.text = $"Turn: {currentTurn}/{turnLimit}";
+    }
+
+    public void UpdateScore(int score , int targetScore)
+    {
+        scoreT.text = $"Score: {score} / {targetScore}";
+    }
+
 
 
     public void DisableConcludePanel()

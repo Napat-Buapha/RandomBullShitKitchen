@@ -65,6 +65,7 @@ public class GameManager : MonoBehaviour
     }
     void InitManagers()
     {
+        UiManager.Init(this);
         PointerManager.Init(this);
         DeckManager.Init(this);
         trashBinManager.Init(this);
@@ -73,7 +74,6 @@ public class GameManager : MonoBehaviour
         TurnManager.Init(this);
         SceneManager.Init(this);
         CardEffectManager.Init(this);
-        UiManager.Init(this);
         ScoreManager.Init(this);
     }
     private void Singleton()

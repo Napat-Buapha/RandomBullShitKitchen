@@ -7,7 +7,6 @@ public class ScoreManager : MonoBehaviour
     GameManager _gm;
 
     int _score;
-    [SerializeField] TMP_Text scoreT;
 
     //Goal
     int _targetScore;
@@ -15,7 +14,7 @@ public class ScoreManager : MonoBehaviour
     public void Init(GameManager gm)
     {
         _gm = gm;
-        scoreT.text = "Score: 0";
+        Reset();
     }
 
     public void Reset()
@@ -65,7 +64,7 @@ public class ScoreManager : MonoBehaviour
             _gm.SceneManager.GameConclude(true);
         }
     
-        scoreT.text = $"Score: {_score} / {_targetScore}";
+        _gm.UiManager.UpdateScore(_score, _targetScore);
     }
 
 

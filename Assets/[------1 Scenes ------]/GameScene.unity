@@ -703,7 +703,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d472c53567e42134288feff92e470ec0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ScoreManager
-  scoreT: {fileID: 338933064}
 --- !u!1 &100210291
 GameObject:
   m_ObjectHideFlags: 0
@@ -2112,7 +2111,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceManager
   timePoint: 0
   maxTimePoint: 30
-  timePointText: {fileID: 644295461}
 --- !u!1 &478368052
 GameObject:
   m_ObjectHideFlags: 0
@@ -2767,8 +2765,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurnManager
   currentTurn: 0
-  TurnLimit: 5
-  turnText: {fileID: 1365774574}
+  turnLimit: 5
   startingHand: 5
 --- !u!1 &755391776
 GameObject:
@@ -3325,7 +3322,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1056292566
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6438,6 +6435,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::UiManager
   <levelT>k__BackingField: {fileID: 1536789483}
+  <timePointT>k__BackingField: {fileID: 644295461}
+  <turnT>k__BackingField: {fileID: 1365774574}
+  <scoreT>k__BackingField: {fileID: 338933064}
   <selectionMenu>k__BackingField: {fileID: 2049539628}
   <shopMenu>k__BackingField: {fileID: 1382961635}
   <winPanel>k__BackingField: {fileID: 755391776}

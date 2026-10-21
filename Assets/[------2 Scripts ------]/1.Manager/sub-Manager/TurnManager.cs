@@ -5,9 +5,7 @@ using UnityEngine;
 public class TurnManager : MonoBehaviour
 {
     [SerializeField] private int currentTurn;
-    [SerializeField] private int TurnLimit;
-
-    [SerializeField] TMP_Text turnText;
+    [SerializeField] private int turnLimit = 5;
 
     [Header("On Turn Reset Customizer")]
     [SerializeField] int startingHand = 5;
@@ -31,7 +29,7 @@ public class TurnManager : MonoBehaviour
         currentTurn++;
         UpdateTurnText();
 
-        if (currentTurn > TurnLimit)
+        if (currentTurn > turnLimit)
         {
             _gm.SceneManager.GameConclude(false);
             return;
@@ -43,7 +41,7 @@ public class TurnManager : MonoBehaviour
     
     void UpdateTurnText()
     {
-        turnText.text = $"Turn: {currentTurn}/{TurnLimit}";
+        _gm.UiManager.UpdateTurnText(currentTurn,turnLimit);
     }
 
     public void Reset()
