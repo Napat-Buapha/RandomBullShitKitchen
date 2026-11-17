@@ -2,12 +2,13 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
-public class CardCanvas_Event : MonoBehaviour , IPointerClickHandler
+public class CardCanvas_Event : MonoBehaviour, IPointerClickHandler
 {
     public UnityEvent<CardCardGame_Base> OnClickEvent { get; private set; }
+
     CardCardGame_Base card;
 
-    private void OnEnable() 
+    private void OnEnable()
     {
         OnClickEvent = new UnityEvent<CardCardGame_Base>();
         card = GetComponent<CardCardGame_Base>();
@@ -23,3 +24,4 @@ public class CardCanvas_Event : MonoBehaviour , IPointerClickHandler
         OnClickEvent?.Invoke(card);
     }
 }
+

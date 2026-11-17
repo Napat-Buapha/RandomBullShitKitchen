@@ -10,6 +10,10 @@ public class Card : ScriptableObject
     [field: SerializeField] public CardType cardType {get; private set; }
     [field: SerializeField] public List<Effect> effects {get; private set; } 
     [field:SerializeField] public int cardPirce {get; private set; }  = 15;
+
+    [field: Header("Card Upgrade")]
+    [field: SerializeField] public bool isUpgrade { get; private set; }   
+    [field: SerializeField] public Card upgradedVersion { get; private set; }   
 }
 public enum CardType
 {

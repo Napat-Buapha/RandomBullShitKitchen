@@ -4,7 +4,7 @@ using UnityEngine;
 public class DeckManager : MonoBehaviour
 {
     GameManager _gm;
-    [SerializeField] List<Card> deckLists;
+    [field:SerializeField] public List<Card> deckLists {get; private set;}
     private List<Card> _deck;
 
     public void Init(GameManager gm)
@@ -24,6 +24,15 @@ public class DeckManager : MonoBehaviour
         TurnDeckListActiveDeck();
     }
 
+    public void RemoveCardFromDeckList(Card card)
+    {
+        if(deckLists.Contains(card))
+        {
+            deckLists.Remove(card);
+        }
+    }
+
+
     /// <summary>
     /// if onTop = true card will place on top of deck, 
     /// if onTop = false it will place under the bottom of deck
@@ -38,6 +47,15 @@ public class DeckManager : MonoBehaviour
         {
             _deck.Insert(0, card);
         }
+    }
+
+    public void Replace(Card replacedCard , Card card)
+    {
+        if(!deckLists.Contains(replacedCard))
+        return;
+
+        deckLists.Remove(replacedCard);
+        Receive(card);
     }
 
     public void Shuffle()
