@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7267740240382638592}
   - component: {fileID: 5253025280190237226}
   - component: {fileID: 550262258303974224}
+  - component: {fileID: -250877254814956768}
   m_Layer: 5
   m_Name: Card_UI_Interact_KitchenWare
   m_TagString: Untagged
@@ -69,6 +70,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ea8e796f36c9314484f9341b77e23c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CardDiscardPile
+--- !u!210 &-250877254814956768
+SortingGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2440374473075152384}
+  m_Enabled: 1
+  m_SortingLayerID: 1997027065
+  m_SortingLayer: 1
+  m_SortingOrder: 0
+  m_SortAtRoot: 0
+  m_Sort3DAs2D: 0
 --- !u!1 &2678857851374647300
 GameObject:
   m_ObjectHideFlags: 0

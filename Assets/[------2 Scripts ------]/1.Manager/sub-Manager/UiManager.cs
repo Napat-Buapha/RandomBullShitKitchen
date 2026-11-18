@@ -35,7 +35,7 @@ public class UiManager : MonoBehaviour
 
     public void Reset()
     {
-        shopMenu.DisableCardShop();
+        shopMenu.DisableShop();
         DisableConcludePanel();
         UnHideCanvas();
     }

@@ -18,6 +18,9 @@ MonoBehaviour:
   <cardType>k__BackingField: 0
   <effects>k__BackingField:
   - {fileID: 11400000, guid: 9bcf5fdc375493845a78e36052c5e5bf, type: 2}
+  <cardPirce>k__BackingField: 15
+  <isUpgrade>k__BackingField: 1
+  <upgradedVersion>k__BackingField: {fileID: 0}
   <ingredientVariable>k__BackingField:
     <ingredientId>k__BackingField: 010
     <ingredientType>k__BackingField: 2

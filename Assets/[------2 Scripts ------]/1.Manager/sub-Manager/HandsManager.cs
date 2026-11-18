@@ -36,10 +36,11 @@ public class HandsManager : MonoBehaviour
     }
     void Update()
     {
+        UpdateHandVisuals();
+
         if (_gm.currentGameState == GameManager.GameState.CardHolding)
             CardDrag();
-        else
-            UpdateHandVisuals();
+            
     
     }
 
@@ -111,6 +112,8 @@ public class HandsManager : MonoBehaviour
 
     private void ApplyPositionToCard(int i, Vector3 worldPos)
     {
+        if(cardsInHand[i] == holdingCard) return;
+
         Vector2 target = new Vector3(worldPos.x, worldPos.y, -i * 0.01f);
 
         cardsInHand[i].transform.position = Vector2.Lerp(
@@ -307,6 +310,7 @@ public class HandsManager : MonoBehaviour
         GameManager.Instance.SwitchGameState(GameManager.GameState.CardHolding);
 
         holdingCard.GetComponent<SortingGroup>().sortingOrder = 100;
+        holdingCard.ApplySortingLayerToCanvas(100);
 
         //cardsInHand.Remove(card); //เอาออกจาก List เพื่อกันไม่ให้ถูกเรียงโดยอัตโนมัติ
     }

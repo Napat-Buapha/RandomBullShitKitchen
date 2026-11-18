@@ -993,10 +993,10 @@ MonoBehaviour:
   childCanvases:
   - {fileID: 3038092348206669918}
   - {fileID: 4589496618993962004}
+  selectedHighlight: {fileID: 4288281653122540854}
   tastePointT: {fileID: 1872111148510538100}
   cardCostT: {fileID: 5533782736940799600}
   ingredientTypeT: {fileID: 1022975481450710624}
-  selectedHighlight: {fileID: 4288281653122540854}
 --- !u!223 &3038092348206669918 stripped
 Canvas:
   m_CorrespondingSourceObject: {fileID: 8581017137213426026, guid: 7c3737a9c8c2b2e4ea3fef468ff492ef, type: 3}
