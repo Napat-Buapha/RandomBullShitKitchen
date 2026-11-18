@@ -53,6 +53,8 @@ public class GameManager : MonoBehaviour
     public TrashBinManager TrashBinManager => trashBinManager;
     [SerializeField] private UiManager uiManager;
     public UiManager UiManager => uiManager;
+    [SerializeField] private ObjectPooling objectPooling;
+    public ObjectPooling ObjectPooling => objectPooling;
     #endregion
 
     void Awake()
@@ -63,6 +65,7 @@ public class GameManager : MonoBehaviour
     }
     void InitManagers()
     {
+        ObjectPooling.Init(this);
         QuestManager.Init(this);
         UiManager.Init(this);
         PointerManager.Init(this);

@@ -9,6 +9,9 @@ public class InputManager : MonoBehaviour
     public bool MouseHold { get; private set; }
     public bool MouseRelease { get; private set; }
 
+    //Debug buttom
+    public bool F1Press {get; private set;}
+
     private InputAction clickAction;
 
     public void OnEnable()

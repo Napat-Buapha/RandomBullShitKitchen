@@ -75,7 +75,8 @@ public class TrashBinManager : MonoBehaviour
 
     public void Receive(Card card)
     {
-        GameObject _card = Instantiate(cardPrefabs[card.cardType], cardContainer.transform);
+        //GameObject _card = Instantiate(cardPrefabs[card.cardType], cardContainer.transform);
+        GameObject _card = _gm.ObjectPooling.Spawn(cardPrefabs[card.cardType], cardContainer.transform.position);
         if (_card.TryGetComponent(out CardCardGame_Base cardBase))
         {
             discardPile.Add(cardBase);

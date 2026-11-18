@@ -32,6 +32,7 @@ public class CardCardGame_Base : MonoBehaviour
 
     void OnDisable()
     {
+        if(OnClickEvent == null) return;
         OnClickEvent.RemoveAllListeners();   
     }
 
