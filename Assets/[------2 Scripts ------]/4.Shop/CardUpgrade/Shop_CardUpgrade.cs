@@ -7,6 +7,7 @@ using UnityEngine.Rendering;
 public class Shop_CardUpgrade : MonoBehaviour
 {
     DeckManager _dm;
+    [SerializeField] Shop_UpgradeSlot upgradeSlot;
 
     [SerializeField] Dictionary<CardType, GameObject> cardPrefabs;
     [SerializeField] int randomSelectAmout;
@@ -16,7 +17,7 @@ public class Shop_CardUpgrade : MonoBehaviour
     [SerializeField] private float cardSpacing = 100f;
     [SerializeField] private float speed = 10f;
 
-    List<Card> _upgradeAbleCard;
+    [SerializeField] List<Card> _upgradeAbleCard;
     [SerializeField] List<CardCardGame_Base> cardInShop;
 
 
@@ -25,6 +26,8 @@ public class Shop_CardUpgrade : MonoBehaviour
         _dm = GameManager.Instance.DeckManager;
         cardInShop = new List<CardCardGame_Base>();
         _upgradeAbleCard = new List<Card>();
+
+        upgradeSlot.Init(this);
     }
 
     public void SetUpShop()
@@ -34,6 +37,7 @@ public class Shop_CardUpgrade : MonoBehaviour
 
     public void ClearShop()
     {
+        upgradeSlot.OnShopDisable();
         ReturnCardToDeck();
         ClearHand();
     }
@@ -63,9 +67,7 @@ public class Shop_CardUpgrade : MonoBehaviour
         {
             int r = UnityEngine.Random.Range(0, dm.deckLists.Count);
     
-            _upgradeAbleCard.Add(dm.deckLists[r]);
-            SpawnCards(dm.deckLists[r]);
-            
+            ReceiveNewCard(dm.deckLists[r]);
             dm.RemoveCardFromDeckList(dm.deckLists[r]);
         }
     
@@ -79,12 +81,27 @@ public class Shop_CardUpgrade : MonoBehaviour
             cardComponent.Init(card);
             cardInShop.Add(cardComponent);
     
-            //var uiComponent = card_.GetComponent<CardCanvas_Event>();
+            var uiComponent = card_.GetComponent<CardCanvas_DragAndDrop>();
+            uiComponent.OnDragEndEvent.AddListener(ReturnCardToHand);
     
             return cardComponent.baseCardRef;
         }
     #endregion
     
+    public void ReceiveNewCard(Card card)
+    {
+        _upgradeAbleCard.Add(card);
+        SpawnCards(card);
+    }
+    public void RemoveCardFromList(CardCardGame_Base card)
+    {
+        if(cardInShop.Contains(card))
+        {
+            _upgradeAbleCard.Remove(card.baseCardRef);
+            cardInShop.Remove(card);
+        }
+    }
+
     public void ReturnCardToDeck()
     {
         foreach(var card in _upgradeAbleCard)
@@ -95,11 +112,21 @@ public class Shop_CardUpgrade : MonoBehaviour
         _upgradeAbleCard = new List<Card>();
     }
 
+    public void ReturnCardToHand(CardCardGame_Base card)
+    {
+        if(cardInShop.Contains(card)) return;
+        cardInShop.Add(card);
+        _upgradeAbleCard.Add(card.baseCardRef);
+
+        if(upgradeSlot.cardInSlot != null)
+        upgradeSlot.RemoveCardFromSlot();
+    }
+
     public void ClearHand()
     {
         while(cardInShop.Count > 0)
         {
-            Destroy(cardInShop[0]);
+            Destroy(cardInShop[0].gameObject);
             cardInShop.RemoveAt(0);
             Debug.Log("Destroy");
         }

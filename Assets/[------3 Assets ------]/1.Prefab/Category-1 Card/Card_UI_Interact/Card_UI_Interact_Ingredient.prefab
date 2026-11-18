@@ -375,7 +375,7 @@ GameObject:
   - component: {fileID: -7238059737006095683}
   - component: {fileID: 4184566374575329395}
   m_Layer: 5
-  m_Name: Card_UI_Interact_Ingredeint
+  m_Name: Card_UI_Interact_Ingredient
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
