@@ -2475,6 +2475,69 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &493995196
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 493995197}
+  - component: {fileID: 493995198}
+  m_Layer: 0
+  m_Name: ObjectPooling
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &493995197
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493995196}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1297529181}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &493995198
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 493995196}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2c9be2ccb60181c40828c3da7bb0d673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ObjectPooling
+  ListPool:
+  - Pkey: Card_Ingredeint_Variant
+    Pobj: {fileID: 730490669640188341, guid: d9b97eaafc5df084f88c8e341fbdac99, type: 3}
+    Psize: 0
+  - Pkey: Card_KitchenWare_Variant
+    Pobj: {fileID: 513364834598387742, guid: 03396a7523d23a14f9d854a58b07049c, type: 3}
+    Psize: 0
+  - Pkey: Card_Menu_Variant
+    Pobj: {fileID: 6931732139107047885, guid: 4289f07c722de8a459c06a508e1b29f1, type: 3}
+    Psize: 0
+  - Pkey: Card_UI_Interact_Ingredient
+    Pobj: {fileID: 1726462350038909342, guid: c095effe0e7fb164196f5132d432f317, type: 3}
+    Psize: 0
+  - Pkey: Card_UI_Interact_KitchenWare
+    Pobj: {fileID: 2440374473075152384, guid: 42f4b0fae846b6f4dad3d24558267e05, type: 3}
+    Psize: 0
+  - Pkey: Card_UI_Interact_Menu
+    Pobj: {fileID: 3496299144239083615, guid: f0f7fc3ff60ee024bbb2335b3a0f11ec, type: 3}
+    Psize: 0
 --- !u!1 &512201847
 GameObject:
   m_ObjectHideFlags: 0
@@ -4980,7 +5043,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::HandsManager
   cardPrefabs:
   - key: 0
-    value: {fileID: 730490669640188341, guid: 8dd6c3c784686dd4aac7225ecba08d35, type: 3}
+    value: {fileID: 730490669640188341, guid: d9b97eaafc5df084f88c8e341fbdac99, type: 3}
   - key: 1
     value: {fileID: 513364834598387742, guid: 03396a7523d23a14f9d854a58b07049c, type: 3}
   - key: 2
@@ -5624,6 +5687,7 @@ MonoBehaviour:
   serveTableManager: {fileID: 1472406824}
   trashBinManager: {fileID: 654145659}
   uiManager: {fileID: 2115852308}
+  objectPooling: {fileID: 493995198}
 --- !u!4 &1297529181
 Transform:
   m_ObjectHideFlags: 0
@@ -5651,6 +5715,7 @@ Transform:
   - {fileID: 2067732017}
   - {fileID: 2115852307}
   - {fileID: 1433072287}
+  - {fileID: 493995197}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1346315220

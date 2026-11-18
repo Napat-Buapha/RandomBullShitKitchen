@@ -565,6 +565,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3015428012808892213, guid: 7c3737a9c8c2b2e4ea3fef468ff492ef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3015428012808892213, guid: 7c3737a9c8c2b2e4ea3fef468ff492ef, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -622,7 +626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6277916860259346561, guid: 7c3737a9c8c2b2e4ea3fef468ff492ef, type: 3}
       propertyPath: m_Name
-      value: Card_CardGame_KitchenWare Variant
+      value: Card_KitchenWare_Variant
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

@@ -5,9 +5,6 @@ using UnityEngine;
 
 public class CookingManager : MonoBehaviour
 {
-    [Header("Menu Serve")]
-    [SerializeField] CardCardGame_Menu cardMenu_Prefab;
-    [SerializeField] ServeTableManager serveTable;
     
     Card_Menu currentMenu;
     

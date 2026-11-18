@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using NUnit.Framework;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class TrashBinManager : MonoBehaviour
@@ -14,6 +15,7 @@ public class TrashBinManager : MonoBehaviour
     [SerializeField] Dictionary<CardType, GameObject> cardPrefabs;
     [SerializeField] GameObject trashBinUiPanel;
     [SerializeField] GameObject cardContainer;
+    [SerializeField] int cardScale = 100; 
 
 
     public void Init(GameManager gm)
@@ -76,7 +78,9 @@ public class TrashBinManager : MonoBehaviour
     public void Receive(Card card)
     {
         //GameObject _card = Instantiate(cardPrefabs[card.cardType], cardContainer.transform);
-        GameObject _card = _gm.ObjectPooling.Spawn(cardPrefabs[card.cardType], cardContainer.transform.position);
+        GameObject _card = _gm.ObjectPooling.Spawn(cardPrefabs[card.cardType], cardContainer.transform.position ,quaternion.identity , cardContainer.transform);
+        _card.transform.localScale = Vector2.one * cardScale;
+
         if (_card.TryGetComponent(out CardCardGame_Base cardBase))
         {
             discardPile.Add(cardBase);

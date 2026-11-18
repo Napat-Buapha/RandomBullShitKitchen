@@ -766,6 +766,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3015428012808892213, guid: 7c3737a9c8c2b2e4ea3fef468ff492ef, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3494371408639628110, guid: 7c3737a9c8c2b2e4ea3fef468ff492ef, type: 3}
       propertyPath: 'childCanvases.Array.data[1]'
       value: 
@@ -816,7 +820,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6277916860259346561, guid: 7c3737a9c8c2b2e4ea3fef468ff492ef, type: 3}
       propertyPath: m_Name
-      value: Card_CardGame_Menu Variant
+      value: Card_Menu_Variant
       objectReference: {fileID: 0}
     - target: {fileID: 6486525833349749772, guid: 7c3737a9c8c2b2e4ea3fef468ff492ef, type: 3}
       propertyPath: m_LocalPosition.x
