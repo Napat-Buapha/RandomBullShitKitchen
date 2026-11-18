@@ -1,8 +1,5 @@
-using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.Events;
-using UnityEngine.Search;
 
 public class GameManager : MonoBehaviour
 {
@@ -65,19 +62,20 @@ public class GameManager : MonoBehaviour
     }
     void InitManagers()
     {
-        ObjectPooling.Init(this);
-        QuestManager.Init(this);
-        UiManager.Init(this);
-        PointerManager.Init(this);
-        DeckManager.Init(this);
+        objectPooling.Init(this);
+        questManager.Init(this);
+        uiManager.Init(this);
+        pointerManager.Init(this);
+        deckManager.Init(this);
         trashBinManager.Init(this);
-        HandsManager.Init(this);
+        handsManager.Init(this);
         resourceManager.Init(this);
-        TurnManager.Init(this);
-        SceneManager.Init(this);
-        CardEffectManager.Init(this);
-        ScoreManager.Init(this);
+        turnManager.Init(this);
+        sceneManager.Init(this);
+        cardEffectManager.Init(this);
+        scoreManager.Init(this);
     }
+    
     private void Singleton()
     {
         if (Instance == null)
