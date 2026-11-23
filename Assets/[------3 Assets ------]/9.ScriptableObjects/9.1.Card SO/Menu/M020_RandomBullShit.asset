@@ -17,7 +17,10 @@ MonoBehaviour:
   <cardImage>k__BackingField: {fileID: -1319739794, guid: ebb0b51db00392b4bb4db2c930a6b7d6, type: 3}
   <cardType>k__BackingField: 2
   <effects>k__BackingField: []
+  <cardPirce>k__BackingField: 15
+  <isUpgrade>k__BackingField: 0
+  <upgradedVersion>k__BackingField: {fileID: 0}
   <menuVariable>k__BackingField:
     <priority>k__BackingField: -1
-    <amout>k__BackingField: 0
-    <mathSymbol>k__BackingField: 4
+    <amout>k__BackingField: -3
+    <mathSymbol>k__BackingField: 1
