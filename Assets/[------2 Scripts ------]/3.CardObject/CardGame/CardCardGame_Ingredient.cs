@@ -42,11 +42,32 @@ public class CardCardGame_Ingredient : CardCardGame_Base, IPointerInteractAble
     }
     #endregion
 
-    public void ModifiedTastePoint(float amout)
+    public void ModifiedTastePoint(float amout, MathSymbol mathSymbol)
     {
-        var tempIngredeintVar = ingredientVariable;
-        tempIngredeintVar.tastePoint += amout;
-        ingredientVariable = tempIngredeintVar;
+        if (mathSymbol == MathSymbol.plus)
+        {
+            var tempIngredeintVar = ingredientVariable;
+            tempIngredeintVar.tastePoint += amout;
+            ingredientVariable = tempIngredeintVar;
+        }
+        else if(mathSymbol == MathSymbol.minus)
+        {
+            var tempIngredeintVar = ingredientVariable;
+            tempIngredeintVar.tastePoint -= amout;
+            ingredientVariable = tempIngredeintVar;
+        }
+        else if(mathSymbol == MathSymbol.multiply)
+        {
+            var tempIngredeintVar = ingredientVariable;
+            tempIngredeintVar.tastePoint *= amout;
+            ingredientVariable = tempIngredeintVar;
+        }
+        else
+        {
+            var tempIngredeintVar = ingredientVariable;
+            tempIngredeintVar.tastePoint /= amout;
+            ingredientVariable = tempIngredeintVar;
+        }
     }
 
 
@@ -73,11 +94,11 @@ public class CardCardGame_Ingredient : CardCardGame_Base, IPointerInteractAble
         if (GameManager.Instance.currentGameState != GameManager.GameState.CardHolding) return;
         GameManager.Instance.HandsManager.Drop(this);
 
-        if(DetectDropAbleObject())
+        if (DetectDropAbleObject())
         {
             GameManager.Instance.HandsManager.Discard(this);
         }
-        
+
     }
 
     private bool DetectDropAbleObject()
