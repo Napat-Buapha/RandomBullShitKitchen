@@ -30,6 +30,19 @@ public class CardCardGame_KitchenWare : CardCardGame_Base , IPointerInteractAble
         kitchenWareVariable = kitchenwareCard.kitchenWare_Variable;
     }
 
+    public virtual void ExecuteEffects(Stove stove)
+    {
+        foreach(var effect in cardData.effects)
+        {
+            effect.Init(this);
+            if(effect is Effect_StoveBase stoveBase)
+            {
+                stoveBase.RegisterStoveRefference(stove);
+            }
+            GameManager.Instance.CardEffectManager.AddEffect(effect);
+        }
+    }
+
     public void OnClick()
     {
         OnClickEvent.Invoke(this);

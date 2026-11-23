@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine;
+using System.Diagnostics;
 
 public class CardCardGame_Ingredient : CardCardGame_Base, IPointerInteractAble
 {
@@ -44,30 +45,26 @@ public class CardCardGame_Ingredient : CardCardGame_Base, IPointerInteractAble
 
     public void ModifiedTastePoint(float amout, MathSymbol mathSymbol)
     {
-        if (mathSymbol == MathSymbol.plus)
+        var tempIngredeintVar = ingredientVariable;
+
+        switch(mathSymbol)
         {
-            var tempIngredeintVar = ingredientVariable;
+            case MathSymbol.plus:
             tempIngredeintVar.tastePoint += amout;
-            ingredientVariable = tempIngredeintVar;
-        }
-        else if(mathSymbol == MathSymbol.minus)
-        {
-            var tempIngredeintVar = ingredientVariable;
+            break;
+            case MathSymbol.minus:
             tempIngredeintVar.tastePoint -= amout;
-            ingredientVariable = tempIngredeintVar;
-        }
-        else if(mathSymbol == MathSymbol.multiply)
-        {
-            var tempIngredeintVar = ingredientVariable;
+            break;
+            case MathSymbol.multiply:
             tempIngredeintVar.tastePoint *= amout;
-            ingredientVariable = tempIngredeintVar;
-        }
-        else
-        {
-            var tempIngredeintVar = ingredientVariable;
+            break;
+            case MathSymbol.divide:
             tempIngredeintVar.tastePoint /= amout;
-            ingredientVariable = tempIngredeintVar;
+            break;
         }
+
+        ingredientVariable = tempIngredeintVar;
+        tastePointT.text = ingredientVariable.tastePoint.ToString();
     }
 
 

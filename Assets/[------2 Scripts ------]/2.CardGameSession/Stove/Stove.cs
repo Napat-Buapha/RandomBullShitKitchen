@@ -25,6 +25,31 @@ public class Stove : MonoBehaviour, IDropReceiver
     [SerializeField] Image kitchenWareIndicator;
     [SerializeField] Image ingredintIndicator;
 
+    [Header("Bonus Stats")]
+    [SerializeField] float bonusPlus;
+    [SerializeField] float bonusMius;
+    [SerializeField] float bonusMuliplier;
+    [SerializeField] float bonusDivider;
+    public void ModifyBonusStats(float amout , MathSymbol symbol)
+    {
+        switch(symbol)
+        {
+            case MathSymbol.plus:
+            bonusPlus += amout;
+            break;
+            case MathSymbol.minus:
+            bonusMius += amout;
+            break;
+            case MathSymbol.multiply:
+            bonusMuliplier += amout;
+            break;
+            case MathSymbol.divide:
+            bonusDivider += amout;
+            break;
+        }
+    }
+
+
 
     public void Init()
     {
@@ -121,6 +146,16 @@ public class Stove : MonoBehaviour, IDropReceiver
         kitchenWareSpriteRenderer.sprite = null;
         slotUi.DisableIngredientUI();
         UpdateTotalTastePoint();
+
+        ResetBonusStats();
+    }
+
+    private void ResetBonusStats()
+    {
+        bonusPlus = 0;
+        bonusMius = 0;
+        bonusMuliplier = 1;
+        bonusDivider = 1;
     }
 
     public bool PlaceKitchenWare(CardCardGame_KitchenWare kitchenWare)
@@ -131,6 +166,8 @@ public class Stove : MonoBehaviour, IDropReceiver
         kitchenWareVariable = kitchenWare.kitchenWareVariable;
         ingredientSlots = new IngredientCharacteristics[kitchenWareVariable.ingredientSlot];
         kitchenWareSpriteRenderer.sprite = kitchenWareVariable.kitchenWareActiveSprite;
+
+        kitchenWare.ExecuteEffects(this);
         slotUi.EnableIngredientUI(kitchenWare);
         isOccupied = true;
         return true;
@@ -150,6 +187,10 @@ public class Stove : MonoBehaviour, IDropReceiver
         {
             totalTastePoint += ingredient.ingredientVariable.tastePoint;
         }
+
+        totalTastePoint *= bonusMuliplier / bonusDivider;
+        totalTastePoint += bonusPlus - bonusMius;
+        totalTastePoint = (int)totalTastePoint;
 
         totalTastePointT.text = totalTastePoint.ToString();
     }
