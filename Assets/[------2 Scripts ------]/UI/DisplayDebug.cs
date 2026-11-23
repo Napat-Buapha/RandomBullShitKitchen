@@ -2,20 +2,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 
-public class DisplayDebug : MonoBehaviour
+public class DisplayDebug : Singleton<DisplayDebug>
 {
-    readonly List<GameObject> spawnedLogObjects = new List<GameObject>();
+    [SerializeField] private List<GameObject> spawnedLogObjects = new List<GameObject>();
     
-    bool visible;
     const int MaxLogs = 100;
 
     [Header("UI References")]
-    [SerializeField] private Transform countain;
-    [SerializeField] private GameObject debugPrefab;
+    [SerializeField] private Transform content;
+    [SerializeField] private GameObject displayObj;
+    [SerializeField] private DebugPrefab debugPrefab;
     [SerializeField] private ScrollRect scrollRect;
 
-    void OnEnable()  => Application.logMessageReceived += HandleLog;
+    void OnEnable() => Application.logMessageReceived += HandleLog;
     void OnDisable() => Application.logMessageReceived -= HandleLog;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     void HandleLog(string message, string stackTrace, LogType type)
     {
@@ -36,20 +41,20 @@ public class DisplayDebug : MonoBehaviour
         SpawnLogUI(message, type);
     }
 
-    void SpawnLogUI(string message, LogType type)
+    void SpawnLogUI(string message, LogType type , Color background = default)
     {
-        if (debugPrefab == null || countain == null) return;
+        if (debugPrefab == null || content == null) return;
 
         // Instantiate Prefab ลงใน Container
-        GameObject logObj = Instantiate(debugPrefab, countain);
+        GameObject logObj = Instantiate(debugPrefab.gameObject, content);
         spawnedLogObjects.Add(logObj);
 
-        Text logText = logObj.GetComponentInChildren<Text>();
+        var logText = logObj.GetComponent<DebugPrefab>();
         if (logText != null)
         {
-            logText.text = message;
+            logText.Text.text = message;
             // เปลี่ยนสีข้อความตามประเภท Log
-            logText.color = type == LogType.Warning ? Color.yellow
+            logText.TextColor = type == LogType.Warning ? Color.yellow
                           : type == LogType.Log ? Color.white
                           : Color.red;
         }
@@ -61,20 +66,6 @@ public class DisplayDebug : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-        /*
-        if (Input.GetKeyDown(KeyCode.P) || (Input.touchCount == 3 && Input.GetTouch(2).phase == TouchPhase.Began))
-        {
-            visible = !visible;
-            if (countain != null)
-            {
-                countain.gameObject.SetActive(visible);
-            }
-        }
-        */
-    }
-
     public void ClearLogs()
     {
         spawnedLogObjects.Clear();
@@ -83,5 +74,10 @@ public class DisplayDebug : MonoBehaviour
             if (obj != null) Destroy(obj);
         }
         spawnedLogObjects.Clear();
+    }
+
+    public void ActiveDisplayDebug(bool v)
+    {
+        displayObj.SetActive(v);
     }
 }
