@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9691e5e82ed8485488acd06c9f063121, type: 3}
-  m_Name: 'Effect_StoveBase_MultiplyBonus [0.25]'
+  m_Name: 'Effect_StoveBase_IncreseMultiplyBonus [0.25]'
   m_EditorClassIdentifier: Assembly-CSharp::Effect_StoveBase_BonusModifier
   <effectType>k__BackingField: 0
   symbol: 2
