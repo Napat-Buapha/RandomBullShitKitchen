@@ -25,4 +25,5 @@ public enum IngredientType
     Protein = 1,
     Dairy = 2,
     Grain = 3,
+    Sauce = 4,
 }

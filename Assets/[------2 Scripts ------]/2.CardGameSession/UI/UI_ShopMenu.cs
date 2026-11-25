@@ -3,12 +3,15 @@ using UnityEngine;
 
 public class UI_ShopMenu : MonoBehaviour
 {
+    [field:SerializeField] public CanvasGroup resourceDisplayer {get; private set;}
     [field:SerializeField] public Shop_CardShop cardShop {get; private set;}
     [field:SerializeField] public Shop_CardUpgrade upgradeShop {get; private set;}
+
     [SerializeField] TMP_Text coinAmout;
 
     public void Init()
     {
+        SetShopPanelActibeStatus(resourceDisplayer, false);
         DisableShop();
         cardShop.Init();
         upgradeShop.Init();
@@ -17,7 +20,7 @@ public class UI_ShopMenu : MonoBehaviour
     public void EnableCardShop()
     {
         SetShopPanelActibeStatus(cardShop.gameObject.GetComponent<CanvasGroup>() , true);
-        //SetShopPanelActibeStatus(upgradeShop.gameObject.GetComponent<CanvasGroup>() , true);
+        SetShopPanelActibeStatus(resourceDisplayer, true);
 
         cardShop.SetUpShop();
         upgradeShop.SetUpShop();
@@ -53,6 +56,7 @@ public class UI_ShopMenu : MonoBehaviour
 
     public void EndTrasaction()
     {
+        SetShopPanelActibeStatus(resourceDisplayer, false);
         cardShop.ClearShop();
         upgradeShop.ClearShop();
         GameManager.Instance.UiManager.UnHideCanvas();

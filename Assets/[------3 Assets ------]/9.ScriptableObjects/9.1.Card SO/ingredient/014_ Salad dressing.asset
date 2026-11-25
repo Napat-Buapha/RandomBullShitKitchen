@@ -23,6 +23,6 @@ MonoBehaviour:
   <upgradedVersion>k__BackingField: {fileID: 11400000, guid: 9109174e465299346ba023ce0b5f29b1, type: 2}
   <ingredientVariable>k__BackingField:
     <ingredientId>k__BackingField: 014
-    <ingredientType>k__BackingField: 0
+    <ingredientType>k__BackingField: 4
     tastePoint: 2
     cardCost: 1

@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Effect_Select_TrashBin_ReturnToHand
   <effectType>k__BackingField: 0
   selectionCondition:
-    needToBeFull: 1
+    needToBeFull: 0
     amout: 1
     cardNameList: []
     cardTypesList: 
-    ingredientTypesList: 02000000i
+    ingredientTypesList: 
   targetSelectingState: 3
   <selectedList>k__BackingField: []
   OnCardAmoutChange:

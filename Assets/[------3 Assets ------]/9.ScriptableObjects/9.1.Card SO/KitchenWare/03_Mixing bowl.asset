@@ -20,7 +20,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 999f47e094d9c2344b00c3fd7a5f20e3, type: 2}
   <cardPirce>k__BackingField: 15
   <isUpgrade>k__BackingField: 0
-  <upgradedVersion>k__BackingField: {fileID: 0}
+  <upgradedVersion>k__BackingField: {fileID: 11400000, guid: f30e227751ce95948803b68a30709099, type: 2}
   <kitchenWare_Variable>k__BackingField:
     <ingredientSlot>k__BackingField: 3
     <kitchenWareActiveSprite>k__BackingField: {fileID: 21300000, guid: 5871f0ece60f3394b8446fea8644943c, type: 3}

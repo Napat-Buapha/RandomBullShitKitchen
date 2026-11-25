@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: 'Effect_Default_TastePointIncrease [3]'
   m_EditorClassIdentifier: Assembly-CSharp::Effect_TastePointIncrease
   <effectType>k__BackingField: 0
-  amout: 1
+  symbol: 0
+  amout: 3
