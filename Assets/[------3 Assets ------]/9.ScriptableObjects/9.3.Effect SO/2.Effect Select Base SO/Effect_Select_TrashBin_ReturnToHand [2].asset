@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9f40a7a7a112c24881345fc9075a242, type: 3}
+  m_Name: 'Effect_Select_TrashBin_ReturnToHand [2]'
+  m_EditorClassIdentifier: Assembly-CSharp::Effect_Select_TrashBin_ReturnToHand
+  <effectType>k__BackingField: 0
+  selectionCondition:
+    needToBeFull: 1
+    amout: 2
+    cardNameList: []
+    cardTypesList: 
+    ingredientTypesList: 02000000i
+  targetSelectingState: 3
+  <selectedList>k__BackingField: []
+  OnCardAmoutChange:
+    m_PersistentCalls:
+      m_Calls: []

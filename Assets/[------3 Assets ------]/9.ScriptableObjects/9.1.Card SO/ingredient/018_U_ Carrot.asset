@@ -13,10 +13,14 @@ MonoBehaviour:
   m_Name: 018_U_ Carrot
   m_EditorClassIdentifier: Assembly-CSharp::Card_Ingredient
   <cardName>k__BackingField: "Carrot\_"
-  <cardDescription>k__BackingField: 
+  <cardDescription>k__BackingField: Gain +8 Deliciousness.
   <cardImage>k__BackingField: {fileID: -1833089889, guid: 150b9cc9f9571af4eb3e07feb2029199, type: 3}
   <cardType>k__BackingField: 0
-  <effects>k__BackingField: []
+  <effects>k__BackingField:
+  - {fileID: 11400000, guid: 63cd88f034ac54a4dbcaf00922a0e186, type: 2}
+  - {fileID: 11400000, guid: 63cd88f034ac54a4dbcaf00922a0e186, type: 2}
+  - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
+  - {fileID: 11400000, guid: 2ee0c1df9fb257b49a6fde457f5c997e, type: 2}
   <cardPirce>k__BackingField: 15
   <isUpgrade>k__BackingField: 0
   <upgradedVersion>k__BackingField: {fileID: 0}

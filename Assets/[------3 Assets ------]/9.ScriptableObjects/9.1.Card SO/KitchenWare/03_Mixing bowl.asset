@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 03_Mixing bowl
   m_EditorClassIdentifier: Assembly-CSharp::Card_KitchenWare
   <cardName>k__BackingField: "Mixing bowl\_\_\_"
-  <cardDescription>k__BackingField: 
+  <cardDescription>k__BackingField: Multiply total Deliciousness by x1.2.
   <cardImage>k__BackingField: {fileID: 931513668, guid: 150b9cc9f9571af4eb3e07feb2029199, type: 3}
   <cardType>k__BackingField: 1
-  <effects>k__BackingField: []
+  <effects>k__BackingField:
+  - {fileID: 11400000, guid: 999f47e094d9c2344b00c3fd7a5f20e3, type: 2}
   <cardPirce>k__BackingField: 15
   <isUpgrade>k__BackingField: 0
   <upgradedVersion>k__BackingField: {fileID: 0}

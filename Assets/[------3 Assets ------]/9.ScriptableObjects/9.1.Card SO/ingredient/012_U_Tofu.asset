@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 012_U_Tofu
   m_EditorClassIdentifier: Assembly-CSharp::Card_Ingredient
   <cardName>k__BackingField: Tofu
-  <cardDescription>k__BackingField: 
+  <cardDescription>k__BackingField: Discard 1 card from your hand into the Discard Pile, then draw 3 Ingredient Cards.
   <cardImage>k__BackingField: {fileID: 31037743, guid: 150b9cc9f9571af4eb3e07feb2029199, type: 3}
   <cardType>k__BackingField: 0
-  <effects>k__BackingField: []
+  <effects>k__BackingField:
+  - {fileID: 11400000, guid: e6a184b4d031f554ebd60bb7be117b86, type: 2}
   <cardPirce>k__BackingField: 15
   <isUpgrade>k__BackingField: 0
   <upgradedVersion>k__BackingField: {fileID: 0}

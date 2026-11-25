@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 013_ Cheese
   m_EditorClassIdentifier: Assembly-CSharp::Card_Ingredient
   <cardName>k__BackingField: "Cheese\_"
-  <cardDescription>k__BackingField: 
+  <cardDescription>k__BackingField: Choose 1 card from the Discard Pile and return it to your hand.
   <cardImage>k__BackingField: {fileID: -1446536869, guid: ebb0b51db00392b4bb4db2c930a6b7d6, type: 3}
   <cardType>k__BackingField: 0
-  <effects>k__BackingField: []
+  <effects>k__BackingField:
+  - {fileID: 11400000, guid: 9bcf5fdc375493845a78e36052c5e5bf, type: 2}
   <cardPirce>k__BackingField: 15
   <isUpgrade>k__BackingField: 0
   <upgradedVersion>k__BackingField: {fileID: 11400000, guid: 998e8a5cdecced3469173669444e7f2b, type: 2}

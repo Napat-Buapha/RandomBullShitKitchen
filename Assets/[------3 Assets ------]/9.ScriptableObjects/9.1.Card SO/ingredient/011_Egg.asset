@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 011_Egg
   m_EditorClassIdentifier: Assembly-CSharp::Card_Ingredient
   <cardName>k__BackingField: Egg
-  <cardDescription>k__BackingField: 
+  <cardDescription>k__BackingField: All cards in your hand gain +3 Deliciousness
   <cardImage>k__BackingField: {fileID: -1063386825, guid: 150b9cc9f9571af4eb3e07feb2029199, type: 3}
   <cardType>k__BackingField: 0
-  <effects>k__BackingField: []
+  <effects>k__BackingField:
+  - {fileID: 11400000, guid: e6a184b4d031f554ebd60bb7be117b86, type: 2}
   <cardPirce>k__BackingField: 15
   <isUpgrade>k__BackingField: 0
   <upgradedVersion>k__BackingField: {fileID: 11400000, guid: 1c2b0c228a028d349a6c2fdef969bbc4, type: 2}

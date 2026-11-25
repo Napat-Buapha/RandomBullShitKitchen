@@ -13,10 +13,11 @@ MonoBehaviour:
   m_Name: 016_ Cucumber
   m_EditorClassIdentifier: Assembly-CSharp::Card_Ingredient
   <cardName>k__BackingField: "Cucumber\_"
-  <cardDescription>k__BackingField: 
+  <cardDescription>k__BackingField: If there are 2 or more Ingredient Cards in the Discard Pile, gain an additional +6 Deliciousness.
   <cardImage>k__BackingField: {fileID: -880602507, guid: 150b9cc9f9571af4eb3e07feb2029199, type: 3}
   <cardType>k__BackingField: 0
-  <effects>k__BackingField: []
+  <effects>k__BackingField:
+  - {fileID: 11400000, guid: 3e58f4e158361c743b0a1c6822865c81, type: 2}
   <cardPirce>k__BackingField: 15
   <isUpgrade>k__BackingField: 0
   <upgradedVersion>k__BackingField: {fileID: 11400000, guid: 0f267e0f270dd6f40929eaf50c0130ad, type: 2}
