@@ -14,10 +14,16 @@ public class ResourceManager : MonoBehaviour
     public void Init(GameManager gm)
     {
         _gm = gm;
-        ResetTimePoint();
+        RestoreTimePoint();
     }
 
-    public void ResetTimePoint()
+    public void Reset()
+    {
+        currentGoldAmout = 0;
+        RestoreTimePoint();
+    }
+
+    public void RestoreTimePoint()
     {
         timePoint = maxTimePoint;
         UpdateTimePointText();

@@ -4,12 +4,19 @@ using UnityEngine;
 public class DeckManager : MonoBehaviour
 {
     GameManager _gm;
+    [field:SerializeField] public List<Card> starterDeck {get;private set;}
     [field:SerializeField] public List<Card> deckLists {get; private set;}
     private List<Card> _deck;
 
     public void Init(GameManager gm)
     {
+        Reset();
         _gm = gm;
+    }
+
+    public void Reset()
+    {
+        deckLists = new List<Card>(starterDeck);
     }
 
     public void TurnDeckListActiveDeck()

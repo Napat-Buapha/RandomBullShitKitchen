@@ -116,6 +116,8 @@ public class GameManager : MonoBehaviour
     {
         SetUpFirstLevel();
         ClearScene();
+        resourceManager.Reset();
+        deckManager.Reset();
     }
 
     public void NextLevel()

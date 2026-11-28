@@ -36,7 +36,7 @@ public class TurnManager : MonoBehaviour
         }
 
         _gm.DeckManager.DrawCard(startingHand);
-        _gm.ResourceManager.ResetTimePoint();
+        _gm.ResourceManager.RestoreTimePoint();
     }
     
     void UpdateTurnText()
