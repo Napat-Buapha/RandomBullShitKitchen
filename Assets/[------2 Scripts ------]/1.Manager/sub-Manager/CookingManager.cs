@@ -8,31 +8,25 @@ public class CookingManager : MonoBehaviour
     
     Card_Menu currentMenu;
     
-    public void Cook(List<Recipe> recipeList ,List<IngredientCharacteristics> ingredients)
+    public void Cook(List<Recipe> recipeList ,List<IngredientCharacteristics> ingredients, int totalScore)
     {
         currentMenu = null;
         foreach(var recipe in recipeList)
         {
-            
             var newMenu = recipe.verify(ingredients);
+            Debug.Log(newMenu);
 
             if (newMenu == null) continue;
             Examine(newMenu);
         }
 
-        GameManager.Instance.ServeTableManager.AddedMenuCard(currentMenu , CalculateTastePoint(ingredients));
-    }
 
-    private int CalculateTastePoint(List<IngredientCharacteristics> ingredients)
-    {
-        int score = 0;
-
-        foreach(var ingredient in ingredients)
+        if(currentMenu == null) 
         {
-            score += (int)ingredient.ingredientVariable.tastePoint;
+            Debug.Log("Can't found any menu");
+            return;
         }
-
-        return score;
+        GameManager.Instance.ServeTableManager.AddedMenuCard(currentMenu ,totalScore);
     }
 
     private void Examine(Card_Menu newMenu)

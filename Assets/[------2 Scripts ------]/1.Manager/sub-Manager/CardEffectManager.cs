@@ -49,7 +49,6 @@ public class CardEffectManager : MonoBehaviour
         currentEffect = _effectQueue[0];
         _effectQueue.RemoveAt(0);
 
-        Debug.Log(currentEffect.name);
         
         if (currentEffect.effectType == Effect.EffectType.manualResolve)
         {

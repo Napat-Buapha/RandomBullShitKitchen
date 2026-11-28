@@ -7,6 +7,8 @@ using UnityEngine.UI;
 
 public class Stove : MonoBehaviour, IDropReceiver
 {
+    int totalTastePoint;
+
     [Header("UI Ref")]
     //Base Card Data Ref
     Card _baseCardKitchenWareRef;
@@ -145,9 +147,8 @@ public class Stove : MonoBehaviour, IDropReceiver
 
         kitchenWareSpriteRenderer.sprite = null;
         slotUi.DisableIngredientUI();
-        UpdateTotalTastePoint();
-
         ResetBonusStats();
+        UpdateTotalTastePoint();
     }
 
     private void ResetBonusStats()
@@ -175,22 +176,21 @@ public class Stove : MonoBehaviour, IDropReceiver
 
     public void UpdateTotalTastePoint()
     {
-        if (ingredientSlots == null)
+        totalTastePoint = 0;
+
+        if(!isOccupied)
         {
-            totalTastePointT.text = "0";
+            totalTastePointT.text = totalTastePoint.ToString();
             return;
         }
 
-        float totalTastePoint = 0;
-
         foreach (var ingredient in ingredientSlots)
         {
-            totalTastePoint += ingredient.ingredientVariable.tastePoint;
+            totalTastePoint += (int)ingredient.ingredientVariable.tastePoint;
         }
 
-        totalTastePoint *= bonusMuliplier / bonusDivider;
-        totalTastePoint += bonusPlus - bonusMius;
-        totalTastePoint = (int)totalTastePoint;
+        totalTastePoint *= (int)(bonusMuliplier / bonusDivider);
+        totalTastePoint += (int)(bonusPlus - bonusMius);
 
         totalTastePointT.text = totalTastePoint.ToString();
     }
@@ -276,7 +276,7 @@ public class Stove : MonoBehaviour, IDropReceiver
 
     public void CookButton()
     {
-        GameManager.Instance.CookingManager.Cook(kitchenWareVariable.recipeList, ingredientSlots.ToList());
+        GameManager.Instance.CookingManager.Cook(kitchenWareVariable.recipeList, ingredientSlots.ToList(), totalTastePoint);
         Debug.Log("Cook Complete");
         ThrownInToTrashBin();
         ResetStove();

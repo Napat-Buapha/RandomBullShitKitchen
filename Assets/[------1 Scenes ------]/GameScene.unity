@@ -1031,10 +1031,10 @@ MonoBehaviour:
   <deckLists>k__BackingField:
   - {fileID: 11400000, guid: 2d9ce021dc2ab6f4b8f997471b5f8eb9, type: 2}
   - {fileID: 11400000, guid: 2d9ce021dc2ab6f4b8f997471b5f8eb9, type: 2}
+  - {fileID: 11400000, guid: 2d9ce021dc2ab6f4b8f997471b5f8eb9, type: 2}
   - {fileID: 11400000, guid: ada00db1239a0304e85cda5f378b9235, type: 2}
   - {fileID: 11400000, guid: ada00db1239a0304e85cda5f378b9235, type: 2}
   - {fileID: 11400000, guid: ada00db1239a0304e85cda5f378b9235, type: 2}
-  - {fileID: 11400000, guid: a0ce3cdff6cfc084ab668f2ab7f38aae, type: 2}
   - {fileID: 11400000, guid: a0ce3cdff6cfc084ab668f2ab7f38aae, type: 2}
   - {fileID: 11400000, guid: a0ce3cdff6cfc084ab668f2ab7f38aae, type: 2}
   - {fileID: 11400000, guid: a0ce3cdff6cfc084ab668f2ab7f38aae, type: 2}
@@ -9073,7 +9073,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_TargetDisplay: 0
 --- !u!114 &2049539628
 MonoBehaviour:

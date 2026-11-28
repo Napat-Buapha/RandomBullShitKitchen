@@ -49,45 +49,55 @@ public class Shop_CardUpgrade : MonoBehaviour
 
     #region SetUp
     public void GetRandomCardFromDeck()
+    {
+        List<Card> unUpgraded = new List<Card>();
+        foreach (var card in _dm.deckLists)
         {
-            for (int i = 0; i < randomSelectAmout; i++)
-            {
-                if (_dm.deckLists.Count != 0)
-                {
-                    AddCardToList(_dm);
-                }
-                else
-                {
-                    break;
-                }
-            }
+            if(!card.isUpgrade || card.upgradedVersion != null)
+            unUpgraded.Add(card);
         }
-    
-        private void AddCardToList(DeckManager dm)
+
+        int randomAmout = randomSelectAmout;
+        if(unUpgraded.Count <= randomSelectAmout)
         {
-            int r = UnityEngine.Random.Range(0, dm.deckLists.Count);
-    
-            ReceiveNewCard(dm.deckLists[r]);
-            dm.RemoveCardFromDeckList(dm.deckLists[r]);
+            randomAmout = unUpgraded.Count;
         }
-    
-        public Card SpawnCards(Card card)
+
+        for (int i = 0; i < randomAmout; i++)
         {
-            // อย่าลืมเปลี่ยนไปใช้ Pool 
-            // hand มี Layout Group อยู่แล้ว ไม่จำเป็นต้องจัดตำแหน่งใหม่
-            GameObject card_ = Instantiate(cardPrefabs[card.cardType], hand.transform);
-    
-            var cardComponent = card_.GetComponent<CardCardGame_Base>();
-            cardComponent.Init(card);
-            cardInShop.Add(cardComponent);
-    
-            var uiComponent = card_.GetComponent<CardCanvas_DragAndDrop>();
-            uiComponent.OnDragEndEvent.AddListener(ReturnCardToHand);
-    
-            return cardComponent.baseCardRef;
+            AddCardToList(unUpgraded);
         }
+    }
+
+    private bool AddCardToList(List<Card> unUpgraded)
+    {
+        int r = UnityEngine.Random.Range(0, unUpgraded.Count);
+
+        ReceiveNewCard(unUpgraded[r]);
+
+        _dm.RemoveCardFromDeckList(unUpgraded[r]);
+        unUpgraded.Remove(unUpgraded[r]);
+
+        return true;
+    }
+
+    public Card SpawnCards(Card card)
+    {
+        // อย่าลืมเปลี่ยนไปใช้ Pool 
+        // hand มี Layout Group อยู่แล้ว ไม่จำเป็นต้องจัดตำแหน่งใหม่
+        GameObject card_ = Instantiate(cardPrefabs[card.cardType], hand.transform);
+
+        var cardComponent = card_.GetComponent<CardCardGame_Base>();
+        cardComponent.Init(card);
+        cardInShop.Add(cardComponent);
+
+        var uiComponent = card_.GetComponent<CardCanvas_DragAndDrop>();
+        uiComponent.OnDragEndEvent.AddListener(ReturnCardToHand);
+
+        return cardComponent.baseCardRef;
+    }
     #endregion
-    
+
     public void ReceiveNewCard(Card card)
     {
         _upgradeAbleCard.Add(card);
@@ -95,7 +105,7 @@ public class Shop_CardUpgrade : MonoBehaviour
     }
     public void RemoveCardFromList(CardCardGame_Base card)
     {
-        if(cardInShop.Contains(card))
+        if (cardInShop.Contains(card))
         {
             _upgradeAbleCard.Remove(card.baseCardRef);
             cardInShop.Remove(card);
@@ -104,7 +114,7 @@ public class Shop_CardUpgrade : MonoBehaviour
 
     public void ReturnCardToDeck()
     {
-        foreach(var card in _upgradeAbleCard)
+        foreach (var card in _upgradeAbleCard)
         {
             _dm.AddCardToDeckList(card);
         }
@@ -114,17 +124,17 @@ public class Shop_CardUpgrade : MonoBehaviour
 
     public void ReturnCardToHand(CardCardGame_Base card)
     {
-        if(cardInShop.Contains(card)) return;
+        if (cardInShop.Contains(card)) return;
         cardInShop.Add(card);
         _upgradeAbleCard.Add(card.baseCardRef);
 
-        if(upgradeSlot.cardInSlot != null)
-        upgradeSlot.RemoveCardFromSlot();
+        if (upgradeSlot.cardInSlot != null)
+            upgradeSlot.RemoveCardFromSlot();
     }
 
     public void ClearHand()
     {
-        while(cardInShop.Count > 0)
+        while (cardInShop.Count > 0)
         {
             Destroy(cardInShop[0].gameObject);
             cardInShop.RemoveAt(0);
@@ -163,7 +173,7 @@ public class Shop_CardUpgrade : MonoBehaviour
         //กันไม่ให้ snap กลับที่เดิมตอนกำลัง Drag การ์ด
         if (cardInShop[i].gameObject.TryGetComponent(out CardCanvas_DragAndDrop drag))
         {
-            if(drag.isDragging) return;
+            if (drag.isDragging) return;
         }
 
         RectTransform card = cardInShop[i].GetComponent<RectTransform>();

@@ -19,5 +19,5 @@ MonoBehaviour:
     value: 1
   positiveIngredients: 00000000i
   negativeIngredients: 
-  ingredientAmout: 1
+  ingredientAmout: 3
   cardMenu: {fileID: 11400000, guid: f34d9f0d4948193418075d40f6875055, type: 2}

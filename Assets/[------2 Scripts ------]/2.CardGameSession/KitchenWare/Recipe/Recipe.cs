@@ -51,7 +51,6 @@ public class Recipe : ScriptableObject
             {
                 if (specificIngPool.ContainsKey(ingCard.ingredientVariable.ingredientId))
                 {
-                    Debug.Log("Contain");
                     specificIngredientAmout++;
                     specificIngPool.Remove(ingCard.ingredientVariable.ingredientId);
                     toRemove.Add(ing);
@@ -67,7 +66,6 @@ public class Recipe : ScriptableObject
             }
         }
 
-        Debug.Log(cardMenu.cardName + specificIngPool.Count);
         return specificIngredientAmout - specificIngPool.Count;
     }
 }

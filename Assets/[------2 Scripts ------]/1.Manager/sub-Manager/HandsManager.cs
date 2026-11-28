@@ -141,7 +141,6 @@ public class HandsManager : MonoBehaviour
     {
         // อย่าลืมเปลี่ยนไปใช้ Pool 
         //GameObject card_ = Instantiate(cardPrefabs[card.cardType], hand.transform.position, quaternion.identity, hand.transform);
-        Debug.Log("Create card to hand!");
         var card_ = _gm.ObjectPooling.Spawn(cardPrefabs[card.cardType].gameObject,hand.transform.position, Quaternion.identity, hand);
 
         var cardComponent = card_.GetComponent<CardCardGame_Base>();

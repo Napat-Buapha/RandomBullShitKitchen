@@ -38,15 +38,12 @@ public class ObjectPooling : MonoBehaviour
     {
         if (obj == null) return;
 
-        Debug.Log("Create!");
-
         var o = Instantiate(obj, Vector3.zero, Quaternion.identity);
         o.name = obj.name;
         o.transform.SetParent(gameObject.transform);
 
         if (pools.ContainsKey(o.name))
         {
-            Debug.Log(o.name);
             pools[obj.name].Enqueue(o);
         }
         else
@@ -61,7 +58,6 @@ public class ObjectPooling : MonoBehaviour
 
     public virtual GameObject Spawn(GameObject objName , Vector3 position = default, Quaternion rotation = default, Transform parent = default)
     {
-        Debug.Log("Spawn!");
         PoolItem item = ListPool.Find(obj => obj.Pkey == objName.name);// Find gameObj in list
 
         if (item == null) return null;
@@ -81,7 +77,6 @@ public class ObjectPooling : MonoBehaviour
     {
         if (obj == null) return;
 
-        Debug.Log("Return!");
         if (pools.ContainsKey(obj.name))
         {
             pools[obj.name].Enqueue(obj);
